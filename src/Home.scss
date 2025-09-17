@@ -1,0 +1,10 @@
+@use "./vars.scss" as *;
+
+.home {
+  width: 100vw;
+  height: 100vh;
+  background-color: $Black;
+  color: $Accent;
+  font-family: Geneva, Tahoma, sans-serif;
+  font-size: 72px;
+}

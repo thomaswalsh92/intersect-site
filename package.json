@@ -16,7 +16,9 @@
     "react-scripts": "5.0.1",
     "three": "0.159.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "sass": "^1.92.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
