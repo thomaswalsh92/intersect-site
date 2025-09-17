@@ -4,7 +4,25 @@
   width: 100vw;
   height: 100vh;
   background-color: $Black;
-  color: $Accent;
-  font-family: Geneva, Tahoma, sans-serif;
   font-size: 72px;
+  // font-family: JetBrainsMono;
+  // font-weight: light;
+}
+
+#bold {
+  font-family: JetBrainsMono;
+  font-weight: 700;
+  color: $White;
+}
+
+#regular {
+  font-family: JetBrainsMono;
+  font-weight: 400;
+  color: $Accent;
+}
+
+#light {
+  font-family: JetBrainsMono;
+  font-weight: 200;
+  color: $GrayVeryLight;
 }
