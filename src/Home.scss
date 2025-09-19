@@ -1,28 +1,110 @@
 @use "./vars.scss" as *;
 
-.home {
+#home-bg {
   width: 100vw;
   height: 100vh;
-  background-color: $Black;
-  font-size: 72px;
+  position: fixed;
+  background: #121414;
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(18, 20, 20, 1) 0%,
+  //   rgba(244, 244, 243, 1) 100%
+  // );
+  z-index: -10;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+}
+
+#home-bg-logo-container {
+  position: relative;
+  top: -120px;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -11;
+  svg {
+    opacity: 100%;
+    width: 30vw;
+    object-position: 0 -600px;
+  }
+}
+
+// #home-bg-logo {
+//   opacity: 8 0%;
+//   z-index: -5;
+//   width: 90vw;
+//   object-fit: contain;
+//   object-position: 0 -120px;
+// }
+
+#home-bg-invert-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: 080A0A;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  mix-blend-mode: difference;
+  opacity: 100%;
+  z-index: -4;
+  filter: blur(16px);
+}
+
+#home-content {
+  z-index: 10;
+}
+
+#hero-title {
+  color: #ffffff;
+  font-size: 17.5vw;
+  mix-blend-mode: difference;
+}
+
+#landing {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   // font-family: JetBrainsMono;
   // font-weight: light;
 }
 
-#bold {
-  font-family: JetBrainsMono;
-  font-weight: 700;
-  color: $White;
+#reel {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // font-family: JetBrainsMono;
+  // font-weight: light;
 }
 
-#regular {
-  font-family: JetBrainsMono;
-  font-weight: 400;
-  color: $Accent;
+#work {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // font-family: JetBrainsMono;
+  // font-weight: light;
 }
 
-#light {
-  font-family: JetBrainsMono;
-  font-weight: 200;
-  color: $GrayVeryLight;
+#info {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // font-family: JetBrainsMono;
+  // font-weight: light;
 }

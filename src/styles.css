@@ -46,3 +46,24 @@
   font-weight: 200;
   font-style: italic;
 }
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.text-1 {
+  font-family: JetBrainsMono;
+  font-weight: 700;
+}
+
+.text-2 {
+  font-family: JetBrainsMono;
+  font-weight: 400;
+}
+
+.text-3 {
+  font-family: JetBrainsMono;
+  font-weight: 200;
+}
