@@ -1,16 +1,40 @@
 @use "./vars.scss" as *;
 
+#navbar {
+  position: fixed;
+  height: 48px;
+  width: 100vw;
+  z-index: -20;
+  // mix-blend-mode: difference;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#navbar-title {
+  color: $White;
+  padding-left: 16px;
+}
+
+#navbar-menu {
+  display: flex;
+  gap: 16px;
+  padding-right: 32px;
+  font-size: 12px;
+  color: $White;
+}
+
 #home-bg {
   width: 100vw;
   height: 100vh;
   position: fixed;
-  background: #121414;
+  background: $Black;
   // background: linear-gradient(
   //   90deg,
   //   rgba(18, 20, 20, 1) 0%,
   //   rgba(244, 244, 243, 1) 100%
   // );
-  z-index: -10;
+  z-index: -25;
   // display: flex;
   // justify-content: center;
   // align-items: center;
@@ -25,7 +49,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: -11;
+  z-index: -15;
   svg {
     opacity: 100%;
     width: 30vw;
@@ -43,7 +67,8 @@
 
 #home-bg-invert-layer {
   position: absolute;
-  top: 0;
+  overflow-y: hidden;
+  top: 48px;
   left: 0;
   width: 100vw;
   height: 100vh;
@@ -56,20 +81,21 @@
   mix-blend-mode: difference;
   opacity: 100%;
   z-index: -4;
-  filter: blur(16px);
+  // filter: blur(16px);
 }
 
 #home-content {
   z-index: 10;
 }
 
-#hero-title {
-  color: #ffffff;
-  font-size: 17.5vw;
-  mix-blend-mode: difference;
+#landing {
+  width: 100vw;
+  height: 100vh;
+  // font-family: JetBrainsMono;
+  // font-weight: light;
 }
 
-#landing {
+#landing-title-container {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -77,6 +103,31 @@
   justify-content: center;
   // font-family: JetBrainsMono;
   // font-weight: light;
+}
+
+#landing-title {
+  color: $White;
+  font-size: 17.5vw;
+  mix-blend-mode: difference;
+}
+
+#landing-capabilities {
+  position: absolute;
+  color: $White;
+  padding-top: 76px;
+  padding-left: 16px;
+  p {
+    font-size: 0.8vw;
+    color: $GrayLight;
+  }
+
+  .indent-1 {
+    padding-left: 0;
+  }
+
+  .indent-2 {
+    padding-left: 0.8vw;
+  }
 }
 
 #reel {

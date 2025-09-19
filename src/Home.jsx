@@ -69,8 +69,19 @@ function IntersectLogoRight() {
 }
 
 export default function Home() {
+  const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
   return (
     <div id="home">
+      <div id="navbar">
+        <p id="navbar-title" className="text-1">
+          INTERSECT
+        </p>
+        <div id="navbar-menu">
+          <div className="text-2">HOME</div>
+          <div className="text-2">WORK</div>
+          <div className="text-2">INFO</div>
+        </div>
+      </div>
       <div id="home-bg">
         <div id="home-bg-logo-container">
           <IntersectLogoLeft />
@@ -81,22 +92,32 @@ export default function Home() {
       </div>
       <div id="home-content">
         <div id="landing">
-          <span id="hero-title" className="text-1">
-            INTERSECT
-          </span>
+          <div id="landing-capabilities" className="text-2">
+            <p>DESIGN & DEVELOPMENT</p>
+            <p className="indent-1">{"{"}</p>
+            {landingCapabilties.map((item) => {
+              return <p className="indent-2">{`<${item} />`}</p>;
+            })}
+            <p className="indent-1">{"}"}</p>
+          </div>
+          <div id="landing-title-container">
+            <span id="landing-title" className="text-1">
+              INTERSECT
+            </span>
+          </div>
         </div>
         <div id="reel">
-          <span id="hero-title" className="text-1">
+          <span id="landing-title" className="text-1">
             REEL
           </span>
         </div>
         <div id="work">
-          <span id="hero-title" className="text-1">
+          <span id="landing-title" className="text-1">
             WORK
           </span>
         </div>
         <div id="info">
-          <span id="hero-title" className="text-1">
+          <span id="landing-title" className="text-1">
             INFO
           </span>
         </div>
