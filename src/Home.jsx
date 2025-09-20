@@ -70,6 +70,7 @@ function IntersectLogoRight() {
 
 export default function Home() {
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
+
   return (
     <div id="home">
       <div id="navbar">
@@ -77,13 +78,13 @@ export default function Home() {
           INTERSECT
         </p>
         <div id="navbar-menu">
-          <div className="text-2">HOME</div>
-          <div className="text-2">WORK</div>
-          <div className="text-2">INFO</div>
+          <p className="text-2">HOME</p>
+          <p className="text-2">WORK</p>
+          <p className="text-2">INFO</p>
         </div>
       </div>
       <div id="home-bg">
-        <div id="home-bg-logo-container">
+        <div className="home-bg-logo-container" id="logo-lower">
           <IntersectLogoLeft />
           <IntersectLogoCenter />
           <IntersectLogoRight />
@@ -99,6 +100,17 @@ export default function Home() {
               return <p className="indent-2">{`<${item} />`}</p>;
             })}
             <p className="indent-1">{"}"}</p>
+          </div>
+          <div id="landing-flavour">
+            <p className="text-2">
+              <span className="text-1">INTERSECT</span> (verb): the integration
+              technology, art, design, life.
+            </p>
+            <p className="text-2" style={{ "margin-top": 8 }}>
+              {" "}
+              In pursuit of <span className="text-1">DREAMS</span> through
+              digital means.
+            </p>
           </div>
           <div id="landing-title-container">
             <span id="landing-title" className="text-1">
