@@ -133,6 +133,24 @@ export default function Home() {
             INFO
           </span>
         </div>
+        <div id="footer">
+          <div id="footer-contact">
+            <a className="text-2 footer-link">{"CONTACT->"}</a>
+            <a className="text-2 footer-link" style={{ marginLeft: 16 }}>
+              {"INSTAGRAM->"}
+            </a>
+          </div>
+          <div id="footer-credits">
+            <div id="footer-bg"></div>
+            <p className="text-2" style={{ color: "#393a3b", marginRight: 32 }}>
+              DESIGNED & DEVELOPED BY{" "}
+              <span className="text-1" style={{ color: "#161717" }}>
+                INTERSECT
+              </span>
+            </p>
+            <p className="text-1">© INTERSECT 2025</p>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -21,8 +21,11 @@
   display: flex;
   gap: 16px;
   padding-right: 32px;
-  font-size: 12px;
+  font-size: 14px;
   color: $White;
+  p {
+    cursor: pointer;
+  }
 }
 
 #home-bg {
@@ -167,4 +170,43 @@
   justify-content: center;
   // font-family: JetBrainsMono;
   // font-weight: light;
+}
+
+#footer {
+  position: fixed;
+  height: 48px;
+  width: 100vw;
+  bottom: 0;
+  // mix-blend-mode: difference;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+
+  padding-left: 16px;
+  padding-right: 32px;
+}
+
+#footer-bg {
+  position: relative;
+  background-color: $Black;
+  bottom: 48px;
+}
+
+.footer-link {
+  color: $White;
+  text-decoration: underline;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+#footer-credits {
+  display: flex;
+  color: $Black;
+  font-size: 12px;
+  span,
+  p,
+  a {
+    mix-blend-mode: difference;
+  }
 }
