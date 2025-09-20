@@ -1,4 +1,17 @@
+//styling
 import "./Home.scss";
+
+//react
+import { useRef } from "react";
+
+//gsap
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { SplitText } from "gsap/all";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
 function IntersectLogoLeft() {
   return (
@@ -71,8 +84,24 @@ function IntersectLogoRight() {
 export default function Home() {
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
 
+  const wrapper = useRef();
+  const content = useRef();
+
+  useGSAP(
+    () => {
+      wrapper.current = ScrollSmoother.create({
+        wrapper: wrapper.current,
+        content: content.current,
+        smooth: 1.5,
+        effects: true,
+        // normalizeScroll: true,
+      });
+    },
+    { scope: wrapper }
+  );
+
   return (
-    <div id="home">
+    <>
       <div id="navbar">
         <p id="navbar-title" className="text-1">
           INTERSECT
@@ -91,67 +120,73 @@ export default function Home() {
         </div>
         <div id="home-bg-invert-layer"></div>
       </div>
-      <div id="home-content">
-        <div id="landing">
-          <div id="landing-capabilities" className="text-2">
-            <p>DESIGN & DEVELOPMENT</p>
-            <p className="indent-1">{"{"}</p>
-            {landingCapabilties.map((item) => {
-              return <p className="indent-2">{`<${item} />`}</p>;
-            })}
-            <p className="indent-1">{"}"}</p>
-          </div>
-          <div id="landing-flavour">
-            <p className="text-2">
-              <span className="text-1">INTERSECT</span> (verb): the integration
-              technology, art, design, life.
-            </p>
-            <p className="text-2" style={{ "margin-top": 8 }}>
-              {" "}
-              In pursuit of <span className="text-1">DREAMS</span> through
-              digital means.
-            </p>
-          </div>
-          <div id="landing-title-container">
-            <span id="landing-title" className="text-1">
+      <div id="footer">
+        <div id="footer-contact">
+          <a className="text-2 footer-link">{"CONTACT->"}</a>
+          <a className="text-2 footer-link" style={{ marginLeft: 16 }}>
+            {"INSTAGRAM->"}
+          </a>
+        </div>
+        <div id="footer-credits">
+          <div id="footer-bg"></div>
+          <p className="text-2" style={{ color: "#393a3b", marginRight: 32 }}>
+            DESIGNED & DEVELOPED BY{" "}
+            <span className="text-1" style={{ color: "#161717" }}>
               INTERSECT
             </span>
-          </div>
+          </p>
+          <p className="text-1">© INTERSECT 2025</p>
         </div>
-        <div id="reel">
-          <span id="landing-title" className="text-1">
-            REEL
-          </span>
-        </div>
-        <div id="work">
-          <span id="landing-title" className="text-1">
-            WORK
-          </span>
-        </div>
-        <div id="info">
-          <span id="landing-title" className="text-1">
-            INFO
-          </span>
-        </div>
-        <div id="footer">
-          <div id="footer-contact">
-            <a className="text-2 footer-link">{"CONTACT->"}</a>
-            <a className="text-2 footer-link" style={{ marginLeft: 16 }}>
-              {"INSTAGRAM->"}
-            </a>
-          </div>
-          <div id="footer-credits">
-            <div id="footer-bg"></div>
-            <p className="text-2" style={{ color: "#393a3b", marginRight: 32 }}>
-              DESIGNED & DEVELOPED BY{" "}
-              <span className="text-1" style={{ color: "#161717" }}>
-                INTERSECT
-              </span>
-            </p>
-            <p className="text-1">© INTERSECT 2025</p>
+      </div>
+      <div id="smooth-wrapper" ref={wrapper}>
+        <div id="smooth-content" ref={content}>
+          <div id="home">
+            <div id="home-content">
+              <div id="landing">
+                <div id="landing-capabilities" className="text-2">
+                  <p>DESIGN & DEVELOPMENT</p>
+                  <p className="indent-1">{"{"}</p>
+                  {landingCapabilties.map((item) => {
+                    return <p className="indent-2">{`<${item} />`}</p>;
+                  })}
+                  <p className="indent-1">{"}"}</p>
+                </div>
+                <div id="landing-flavour">
+                  <p className="text-2">
+                    <span className="text-1">INTERSECT</span> (verb): the
+                    integration technology, art, design, life.
+                  </p>
+                  <p className="text-2" style={{ "margin-top": 8 }}>
+                    {" "}
+                    In pursuit of <span className="text-1">DREAMS</span> through
+                    digital means.
+                  </p>
+                </div>
+                <div id="landing-title-container">
+                  <span id="landing-title" className="text-1">
+                    INTERSECT
+                  </span>
+                </div>
+              </div>
+              <div id="reel">
+                <span id="landing-title" className="text-1">
+                  REEL
+                </span>
+              </div>
+              <div id="work">
+                <span id="landing-title" className="text-1">
+                  WORK
+                </span>
+              </div>
+              <div id="info">
+                <span id="landing-title" className="text-1">
+                  INFO
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
