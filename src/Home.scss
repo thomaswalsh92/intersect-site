@@ -199,12 +199,11 @@
 }
 
 #work-details-col-1 {
-  padding: 16px;
+  padding: 24px 16px 24px 16px;
 }
 
 #work-details-col-2 {
-  padding: 16px;
-  padding-left: 0;
+  padding: 24px 16px 24px 0;
 }
 
 .work-details-heading {
@@ -221,6 +220,7 @@
 #work-details-disciplines-badges-container {
   display: flex;
   flex-direction: column;
+  padding-top: 4px;
 }
 
 .work-details-discipline-badge {
@@ -231,7 +231,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .work-details-discipline-badge-text {
