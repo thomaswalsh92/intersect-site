@@ -84,6 +84,17 @@ function IntersectLogoRight() {
 export default function Home() {
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
 
+  const projectDetailsStub = [
+    {
+      project: "RAINYDAY WEBSITE",
+      client: "RAINYDAY STUDIO",
+      disciplines: ["WEB DESIGN", "WEB DEVELOPMENT"],
+      published: 2025,
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mollis interdum tellus ut ultricies. In et faucibus enim, in suscipit nisi. Suspendisse quis ultrices turpis, quis pellentesque felis. Mauris et orci massa. Aenean ut dui urna. Morbi mauris dolor, cursus.",
+    },
+  ];
+
   const wrapper = useRef();
   const content = useRef();
 
@@ -223,7 +234,83 @@ export default function Home() {
                     <div id="work-gallery"></div>
                   </div>
                   <div id="work-details-container">
-                    <div id="work-details"></div>
+                    <div id="work-details">
+                      <div id="work-details-bg"></div>
+                      {/*! stubbed data below */}
+                      <div id="work-details-col-1">
+                        <p
+                          id="work-details-project-heading"
+                          className="text-2 work-details-heading"
+                        >
+                          PROJECT
+                        </p>
+                        <p
+                          id="work-details-project-text"
+                          className="text-2 work-details-text"
+                        >
+                          {projectDetailsStub[0].project}
+                        </p>
+                        <p
+                          id="work-details-client-heading"
+                          className="text-2 work-details-heading"
+                        >
+                          CLIENT
+                        </p>
+                        <p
+                          id="work-details-client-text"
+                          className="text-2 work-details-text"
+                        >
+                          {projectDetailsStub[0].client}
+                        </p>
+                        <p
+                          id="work-details-disciplines-heading"
+                          className="text-2 work-details-heading"
+                        >
+                          DISCIPLINES
+                        </p>
+                        <div id="work-details-disciplines-badges-container">
+                          {projectDetailsStub[0].disciplines.map(
+                            (item, index) => {
+                              return (
+                                <div
+                                  className="work-details-discipline-badge"
+                                  key={item + ":" + index}
+                                >
+                                  <p className="text-2 work-details-discipline-badge-text">
+                                    {item}
+                                  </p>
+                                </div>
+                              );
+                            }
+                          )}
+                        </div>
+                      </div>
+                      <div id="work-details-col-2">
+                        <p
+                          id="work-details-published-heading"
+                          className="text-2 work-details-heading"
+                        >
+                          PUBLISHED
+                        </p>
+                        <p
+                          id="work-details-published-text"
+                          className="text-2 work-details-text"
+                        >
+                          2025
+                        </p>
+                        <p
+                          id="work-details-description-text"
+                          className="text-2 work-details-text"
+                        >
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Donec mollis interdum tellus ut ultricies. In et
+                          faucibus enim, in suscipit nisi. Suspendisse quis
+                          ultrices turpis, quis pellentesque felis. Mauris et
+                          orci massa. Aenean ut dui urna. Morbi mauris dolor,
+                          cursus.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

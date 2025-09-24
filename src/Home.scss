@@ -182,10 +182,65 @@
   align-items: center;
 }
 
+#work-details-bg {
+  position: absolute;
+  height: 35vh;
+  width: 30vw;
+  background: $Black;
+  z-index: -1;
+  opacity: 75%;
+}
+
 #work-details {
-  height: 45vh;
+  height: fit-content;
   width: 100%;
-  background: red;
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+
+#work-details-col-1 {
+  padding: 16px;
+}
+
+#work-details-col-2 {
+  padding: 16px;
+  padding-left: 0;
+}
+
+.work-details-heading {
+  color: $GrayLight;
+  font-size: 10px;
+}
+
+.work-details-text {
+  color: $White;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+#work-details-disciplines-badges-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.work-details-discipline-badge {
+  background: $GrayVeryLight;
+  height: 24px;
+  width: fit-content;
+  padding: 0 10px 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.work-details-discipline-badge-text {
+  color: $Black;
+  font-size: 10px;
+}
+
+#work-details-description-text {
+  font-size: 10px;
 }
 
 #info {
