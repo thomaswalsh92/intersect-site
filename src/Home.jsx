@@ -87,6 +87,50 @@ export default function Home() {
   const wrapper = useRef();
   const content = useRef();
 
+  let pinSectionVal = "+=600";
+
+  useGSAP(() => {
+    gsap.from("#landing", {
+      scrollTrigger: {
+        trigger: "#landing",
+        start: "top top",
+        end: pinSectionVal,
+        scrub: true,
+        pin: true,
+      },
+    });
+
+    gsap.from("#reel", {
+      scrollTrigger: {
+        trigger: "#reel",
+        start: "top top",
+        end: pinSectionVal,
+        scrub: true,
+        pin: true,
+      },
+    });
+
+    gsap.from("#work", {
+      scrollTrigger: {
+        trigger: "#work",
+        start: "top top",
+        end: pinSectionVal,
+        scrub: true,
+        pin: true,
+      },
+    });
+
+    gsap.from("#info", {
+      scrollTrigger: {
+        trigger: "#info",
+        start: "top top",
+        end: pinSectionVal,
+        scrub: true,
+        pin: true,
+      },
+    });
+  });
+
   useGSAP(
     () => {
       wrapper.current = ScrollSmoother.create({
