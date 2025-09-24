@@ -162,6 +162,32 @@
   // font-weight: light;
 }
 
+#work-grid {
+  width: 90vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+#work-gallery-container {
+  grid-column: 1 / 3;
+  height: 100vh;
+  display: flex;
+}
+
+#work-details-container {
+  grid-column: 3 / 4;
+  height: 100vh;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+#work-details {
+  height: 45vh;
+  width: 100%;
+  background: red;
+}
+
 #info {
   width: 100vw;
   height: 100vh;

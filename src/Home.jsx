@@ -94,7 +94,7 @@ export default function Home() {
         content: content.current,
         smooth: 1.5,
         effects: true,
-        // normalizeScroll: true,
+        //normalizeScroll: true,
       });
     },
     { scope: wrapper }
@@ -174,9 +174,14 @@ export default function Home() {
                 </span>
               </div>
               <div id="work">
-                <span id="landing-title" className="text-1">
-                  WORK
-                </span>
+                <div id="work-grid">
+                  <div id="work-gallery-container">
+                    <div id="work-gallery"></div>
+                  </div>
+                  <div id="work-details-container">
+                    <div id="work-details"></div>
+                  </div>
+                </div>
               </div>
               <div id="info">
                 <span id="landing-title" className="text-1">
