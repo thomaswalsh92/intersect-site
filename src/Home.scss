@@ -211,7 +211,7 @@
   height: 100%;
   width: 100%;
   grid-row: 3 / 4;
-  padding: 32px 64px 0 5vw;
+  padding: 0 64px 0 5vw;
   // padding-left: 5vw;
   // padding-right: 64px;
   display: flex;
@@ -222,6 +222,7 @@
   height: 64px;
   display: flex;
   justify-content: center;
+  padding-top: 32px;
 }
 
 //CSS render triangles
@@ -230,28 +231,41 @@ $TriBottom: calc($ControlsHeight * 0.33);
 $TriSides: calc(($TriBottom / 0.8660254) / 2);
 $IndicatorMarginTune: 2px;
 
-#work-gallery-controls-left {
+.work-gallery-controls-arrow {
   width: 0;
   height: 0;
   border-right: $TriSides solid transparent;
   border-left: $TriSides solid transparent;
   border-bottom: $TriBottom solid $Black;
-  transform: rotate(-90deg);
+  // transform: rotate(-90deg);
   margin-top: calc(($ControlsHeight - $TriSides) / 2);
 }
 
-#work-gallery-controls-right {
-  width: 0;
-  height: 0;
-  border-right: $TriSides solid transparent;
-  border-left: $TriSides solid transparent;
-  border-bottom: $TriBottom solid $Black;
+#work-gallery-controls-arrow-l {
+  transform: rotate(-90deg);
+}
+
+#work-gallery-controls-arrow-r {
   transform: rotate(90deg);
-  margin-top: calc(($ControlsHeight - $TriSides) / 2);
+}
+
+.work-gallery-controls-click-area {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  z-index: 20;
+  cursor: pointer;
+}
+
+#work-gallery-controls-click-area-l {
+  right: -20px;
+}
+
+#work-gallery-controls-click-area-r {
+  right: 20px;
 }
 
 #work-gallery-controls-indicator {
-  width: 128px;
   height: $ControlsHeight;
   margin: $IndicatorMarginTune 16px 0 16px;
   background: $Black;

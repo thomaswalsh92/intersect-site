@@ -33,11 +33,15 @@ export default function Home() {
       published: 2025,
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mollis interdum tellus ut ultricies. In et faucibus enim, in suscipit nisi. Suspendisse quis ultrices turpis, quis pellentesque felis. Mauris et orci massa. Aenean ut dui urna. Morbi mauris dolor, cursus.",
+      image: rainydayImage,
     },
-    {},
-    {},
-    {},
-    {},
+    { placeholder: true, placeholderNum: 2 },
+    { placeholder: true, placeholderNum: 3 },
+    { placeholder: true, placeholderNum: 4 },
+    { placeholder: true, placeholderNum: 5 },
+    { placeholder: true, placeholderNum: 6 },
+    { placeholder: true, placeholderNum: 7 },
+    { placeholder: true, placeholderNum: 8 },
   ];
 
   //todo end of stubbed data
@@ -59,6 +63,12 @@ export default function Home() {
     setWorkImageWidth(workImage.current.clientWidth);
   }, [workImage]);
 
+  const [selectedProject, setSelectedProject] = useState(0);
+
+  useGSAP(() => {
+    console.log("select proj val is: ", selectedProject);
+  }, [selectedProject]);
+  //*GSAP* scroll pinning//
   let pinSectionVal = "+=600";
 
   useGSAP(() => {
@@ -103,6 +113,7 @@ export default function Home() {
     });
   });
 
+  //* GSAP smooth scroll init
   useGSAP(
     () => {
       wrapper.current = ScrollSmoother.create({
@@ -204,23 +215,57 @@ export default function Home() {
                         style={{ width: workImageWidth }}
                         id="work-gallery-controls"
                       >
-                        <div id="work-gallery-controls-left"></div>
-                        <div id="work-gallery-controls-indicator">
-                          {projectDetails.map((project) => {
+                        <div
+                          className="work-gallery-controls-click-area"
+                          id="work-gallery-controls-click-area-l"
+                          onClick={() =>
+                            selectedProject > 0 &&
+                            setSelectedProject(selectedProject - 1)
+                          }
+                        ></div>
+                        <div
+                          className="work-gallery-controls-arrow"
+                          id="work-gallery-controls-arrow-l"
+                        ></div>
+                        <div
+                          id="work-gallery-controls-indicator"
+                          style={{
+                            width:
+                              12 +
+                              (projectDetails.length - 1) * 8 +
+                              24 +
+                              4 * projectDetails.length,
+                          }}
+                        >
+                          {projectDetails.map((project, index) => {
                             return (
                               <div
                                 style={{
-                                  width: 12,
-                                  height: 12,
-                                  marginRight: 4,
+                                  width: index === selectedProject ? 12 : 8,
+                                  height: index === selectedProject ? 12 : 8,
+                                  marginLeft: 2,
+                                  marginRight: 2,
                                   background: "#e2e2e1",
-                                  clipPath: "circle(6px)",
+                                  clipPath: `circle(${
+                                    index === selectedProject ? 6 : 4
+                                  }px)`,
                                 }}
                               ></div>
                             );
                           })}
                         </div>
-                        <div id="work-gallery-controls-right"></div>
+                        <div
+                          className="work-gallery-controls-arrow"
+                          id="work-gallery-controls-arrow-r"
+                        ></div>
+                        <div
+                          className="work-gallery-controls-click-area"
+                          id="work-gallery-controls-click-area-r"
+                          onClick={() =>
+                            selectedProject < projectDetails.length - 1 &&
+                            setSelectedProject(selectedProject + 1)
+                          }
+                        ></div>
                       </div>
                     </div>
                   </div>
