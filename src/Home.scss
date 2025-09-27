@@ -163,15 +163,102 @@
 }
 
 #work-grid {
-  width: 90vw;
+  width: 100vw;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 35vw 30vw 35vw;
 }
 
 #work-gallery-container {
   grid-column: 1 / 3;
   height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 45vh 1fr;
+}
+
+#work-gallery-spacer {
+  height: 100%;
+  width: 100%;
+  grid-row: 1 / 2;
+}
+
+//! some work to do here to get a satisfactory
+//! scale down behaviour for lower viewport sizes
+//! maybe better to have a different approach for different screen sizes
+//! via breakpoints
+#work-gallery-image-container {
+  height: 100%;
+  width: 100%;
+  grid-row: 2 / 3;
+  padding-left: 5vw;
+  padding-right: 64px;
   display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#work-gallery-image {
+  width: fit-content;
+  height: 45vh;
+  object-fit: cover;
+  // padding: 0 64px 0 64px;
+  background-color: #ececec;
+  // img {
+  //   aspect-ratio: 1 / 4;
+  // }
+}
+
+#work-gallery-controls-container {
+  height: 100%;
+  width: 100%;
+  grid-row: 3 / 4;
+  padding: 32px 64px 0 5vw;
+  // padding-left: 5vw;
+  // padding-right: 64px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#work-gallery-controls {
+  height: 64px;
+  display: flex;
+  justify-content: center;
+}
+
+//CSS render triangles
+$ControlsHeight: 30px;
+$TriBottom: calc($ControlsHeight * 0.33);
+$TriSides: calc(($TriBottom / 0.8660254) / 2);
+$IndicatorMarginTune: 2px;
+
+#work-gallery-controls-left {
+  width: 0;
+  height: 0;
+  border-right: $TriSides solid transparent;
+  border-left: $TriSides solid transparent;
+  border-bottom: $TriBottom solid $Black;
+  transform: rotate(-90deg);
+  margin-top: calc(($ControlsHeight - $TriSides) / 2);
+}
+
+#work-gallery-controls-right {
+  width: 0;
+  height: 0;
+  border-right: $TriSides solid transparent;
+  border-left: $TriSides solid transparent;
+  border-bottom: $TriBottom solid $Black;
+  transform: rotate(90deg);
+  margin-top: calc(($ControlsHeight - $TriSides) / 2);
+}
+
+#work-gallery-controls-indicator {
+  width: 128px;
+  height: $ControlsHeight;
+  margin: $IndicatorMarginTune 16px 0 16px;
+  background: $Black;
+  border-radius: $ControlsHeight;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #work-details-container {
@@ -180,6 +267,7 @@
   display: flex;
   justify-content: start;
   align-items: center;
+  padding-right: 5vw;
 }
 
 #work-details-bg {
@@ -192,7 +280,6 @@
 }
 
 #work-details {
-  height: fit-content;
   width: 100%;
   display: grid;
   grid-template-columns: 40% 60%;

@@ -17,6 +17,7 @@ import {
   IntersectLogoCenter,
   IntersectLogoRight,
 } from "./IntersectLogo";
+import rainydayImage from "./assets/images/rainyday-image.png";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
@@ -24,7 +25,7 @@ export default function Home() {
   //todo - remove stubbed data
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
 
-  const projectDetailsStub = [
+  const projectDetails = [
     {
       project: "RAINYDAY WEBSITE",
       client: "RAINYDAY STUDIO",
@@ -33,7 +34,13 @@ export default function Home() {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mollis interdum tellus ut ultricies. In et faucibus enim, in suscipit nisi. Suspendisse quis ultrices turpis, quis pellentesque felis. Mauris et orci massa. Aenean ut dui urna. Morbi mauris dolor, cursus.",
     },
+    {},
+    {},
+    {},
+    {},
   ];
+
+  //todo end of stubbed data
 
   const wrapper = useRef();
   const content = useRef();
@@ -44,6 +51,13 @@ export default function Home() {
   useEffect(() => {
     setWorkDetailsHeight(workDetails.current.clientHeight);
   }, [workDetails]);
+
+  //get computed width of work image to align controls section
+  const workImage = useRef(null);
+  const [workImageWidth, setWorkImageWidth] = useState();
+  useEffect(() => {
+    setWorkImageWidth(workImage.current.clientWidth);
+  }, [workImage]);
 
   let pinSectionVal = "+=600";
 
@@ -178,7 +192,37 @@ export default function Home() {
               <div id="work">
                 <div id="work-grid">
                   <div id="work-gallery-container">
-                    <div id="work-gallery"></div>
+                    <div id="work-gallery-image-container">
+                      <img
+                        ref={workImage}
+                        id="work-gallery-image"
+                        src={rainydayImage}
+                      />
+                    </div>
+                    <div id="work-gallery-controls-container">
+                      <div
+                        style={{ width: workImageWidth }}
+                        id="work-gallery-controls"
+                      >
+                        <div id="work-gallery-controls-left"></div>
+                        <div id="work-gallery-controls-indicator">
+                          {projectDetails.map((project) => {
+                            return (
+                              <div
+                                style={{
+                                  width: 12,
+                                  height: 12,
+                                  marginRight: 4,
+                                  background: "#e2e2e1",
+                                  clipPath: "circle(6px)",
+                                }}
+                              ></div>
+                            );
+                          })}
+                        </div>
+                        <div id="work-gallery-controls-right"></div>
+                      </div>
+                    </div>
                   </div>
                   <div id="work-details-container">
                     <div
@@ -198,7 +242,7 @@ export default function Home() {
                           id="work-details-project-text"
                           className="text-2 work-details-text"
                         >
-                          {projectDetailsStub[0].project}
+                          {projectDetails[0].project}
                         </p>
                         <p
                           id="work-details-client-heading"
@@ -210,7 +254,7 @@ export default function Home() {
                           id="work-details-client-text"
                           className="text-2 work-details-text"
                         >
-                          {projectDetailsStub[0].client}
+                          {projectDetails[0].client}
                         </p>
                         <p
                           id="work-details-disciplines-heading"
@@ -219,20 +263,18 @@ export default function Home() {
                           DISCIPLINES
                         </p>
                         <div id="work-details-disciplines-badges-container">
-                          {projectDetailsStub[0].disciplines.map(
-                            (item, index) => {
-                              return (
-                                <div
-                                  className="work-details-discipline-badge"
-                                  key={item + ":" + index}
-                                >
-                                  <p className="text-2 work-details-discipline-badge-text">
-                                    {item}
-                                  </p>
-                                </div>
-                              );
-                            }
-                          )}
+                          {projectDetails[0].disciplines.map((item, index) => {
+                            return (
+                              <div
+                                className="work-details-discipline-badge"
+                                key={item + ":" + index}
+                              >
+                                <p className="text-2 work-details-discipline-badge-text">
+                                  {item}
+                                </p>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                       <div id="work-details-col-2">
