@@ -22,8 +22,18 @@ import rainydayImage from "./assets/images/rainyday-image.png";
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
 export default function Home() {
-  //todo - remove stubbed data
+  //*BG
+
+  //*LANDING
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
+
+  //*WORK
+  //get computed size of details section for bg on workDetails section
+  const workDetails = useRef(null);
+  const [workDetailsHeight, setWorkDetailsHeight] = useState();
+  useEffect(() => {
+    setWorkDetailsHeight(workDetails.current.clientHeight);
+  }, [workDetails]);
 
   const projectDetails = [
     {
@@ -44,18 +54,6 @@ export default function Home() {
     { placeholder: true, placeholderNum: 8 },
   ];
 
-  //todo end of stubbed data
-
-  const wrapper = useRef();
-  const content = useRef();
-
-  //get computed size of details section for bg on workDetails section
-  const workDetails = useRef(null);
-  const [workDetailsHeight, setWorkDetailsHeight] = useState();
-  useEffect(() => {
-    setWorkDetailsHeight(workDetails.current.clientHeight);
-  }, [workDetails]);
-
   //get computed width of work image to align controls section
   const workImage = useRef(null);
   const [workImageWidth, setWorkImageWidth] = useState();
@@ -65,23 +63,12 @@ export default function Home() {
 
   const [selectedProject, setSelectedProject] = useState(0);
 
-  useGSAP(() => {
-    console.log("select proj val is: ", selectedProject);
-  }, [selectedProject]);
-  //*GSAP* scroll pinning//
-  let pinSectionVal = "+=600";
-
   // useGSAP(() => {
-  //   gsap.from("#home-bg-logo-container", {
-  //     scrollTrigger: {
-  //       trigger: "body",
-  //       start: "top top",
-  //       end: "+=300",
-  //       pin: true,
-  //       markers: true,
-  //     },
-  //   });
-  // });
+  //   console.log("select proj val is: ", selectedProject);
+  // }, [selectedProject]);
+
+  //*GSAP
+  let pinSectionVal = "+=600";
 
   useGSAP(() => {
     gsap.from("#landing", {
@@ -126,6 +113,9 @@ export default function Home() {
   });
 
   //* GSAP smooth scroll init
+
+  const wrapper = useRef();
+  const content = useRef();
   useGSAP(
     () => {
       wrapper.current = ScrollSmoother.create({
