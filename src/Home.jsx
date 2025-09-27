@@ -71,6 +71,18 @@ export default function Home() {
   //*GSAP* scroll pinning//
   let pinSectionVal = "+=600";
 
+  // useGSAP(() => {
+  //   gsap.from("#home-bg-logo-container", {
+  //     scrollTrigger: {
+  //       trigger: "body",
+  //       start: "top top",
+  //       end: "+=300",
+  //       pin: true,
+  //       markers: true,
+  //     },
+  //   });
+  // });
+
   useGSAP(() => {
     gsap.from("#landing", {
       scrollTrigger: {
@@ -139,14 +151,6 @@ export default function Home() {
           <p className="text-2">INFO</p>
         </div>
       </div>
-      <div id="home-bg">
-        <div className="home-bg-logo-container" id="logo-lower">
-          <IntersectLogoLeft />
-          <IntersectLogoCenter />
-          <IntersectLogoRight />
-        </div>
-        <div id="home-bg-invert-layer"></div>
-      </div>
       <div id="footer">
         <div id="footer-contact">
           <a className="text-2 footer-link">{"CONTACT->"}</a>
@@ -190,9 +194,19 @@ export default function Home() {
                   </p>
                 </div>
                 <div id="landing-title-container">
-                  <span id="landing-title" className="text-1">
-                    INTERSECT
-                  </span>
+                  <div id="home-fixed">
+                    <div id="home-bg-logo-container">
+                      <IntersectLogoLeft />
+                      <IntersectLogoCenter />
+                      <IntersectLogoRight />
+                    </div>
+                    <div id="home-bg-invert-layer"></div>
+                  </div>
+                  <div>
+                    <span id="landing-title" className="text-1">
+                      INTERSECT
+                    </span>
+                  </div>
                 </div>
               </div>
               <div id="reel">

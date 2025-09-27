@@ -31,22 +31,16 @@
 #home-bg {
   width: 100vw;
   height: 100vh;
-  position: fixed;
+  position: absolute;
   background: $Black;
-  z-index: -20;
-  // background: linear-gradient(
-  //   90deg,
-  //   rgba(18, 20, 20, 1) 0%,
-  //   rgba(244, 244, 243, 1) 100%
-  // );
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
 }
 
-.home-bg-logo-container {
-  position: relative;
-  top: -120px;
+#home-static {
+  position: absolute;
+}
+
+#home-bg-logo-container {
+  position: fixed;
   left: 0;
   width: 100vw;
   height: 100vh;
@@ -54,18 +48,12 @@
   justify-content: center;
   align-items: center;
   svg {
-    opacity: 100%;
+    opacity: 50%;
     width: 30vw;
+    z-index: -5;
+    overflow-y: hidden;
   }
 }
-
-#logo-lower {
-  z-index: -5;
-}
-
-// #logo-upper {
-//   z-index: 105;
-// }
 
 #home-bg-invert-layer {
   position: absolute;
@@ -73,18 +61,22 @@
   top: 48px;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 700vh;
   background: rgba(0, 0, 0, 1);
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 1) 0%,
     rgba(255, 255, 255, 1) 100%
   );
-  mix-blend-mode: difference;
-  opacity: 100%;
-  z-index: -5;
+  mix-blend-mode: exclusion;
+  opacity: 600%;
+  z-index: -10;
   // filter: blur(16px);
 }
+
+// #home-content {
+//   background: $Accent;
+// }
 
 #landing {
   width: 100vw;
@@ -104,9 +96,11 @@
 }
 
 #landing-title {
+  position: relative;
   color: $White;
   font-size: 17.5vw;
   mix-blend-mode: difference;
+  z-index: 0;
 }
 
 #landing-capabilities {
