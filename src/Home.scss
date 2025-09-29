@@ -28,28 +28,31 @@
   }
 }
 
-#home-bg {
-  width: 100vw;
-  height: 100vh;
+#home-fixed {
   position: absolute;
+  height: 900vh;
+  width: 100vw;
   background: $Black;
+  opacity: 100%;
+  z-index: -20;
+  display: flex;
 }
 
-#home-static {
-  position: absolute;
+#home-bg-logo-stack {
+  width: 100vw;
+  z-index: -5;
 }
 
 #home-bg-logo-container {
-  position: absolute;
-  top: 0;
+  position: relative;
+  top: -240px;
   left: 0;
   width: 100vw;
-  height: 100vh;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   svg {
-    opacity: 50%;
+    opacity: 60%;
     width: 30vw;
     z-index: -5;
     overflow-y: hidden;
@@ -58,19 +61,19 @@
 
 #home-bg-invert-layer {
   position: absolute;
-  overflow-y: hidden;
+  // overflow-y: hidden;
   top: 48px;
   left: 0;
   width: 100vw;
-  height: 700vh;
+  height: 900vh;
   background: rgba(0, 0, 0, 1);
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 1) 0%,
     rgba(255, 255, 255, 1) 100%
   );
-  mix-blend-mode: exclusion;
-  opacity: 600%;
+  mix-blend-mode: difference;
+  opacity: 100%;
   z-index: -10;
   // filter: blur(16px);
 }
@@ -87,6 +90,9 @@
 }
 
 #landing-title-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   display: flex;

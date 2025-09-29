@@ -68,9 +68,33 @@ export default function Home() {
   // }, [selectedProject]);
 
   //*GSAP
-  let pinSectionVal = "+=600";
+  let pinSectionVal = "+=1200";
 
   useGSAP(() => {
+    // gsap.from("#landing-title-container", {
+    //   scrollTrigger: {
+    //     trigger: "#landing-title-container",
+    //     start: "top top",
+    //     end: pinSectionVal,
+    //     scrub: true,
+    //     pin: true,
+    //     // pinType: "fixed",
+    //     markers: true,
+    //   },
+    // });
+
+    gsap.from("#home-fixed", {
+      scrollTrigger: {
+        trigger: "#home-fixed",
+        start: "top top",
+        end: pinSectionVal,
+        scrub: true,
+        pin: true,
+        // pinType: "fixed",
+        markers: true,
+      },
+    });
+
     gsap.from("#landing", {
       scrollTrigger: {
         trigger: "#landing",
@@ -162,6 +186,36 @@ export default function Home() {
       <div id="smooth-wrapper" ref={wrapper}>
         <div id="smooth-content" ref={content}>
           <div id="home">
+            <div id="home-fixed">
+              <div id="home-bg-logo-stack">
+                <div id="home-bg-logo-container">
+                  <IntersectLogoLeft />
+                  <IntersectLogoCenter />
+                  <IntersectLogoRight />
+                </div>
+                <div id="home-bg-logo-container">
+                  <IntersectLogoLeft />
+                  <IntersectLogoCenter />
+                  <IntersectLogoRight />
+                </div>
+                <div id="home-bg-logo-container">
+                  <IntersectLogoLeft />
+                  <IntersectLogoCenter />
+                  <IntersectLogoRight />
+                </div>
+                <div id="home-bg-logo-container">
+                  <IntersectLogoLeft />
+                  <IntersectLogoCenter />
+                  <IntersectLogoRight />
+                </div>
+              </div>
+              <div id="home-bg-invert-layer"></div>
+              <div id="landing-title-container">
+                <span id="landing-title" className="text-1">
+                  INTERSECT
+                </span>
+              </div>
+            </div>
             <div id="home-content">
               <div id="landing">
                 <div id="landing-capabilities" className="text-2">
@@ -183,21 +237,11 @@ export default function Home() {
                     digital means.
                   </p>
                 </div>
-                <div id="landing-title-container">
-                  <div id="home-fixed">
-                    <div id="home-bg-logo-container">
-                      <IntersectLogoLeft />
-                      <IntersectLogoCenter />
-                      <IntersectLogoRight />
-                    </div>
-                    <div id="home-bg-invert-layer"></div>
-                  </div>
-                  <div>
-                    <span id="landing-title" className="text-1">
-                      INTERSECT
-                    </span>
-                  </div>
-                </div>
+                {/* <div id="landing-title-container">
+                  <span id="landing-title" className="text-1">
+                    INTERSECT
+                  </span>
+                </div> */}
               </div>
               <div id="reel">
                 <span id="landing-title" className="text-1">
