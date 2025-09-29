@@ -52,7 +52,7 @@
   justify-content: center;
   align-items: flex-start;
   svg {
-    opacity: 60%;
+    opacity: 30%;
     width: 30vw;
     z-index: -5;
     overflow-y: hidden;
@@ -151,6 +151,12 @@
   justify-content: center;
   // font-family: JetBrainsMono;
   // font-weight: light;
+}
+
+#reel-image {
+  position: absolute;
+  top: -280px;
+  width: 70vw;
 }
 
 #work {

@@ -18,6 +18,7 @@ import {
   IntersectLogoRight,
 } from "./IntersectLogo";
 import rainydayImage from "./assets/images/rainyday-image.png";
+import sonyTv from "./assets/images/sony-tv.png";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
@@ -244,9 +245,10 @@ export default function Home() {
                 </div> */}
               </div>
               <div id="reel">
-                <span id="landing-title" className="text-1">
+                <img id="reel-image" src={sonyTv}></img>
+                {/* <span id="landing-title" className="text-1">
                   REEL
-                </span>
+                </span> */}
               </div>
               <div id="work">
                 <div id="work-grid">
