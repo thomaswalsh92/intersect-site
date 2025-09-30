@@ -78,18 +78,7 @@ export default function Home() {
   let pinSectionVal = "+=1200";
 
   useGSAP(() => {
-    // gsap.from("#landing-title-container", {
-    //   scrollTrigger: {
-    //     trigger: "#landing-title-container",
-    //     start: "top top",
-    //     end: pinSectionVal,
-    //     scrub: true,
-    //     pin: true,
-    //     // pinType: "fixed",
-    //     markers: true,
-    //   },
-    // });
-
+    //*SCROLL PINNING
     gsap.from("#home-fixed", {
       scrollTrigger: {
         trigger: "#home-fixed",
@@ -98,7 +87,7 @@ export default function Home() {
         scrub: true,
         pin: true,
         // pinType: "fixed",
-        markers: true,
+        // markers: true,
       },
     });
 
@@ -141,10 +130,24 @@ export default function Home() {
         pin: true,
       },
     });
+
+    let scrollCTATl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#home-bg",
+        start: "top top",
+        end: "+=400",
+        scrub: true,
+        markers: true,
+        // pin: true,
+      },
+    });
+
+    scrollCTATl
+      .to("#landing-scroll-cta", { y: 86, duration: 99 })
+      .to("#landing-scroll-cta", { opacity: 0, duration: 1 });
   });
 
   //* GSAP smooth scroll init
-
   const wrapper = useRef();
   const content = useRef();
   useGSAP(
@@ -244,7 +247,12 @@ export default function Home() {
                     digital means.
                   </p>
                 </div>
-                <div id="landing-scroll-cta"></div>
+                <div id="landing-scroll-cta-container">
+                  <div id="landing-scroll-cta">
+                    <p className="text-1">SCROLL</p>
+                    <p id="landing-cta-arrow" className="text-1">{`->`}</p>
+                  </div>
+                </div>
                 {/* <div id="landing-title-container">
                   <span id="landing-title" className="text-1">
                     INTERSECT

@@ -1,5 +1,6 @@
 @use "./vars.scss" as *;
 
+//*NAVBAR
 #navbar {
   position: fixed;
   height: 48px;
@@ -28,6 +29,7 @@
   }
 }
 
+//*HOME FIXED ELEMENTS
 #home-fixed {
   position: absolute;
   height: 900vh;
@@ -69,8 +71,8 @@
   background: rgba(0, 0, 0, 1);
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(255, 255, 255, 1) 100%
+    rgba(0, 0, 0, 1) 15%,
+    rgba(255, 255, 255, 1) 85%
   );
   mix-blend-mode: difference;
   opacity: 100%;
@@ -82,6 +84,7 @@
 //   background: $Accent;
 // }
 
+//*LANDING
 #landing {
   width: 100vw;
   height: 100vh;
@@ -143,6 +146,39 @@
   }
 }
 
+#landing-scroll-cta-container {
+  position: absolute;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  bottom: 0;
+}
+
+#landing-scroll-cta {
+  height: 86px;
+  width: 185px;
+  margin-left: auto;
+  margin-right: auto;
+  background: $Black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    45deg,
+    rgba(22, 23, 23, 1) -100%,
+    rgba(103, 103, 103, 1) 160%
+  );
+  p {
+    color: $Accent;
+  }
+}
+
+#landing-cta-arrow {
+  transform: rotate(90deg);
+}
+
+//*REEL
 #reel {
   width: 100vw;
   height: 100vh;
@@ -159,6 +195,7 @@
   width: 70vw;
 }
 
+//*WORK
 #work {
   width: 100vw;
   height: 100vh;
@@ -351,6 +388,7 @@ $IndicatorMarginTune: 2px;
   font-size: 10px;
 }
 
+//*INFO
 #info {
   width: 100vw;
   height: 100vh;
@@ -402,6 +440,7 @@ $IndicatorMarginTune: 2px;
   width: 52vw;
 }
 
+//*FOOTER
 #footer {
   position: fixed;
   height: 48px;
