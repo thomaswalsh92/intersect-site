@@ -52,7 +52,7 @@
   justify-content: center;
   align-items: flex-start;
   svg {
-    opacity: 30%;
+    opacity: 10%;
     width: 30vw;
     z-index: -5;
     overflow-y: hidden;
@@ -359,6 +359,47 @@ $IndicatorMarginTune: 2px;
   justify-content: center;
   // font-family: JetBrainsMono;
   // font-weight: light;
+  p,
+  span {
+    color: $White;
+  }
+}
+
+.info-heading {
+  font-size: 26px;
+}
+
+.info-text {
+  font-size: 18px;
+}
+
+#info-text {
+  padding: 22vh 0 22vh 10vh;
+  width: 48vw;
+  display: flex;
+  flex-direction: column;
+}
+
+#info-contact {
+  font-size: 64px;
+  a {
+    all: unset;
+  }
+  // text-decoration: underline;
+}
+
+.info-underlined {
+  text-decoration: underline;
+}
+
+// .info-non-nunderlined {
+//   text-decoration: none;
+// }
+
+#info-image {
+  position: relative;
+  top: -135px;
+  width: 52vw;
 }
 
 #footer {

@@ -64,9 +64,15 @@ export default function Home() {
 
   const [selectedProject, setSelectedProject] = useState(0);
 
-  // useGSAP(() => {
-  //   console.log("select proj val is: ", selectedProject);
-  // }, [selectedProject]);
+  //*INFO
+  const infoCapabilities = [
+    "WEB DESIGN & DEVELOPMENT",
+    "UI/UX",
+    "MOTION DESIGN",
+    "3D DESIGN, RENDERING & ANIMATION",
+    "GRAPHIC DESIGN",
+    "BRANDING",
+  ];
 
   //*GSAP
   let pinSectionVal = "+=1200";
@@ -238,6 +244,7 @@ export default function Home() {
                     digital means.
                   </p>
                 </div>
+                <div id="landing-scroll-cta"></div>
                 {/* <div id="landing-title-container">
                   <span id="landing-title" className="text-1">
                     INTERSECT
@@ -402,9 +409,41 @@ export default function Home() {
                 </div>
               </div>
               <div id="info">
-                <span id="landing-title" className="text-1">
-                  INFO
-                </span>
+                <div id="info-text">
+                  <p className="text-2 info-heading">
+                    WE ARE <span className="text-1">INTERSECT</span>
+                  </p>
+                  <p className="text-3 info-text" style={{ marginTop: 8 }}>
+                    A design studio focusing on the delivery of ideas across
+                    digital mediums, pushing creative boundaries and exploration
+                    of the fertile space between creativity and technology.
+                  </p>
+                  <p className="text-1 info-heading" style={{ marginTop: 16 }}>
+                    CAPABILITIES
+                  </p>
+                  <div id="info-capabilities" style={{ marginTop: 8 }}>
+                    {infoCapabilities.map((x) => {
+                      return <p className="text-3 info-text">{`> ${x}`}</p>;
+                    })}
+                  </div>
+                  {/*Change mail to when domain registered*/}
+                  <a
+                    href="mailto:test@test.com"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <p id="info-contact" style={{ marginTop: 32 }}>
+                      <span className="text-1 info-underlined">GET</span>
+                      <span className="text-3 info-non-underlined">_</span>
+                      <span className="text-1 info-underlined">IN</span>
+                      <span className="text-3 info-non-underlined">_</span>
+                      <span className="text-1 info-underlined">TOUCH</span>
+                      <span className="text-2 info-non-underlined">{`->`}</span>
+                    </p>
+                  </a>
+                </div>
+                <div id="info-image">
+                  <img src={sonyTv} />
+                </div>
               </div>
             </div>
           </div>
