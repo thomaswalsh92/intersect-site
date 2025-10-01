@@ -79,6 +79,18 @@ export default function Home() {
 
   useGSAP(() => {
     //*SCROLL PINNING
+    // gsap.from("#home-bg-logo-stack", {
+    //   scrollTrigger: {
+    //     trigger: "#home-bg-logo-stack",
+    //     start: "top top",
+    //     end: "+=7000",
+    //     scrub: true,
+    //     pin: true,
+    //     // pinType: "fixed",
+    //     // markers: true,
+    //   },
+    // });
+
     gsap.from("#home-fixed", {
       scrollTrigger: {
         trigger: "#home-fixed",
@@ -87,7 +99,6 @@ export default function Home() {
         scrub: true,
         pin: true,
         // pinType: "fixed",
-        // markers: true,
       },
     });
 
@@ -131,13 +142,13 @@ export default function Home() {
       },
     });
 
+    //*Hide Scroll call to action
     let scrollCTATl = gsap.timeline({
       scrollTrigger: {
         trigger: "#home-bg",
         start: "top top",
         end: "+=1200",
         scrub: true,
-        markers: true,
         // pin: true,
       },
     });
@@ -404,12 +415,7 @@ export default function Home() {
                           id="work-details-description-text"
                           className="text-2 work-details-text"
                         >
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Donec mollis interdum tellus ut ultricies. In et
-                          faucibus enim, in suscipit nisi. Suspendisse quis
-                          ultrices turpis, quis pellentesque felis. Mauris et
-                          orci massa. Aenean ut dui urna. Morbi mauris dolor,
-                          cursus.
+                          {projectDetails[0].description}
                         </p>
                       </div>
                     </div>

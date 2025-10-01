@@ -1,6 +1,9 @@
+import "./Home.scss";
+
 export function IntersectLogoLeft() {
   return (
     <svg
+      className="svg-logo"
       id="Layer_1"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
@@ -23,6 +26,7 @@ export function IntersectLogoLeft() {
 export function IntersectLogoCenter() {
   return (
     <svg
+      className="svg-logo"
       id="Layer_1"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +51,7 @@ export function IntersectLogoCenter() {
 export function IntersectLogoRight() {
   return (
     <svg
+      className="svg-logo"
       id="Layer_1"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"

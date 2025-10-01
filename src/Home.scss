@@ -41,6 +41,7 @@
 }
 
 #home-bg-logo-stack {
+  position: fixed;
   width: 100vw;
   z-index: -5;
 }
@@ -60,6 +61,10 @@
     overflow-y: hidden;
   }
 }
+
+// .svg-logo {
+//   position: fixed;
+// }
 
 #home-bg-invert-layer {
   position: absolute;
