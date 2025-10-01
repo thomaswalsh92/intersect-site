@@ -71,7 +71,7 @@
   background: rgba(0, 0, 0, 1);
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 1) 15%,
+    rgba(0, 0, 0, 1) 0%,
     rgba(255, 255, 255, 1) 85%
   );
   mix-blend-mode: difference;
@@ -322,6 +322,7 @@ $IndicatorMarginTune: 2px;
 #work-details-container {
   grid-column: 3 / 4;
   height: 100vh;
+  max-width: 480px;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -332,13 +333,14 @@ $IndicatorMarginTune: 2px;
   position: absolute;
   height: 35vh;
   width: 30vw;
+  max-width: 480px;
   background: $Black;
   z-index: -1;
   opacity: 75%;
 }
 
 #work-details {
-  width: 100%;
+  max-width: 480px;
   display: grid;
   grid-template-columns: 40% 60%;
 }

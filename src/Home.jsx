@@ -135,7 +135,7 @@ export default function Home() {
       scrollTrigger: {
         trigger: "#home-bg",
         start: "top top",
-        end: "+=400",
+        end: "+=1200",
         scrub: true,
         markers: true,
         // pin: true,
