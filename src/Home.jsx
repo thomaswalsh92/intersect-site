@@ -9,6 +9,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { ScrambleTextPlugin } from "gsap/all";
 import { SplitText } from "gsap/all";
 
 //app
@@ -20,7 +21,13 @@ import {
 import rainydayImage from "./assets/images/rainyday-image.png";
 import sonyTv from "./assets/images/sony-tv.png";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(
+  useGSAP,
+  ScrollTrigger,
+  ScrollSmoother,
+  ScrambleTextPlugin,
+  SplitText
+);
 
 export default function Home() {
   //*BG
@@ -79,18 +86,6 @@ export default function Home() {
 
   useGSAP(() => {
     //*SCROLL PINNING
-    // gsap.from("#home-bg-logo-stack", {
-    //   scrollTrigger: {
-    //     trigger: "#home-bg-logo-stack",
-    //     start: "top top",
-    //     end: "+=7000",
-    //     scrub: true,
-    //     pin: true,
-    //     // pinType: "fixed",
-    //     // markers: true,
-    //   },
-    // });
-
     gsap.from("#home-fixed", {
       scrollTrigger: {
         trigger: "#home-fixed",
@@ -142,6 +137,65 @@ export default function Home() {
       },
     });
 
+    //*LANDING
+    //*Landing title anims
+
+    let landingTitleSplit = SplitText.create("#landing-title", {
+      type: "chars",
+      mask: "chars",
+    });
+
+    // function getRandomInRange(min, max) {
+    //   let num = Math.random() * (max - min) + min;
+    //   return Math.round(num * 10) / 10;
+    // }
+
+    landingTitleSplit.chars.forEach((char, index) => {
+      const text = landingTitleSplit._data.orig[0].html[index];
+
+      gsap.to(char, {
+        duration: 1.2,
+        scrambleText: {
+          text: text,
+          revealDelay: 1.2,
+          speed: 1.5,
+        },
+      });
+    });
+
+    const landingCapabiltiesText = gsap.utils.toArray(
+      ".landing-capability-text"
+    );
+
+    landingCapabiltiesText.forEach((el, index) => {
+      let staggeredDelay = index + 1;
+      staggeredDelay = staggeredDelay * (index * 0.02);
+      staggeredDelay =
+        Math.round((staggeredDelay + Number.EPSILON) * 100) / 100;
+      gsap.to(el, {
+        duration: staggeredDelay,
+        scrambleText: {
+          text: el.innerText,
+          revealDelay: staggeredDelay,
+          speed: 1.5,
+        },
+      });
+    });
+
+    const landingFlavourText = gsap.utils.toArray(".landing-flavour-text");
+
+    landingFlavourText.forEach((el, index) => {
+      const text = el.innerText;
+      gsap.to(el, {
+        duration: 0.8 + index * 0.1,
+        scrambleText: {
+          text: text,
+          revealDelay: 0.8 + index * 0.1,
+          speed: 1.5,
+        },
+      });
+    });
+
     //*Hide Scroll call to action
     let scrollCTATl = gsap.timeline({
       scrollTrigger: {
@@ -157,6 +211,8 @@ export default function Home() {
       .to("#landing-scroll-cta", { y: 86, duration: 99 })
       .to("#landing-scroll-cta", { opacity: 0, duration: 1 });
   });
+
+  useGSAP(() => {});
 
   //* GSAP smooth scroll init
   const wrapper = useRef();
@@ -187,6 +243,7 @@ export default function Home() {
         </div>
       </div>
       <div id="footer">
+        <div id="footer-bg"></div>
         <div id="footer-contact">
           <a className="text-2 footer-link">{"CONTACT->"}</a>
           <a className="text-2 footer-link" style={{ marginLeft: 16 }}>
@@ -194,12 +251,8 @@ export default function Home() {
           </a>
         </div>
         <div id="footer-credits">
-          <div id="footer-bg"></div>
-          <p className="text-2" style={{ color: "#393a3b", marginRight: 32 }}>
-            DESIGNED & DEVELOPED BY{" "}
-            <span className="text-1" style={{ color: "#161717" }}>
-              INTERSECT
-            </span>
+          <p className="text-2" style={{ marginRight: 32 }}>
+            DESIGNED & DEVELOPED BY <span className="text-1">INTERSECT</span>
           </p>
           <p className="text-1">© INTERSECT 2025</p>
         </div>
@@ -240,22 +293,35 @@ export default function Home() {
             <div id="home-content">
               <div id="landing">
                 <div id="landing-capabilities" className="text-2">
-                  <p>DESIGN & DEVELOPMENT</p>
-                  <p className="indent-1">{"{"}</p>
+                  <p className="landing-capability-text">
+                    DESIGN & DEVELOPMENT
+                  </p>
+                  <p className="indent-1 landing-capability-text">{"{"}</p>
                   {landingCapabilties.map((item) => {
-                    return <p className="indent-2">{`<${item} />`}</p>;
+                    return (
+                      <p className="indent-2 landing-capability-text">{`<${item} />`}</p>
+                    );
                   })}
-                  <p className="indent-1">{"}"}</p>
+                  <p className="indent-1 landing-capability-text">{"}"}</p>
                 </div>
                 <div id="landing-flavour">
                   <p className="text-2">
-                    <span className="text-1">INTERSECT</span> (verb): the
-                    integration technology, art, design, life.
+                    <span className="text-1 landing-flavour-text">
+                      INTERSECT
+                    </span>{" "}
+                    <span className="text-2 landing-flavour-text">
+                      (verb): the integration technology, art, design, life.
+                    </span>
                   </p>
                   <p className="text-2" style={{ "margin-top": 8 }}>
                     {" "}
-                    In pursuit of <span className="text-1">DREAMS</span> through
-                    digital means.
+                    <span className="text-2 landing-flavour-text">
+                      In pursuit of
+                    </span>{" "}
+                    <span className="text-1 landing-flavour-text">DREAMS</span>{" "}
+                    <span className="text-2 landing-flavour-text">
+                      through digital means.
+                    </span>
                   </p>
                 </div>
                 <div id="landing-scroll-cta-container">

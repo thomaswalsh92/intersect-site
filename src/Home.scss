@@ -156,7 +156,8 @@
   display: flex;
   width: 100vw;
   justify-content: center;
-  bottom: 0;
+  bottom: 40px;
+  // z-index: 500;
 }
 
 #landing-scroll-cta {
@@ -177,6 +178,7 @@
   p {
     color: $Accent;
   }
+  // z-index: 500;
 }
 
 #landing-cta-arrow {
@@ -459,14 +461,21 @@ $IndicatorMarginTune: 2px;
   justify-content: space-between;
   z-index: 100;
 
-  padding-left: 16px;
+  // padding-left: 16px;
   padding-right: 32px;
 }
 
 #footer-bg {
-  position: relative;
+  width: 100vw;
+  height: 48px;
+  position: absolute;
+  z-index: -100;
   background-color: $Black;
-  bottom: 48px;
+  // bottom: -48px;
+}
+
+#footer-contact {
+  padding-left: 16px;
 }
 
 .footer-link {
@@ -478,7 +487,7 @@ $IndicatorMarginTune: 2px;
 
 #footer-credits {
   display: flex;
-  color: $Black;
+  color: $White;
   font-size: 12px;
   span,
   p,
