@@ -140,25 +140,27 @@ export default function Home() {
     //*LANDING
     //*Landing title anims
 
+    function getStaggeredDuration(i, factor) {
+      return Math.round(((i * factor) + factor + Number.EPSILON) * 100) / 100; //prettier-ignore
+    }
+
     let landingTitleSplit = SplitText.create("#landing-title", {
       type: "chars",
       mask: "chars",
     });
 
-    // function getRandomInRange(min, max) {
-    //   let num = Math.random() * (max - min) + min;
-    //   return Math.round(num * 10) / 10;
-    // }
-
-    landingTitleSplit.chars.forEach((char, index) => {
-      const text = landingTitleSplit._data.orig[0].html[index];
-
+    landingTitleSplit.chars.forEach((char, i) => {
+      const text = landingTitleSplit._data.orig[0].html[i];
+      const duration = getStaggeredDuration(
+        Math.round((Math.random() * landingTitleSplit.chars.length) / 2),
+        0.2
+      );
       gsap.to(char, {
-        duration: 1.2,
+        duration: duration,
         scrambleText: {
           text: text,
-          revealDelay: 1.2,
-          speed: 1.5,
+          revealDelay: duration,
+          speed: 0.8,
         },
       });
     });
@@ -167,16 +169,13 @@ export default function Home() {
       ".landing-capability-text"
     );
 
-    landingCapabiltiesText.forEach((el, index) => {
-      let staggeredDelay = index + 1;
-      staggeredDelay = staggeredDelay * (index * 0.02);
-      staggeredDelay =
-        Math.round((staggeredDelay + Number.EPSILON) * 100) / 100;
+    landingCapabiltiesText.forEach((el, i) => {
+      const duration = getStaggeredDuration(i, 0.1);
       gsap.to(el, {
-        duration: staggeredDelay,
+        duration: duration,
         scrambleText: {
           text: el.innerText,
-          revealDelay: staggeredDelay,
+          revealDelay: duration,
           speed: 1.5,
         },
       });
@@ -184,13 +183,13 @@ export default function Home() {
 
     const landingFlavourText = gsap.utils.toArray(".landing-flavour-text");
 
-    landingFlavourText.forEach((el, index) => {
-      const text = el.innerText;
+    landingFlavourText.forEach((el, i) => {
+      const duration = getStaggeredDuration(i, 0.2);
       gsap.to(el, {
-        duration: 0.8 + index * 0.1,
+        duration: duration,
         scrambleText: {
-          text: text,
-          revealDelay: 0.8 + index * 0.1,
+          text: el.innerText,
+          revealDelay: duration,
           speed: 1.5,
         },
       });
@@ -211,8 +210,6 @@ export default function Home() {
       .to("#landing-scroll-cta", { y: 86, duration: 99 })
       .to("#landing-scroll-cta", { opacity: 0, duration: 1 });
   });
-
-  useGSAP(() => {});
 
   //* GSAP smooth scroll init
   const wrapper = useRef();
