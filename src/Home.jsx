@@ -20,6 +20,8 @@ import {
 } from "./IntersectLogo";
 import rainydayImage from "./assets/images/rainyday-image.png";
 import sonyTv from "./assets/images/sony-tv.png";
+import useWindowDimensions from "./utils/useWindowDimensions";
+import AppCanvas from "./AppCanvas";
 
 gsap.registerPlugin(
   useGSAP,
@@ -30,6 +32,8 @@ gsap.registerPlugin(
 );
 
 export default function Home() {
+  const { height, width } = useWindowDimensions();
+
   //*BG
 
   //*LANDING
@@ -334,10 +338,8 @@ export default function Home() {
                 </div> */}
               </div>
               <div id="reel">
-                <img id="reel-image" src={sonyTv}></img>
-                {/* <span id="landing-title" className="text-1">
-                  REEL
-                </span> */}
+                {/* <img id="reel-image" src={sonyTv}></img> */}
+                <AppCanvas height={height} width={width} />
               </div>
               <div id="work">
                 <div id="work-grid">
