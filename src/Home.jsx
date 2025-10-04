@@ -21,7 +21,7 @@ import {
 import rainydayImage from "./assets/images/rainyday-image.png";
 import sonyTv from "./assets/images/sony-tv.png";
 import useWindowDimensions from "./utils/useWindowDimensions";
-import AppCanvas from "./AppCanvas";
+import TVCanvas from "./TVCanvas";
 
 gsap.registerPlugin(
   useGSAP,
@@ -38,6 +38,21 @@ export default function Home() {
 
   //*LANDING
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
+
+  //*REEL
+  const [TVDialogOpen, setTVDialogOpen] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (event) => {
+    setMousePosition({
+      x: event.clientX,
+      y: event.clientY,
+    });
+  };
+
+  useEffect(() => {
+    console.log(TVDialogOpen);
+  }, [TVDialogOpen]);
 
   //*WORK
   //get computed size of details section for bg on workDetails section
@@ -337,9 +352,23 @@ export default function Home() {
                   </span>
                 </div> */}
               </div>
-              <div id="reel">
+              <div id="reel" onMouseMove={handleMouseMove}>
+                <div
+                  id="reel-tv-dialog"
+                  style={{
+                    opacity: TVDialogOpen ? "100%" : "0%",
+                    top: mousePosition.y + 5,
+                    left: mousePosition.x + 5,
+                  }}
+                ></div>
                 {/* <img id="reel-image" src={sonyTv}></img> */}
-                <AppCanvas height={height} width={width} />
+                <TVCanvas
+                  height={height}
+                  width={width}
+                  contextId={"reel-tv-canvas"}
+                  TVDialogOpen={TVDialogOpen}
+                  setTVDialogOpen={(bool) => setTVDialogOpen(bool)}
+                />
               </div>
               <div id="work">
                 <div id="work-grid">

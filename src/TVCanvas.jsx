@@ -10,11 +10,10 @@ import { Canvas, useLoader, useFrame, useThree } from "@react-three/fiber";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 //app
-
-function Scene() {
+function Scene({ setTVDialogOpen }) {
   const { camera } = useThree();
   useEffect(() => {
-    camera.lookAt(0, -0.5, 0); // Aim at world origin
+    camera.lookAt(0, -2, 0);
   }, [camera]);
   const ref = useRef();
   const start = Math.PI / 4;
@@ -27,6 +26,14 @@ function Scene() {
 
   return (
     <primitive
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setTVDialogOpen(true);
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        setTVDialogOpen(false);
+      }}
       ref={ref}
       object={gltf.scene}
       position={[0, -3, 0]}
@@ -37,17 +44,23 @@ function Scene() {
   );
 }
 
-export default function AppCanvas({ width, height }) {
+export default function TVCanvas({
+  width,
+  height,
+  contextId,
+  TVDialogOpen,
+  setTVDialogOpen,
+}) {
   return (
     <Canvas
-      className="reel-canvas"
+      id={contextId}
       gl={(gl) => {
-        gl.physicallyCorrectLights = true; // older versions (< r150)
-        gl.useLegacyLights = false; // newer versions (r150+)
+        gl.physicallyCorrectLights = true;
+        gl.useLegacyLights = false;
       }}
-      size={[width, height + 800]}
+      size={[width, height]}
       shadows
-      camera={{ position: [0, 1, 38], fov: 19 }}
+      camera={{ position: [0, 1, 45], fov: 19 }}
     >
       <ambientLight intensity={0.2} />
       <spotLight
@@ -59,7 +72,10 @@ export default function AppCanvas({ width, height }) {
         intensity={1.2}
       />
       {/* <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} /> */}
-      <Scene />
+      <Scene
+        TVDialogOpen={TVDialogOpen}
+        setTVDialogOpen={(bool) => setTVDialogOpen(bool)}
+      />
     </Canvas>
   );
 }
