@@ -21,7 +21,7 @@ import {
 import rainydayImage from "./assets/images/rainyday-image.png";
 import sonyTv from "./assets/images/sony-tv.png";
 import useWindowDimensions from "./utils/useWindowDimensions";
-import TVCanvas from "./TVCanvas";
+import TeleCanvas from "./TeleCanvas";
 
 gsap.registerPlugin(
   useGSAP,
@@ -362,7 +362,7 @@ export default function Home() {
                   }}
                 ></div>
                 {/* <img id="reel-image" src={sonyTv}></img> */}
-                <TVCanvas
+                <TeleCanvas
                   height={height}
                   width={width}
                   contextId={"reel-tv-canvas"}
