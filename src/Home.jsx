@@ -352,7 +352,7 @@ export default function Home() {
                   </span>
                 </div> */}
               </div>
-              <div id="reel" onMouseMove={handleMouseMove}>
+              <div id="reel">
                 <div
                   id="reel-tv-dialog"
                   style={{
