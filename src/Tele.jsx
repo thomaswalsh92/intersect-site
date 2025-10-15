@@ -7,6 +7,7 @@ Command: npx gltfjsx@6.2.13 public/models/telly.glb
 import React, { useRef, useEffect } from "react";
 
 //r3f
+import * as THREE from "three";
 import { useThree, useFrame } from "@react-three/fiber";
 import {
   useGLTF,
@@ -16,10 +17,12 @@ import {
 } from "@react-three/drei";
 import { MeshLambertMaterial } from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
+import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 
 export function Tele({ setTVDialogOpen }) {
-  const { nodes, materials } = useGLTF("/models/tele.glb");
+  const { scene, nodes } = useGLTF("/models/tele.glb");
 
+  // console.log(scene);
   //access panel tex
   const accessPanelDiffuse = useTexture(
     "/textures/access-panel_Bake1_PBR_Diffuse.png"
@@ -126,13 +129,28 @@ export function Tele({ setTVDialogOpen }) {
     aerialHolderRoughness.needsUpdate = true;
   }, []);
 
+  useEffect(() => {
+    scene.traverse((child) => {
+      if (child.isMesh) {
+        const geometry = child.geometry;
+        const merged = BufferGeometryUtils.mergeVertices(geometry);
+        merged.computeVertexNormals();
+        child.geometry = merged;
+        // const merged = BufferGeometryUtils.mergeVertices(child.geometry);
+        // merged.computeVertexNormals();
+        // child.geometry = merged;
+        // geometry.computeVertexNormals();
+        // geometry.normalsNeedUpdate = true;
+      }
+    });
+  }, [scene]);
+
   const ref = useRef(null);
   const start = Math.PI / 10;
   const end = -Math.PI / 10;
   const { pointer } = useThree();
   useFrame(() => {
     ref.current.rotation.y = -(start + (end - start)) * pointer.x;
-    console.log("useFrame") //prettier-ignore
   });
 
   const { camera } = useThree();
@@ -161,6 +179,7 @@ export function Tele({ setTVDialogOpen }) {
         dispose={null}
       >
         <mesh
+          receiveShadow
           geometry={nodes["dial-washers_Baked"].geometry}
           material={nodes["dial-washers_Baked"].material}
         >
@@ -171,6 +190,7 @@ export function Tele({ setTVDialogOpen }) {
           />
         </mesh>
         <mesh
+          receiveShadow
           geometry={nodes.body_Baked.geometry}
           material={nodes.body_Baked.material}
         >
@@ -182,6 +202,7 @@ export function Tele({ setTVDialogOpen }) {
           />
         </mesh>
         <mesh
+          receiveShadow
           flatShading={false}
           geometry={nodes["screen-housing_Baked"].geometry}
           material={nodes["screen-housing_Baked"].material}
@@ -215,25 +236,25 @@ export function Tele({ setTVDialogOpen }) {
             // color="orange"
             map={videoTexture}
             // emissive="orange" // the glow color
-            emissiveIntensity={2}
+            // emissiveIntensity={60}
           />
         </mesh>
         {/*reflection*/}
         <mesh
           geometry={nodes.screen_Baked.geometry}
           material={nodes.screen_Baked.material}
-          position={[0, 0, 5]}
+          position={[0, 0.65, 5]}
           rotation={[0, degToRad(180), 0]}
-          scale={[-0.8, 1, 1]}
+          scale={[-0.8, 0.8, 1]}
         >
           <meshStandardMaterial
             color="#111"
             emissive="#ffffff"
-            emissiveIntensity={60}
+            emissiveIntensity={200}
             emissiveMap={videoTexture}
           />
         </mesh>
-        <mesh geometry={nodes["access-panel_Baked"].geometry}>
+        <mesh receiveShadow geometry={nodes["access-panel_Baked"].geometry}>
           <meshStandardMaterial
             map={accessPanelDiffuse}
             normalMap={accessPanelNormal}
@@ -241,6 +262,8 @@ export function Tele({ setTVDialogOpen }) {
           />
         </mesh>
         <mesh
+          castShadow
+          receiveShadow
           geometry={nodes.aerial_Baked.geometry}
           material={nodes.aerial_Baked.material}
           position={[0.148, 0, 0]}
@@ -252,6 +275,8 @@ export function Tele({ setTVDialogOpen }) {
           />
         </mesh>
         <mesh
+          castShadow
+          receiveShadow
           geometry={nodes["button-bottom_Baked"].geometry}
           material={nodes["button-bottom_Baked"].material}
         >
@@ -262,6 +287,8 @@ export function Tele({ setTVDialogOpen }) {
           />
         </mesh>
         <mesh
+          castShadow
+          receiveShadow
           geometry={nodes["button-top_Baked"].geometry}
           material={nodes["button-top_Baked"].material}
         >
@@ -272,6 +299,8 @@ export function Tele({ setTVDialogOpen }) {
           />
         </mesh>
         <mesh
+          castShadow
+          receiveShadow
           geometry={nodes["buttons-channel_Baked"].geometry}
           material={nodes["buttons-channel_Baked"].material}
         >
@@ -282,6 +311,7 @@ export function Tele({ setTVDialogOpen }) {
           />
         </mesh>
         <mesh
+          receiveShadow
           geometry={nodes["dial-guard_Baked"].geometry}
           material={nodes["dial-guard_Baked"].material}
         >
@@ -292,6 +322,7 @@ export function Tele({ setTVDialogOpen }) {
           />
         </mesh>
         <mesh
+          castShadow
           geometry={nodes.dials_Baked.geometry}
           material={nodes.dials_Baked.material}
         >
@@ -302,6 +333,8 @@ export function Tele({ setTVDialogOpen }) {
           />
         </mesh>
         <mesh
+          castShadow
+          receiveShadow
           geometry={nodes["aerial-holder_Baked"].geometry}
           material={nodes["aerial-holder_Baked"].material}
           position={[1.55, 4.6, -3.616]}
