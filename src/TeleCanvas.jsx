@@ -47,7 +47,7 @@ export default function TeleCanvas({
       }}
       size={[width, height]}
       // shadows={{ type: "PCFSoftShadowMap" }}
-      camera={{ position: [0, 1, 45], fov: 19 }}
+      camera={{ position: [0, 1, 35], fov: 19 }}
     >
       {/* <AccumulativeShadows
         frames={100}
@@ -68,15 +68,16 @@ export default function TeleCanvas({
       </AccumulativeShadows> */}
       {/* <fog attach="fog" args={["#17171b", 20, 90]} /> */}
       <SoftShadows size={25} samples={64} focus={0.5} />
-      {/* <Environment
-        // frames={degraded ? 1 : Infinity}
+      <Environment
+        preset="studio"
+        //env intensity controlled in tele.jsx
+        environmentIntensity={0}
         resolution={256}
-        // background
         blur={1}
       >
         <Lightformer
           form="ring"
-          intensity={1}
+          intensity={2}
           // rotation-x={Math.PI / 2}
           position={[0, 0, 3]}
           scale={[4, 4, 1]}
@@ -98,13 +99,7 @@ export default function TeleCanvas({
           scale={[10, 10, 1]}
           target={[0, 0, 0]}
         />
-      </Environment> */}
-      {/* <Stage
-        intensity={0.5}
-        environment="city"
-        shadows={{ type: "accumulative", bias: -0.001, intensity: Math.PI }}
-        adjustCamera={false}
-      > */}
+      </Environment>
       <Tele
         TVDialogOpen={TVDialogOpen}
         setTVDialogOpen={(bool) => setTVDialogOpen(bool)}
@@ -114,10 +109,10 @@ export default function TeleCanvas({
         castShadow
         color={0xffffff}
         position={[7, 10, 15]}
-        angle={0.5}
-        penumbra={1}
+        angle={5}
+        penumbra={0.2}
         decay={0}
-        intensity={2}
+        intensity={0.8}
         shadow-mapSize-width={2048} // higher = sharper shadows
         shadow-mapSize-height={2048}
         shadow-camera-near={0.1}

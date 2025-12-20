@@ -158,6 +158,8 @@ export function Tele({ setTVDialogOpen }) {
     camera.lookAt(0, -2, 0);
   }, [camera]);
 
+  const envMapIntensity = 0.2;
+
   return (
     <>
       <group
@@ -171,7 +173,7 @@ export function Tele({ setTVDialogOpen }) {
         //   setTVDialogOpen(false);
         // }}
         // ref={ref}
-        position={[0, -2.6, 0]}
+        position={[0, -3, 0]}
         rotation={[0, -Math.PI / 1, 0]}
         // {...props}
         // position={[0, -4, -2]}
@@ -187,6 +189,7 @@ export function Tele({ setTVDialogOpen }) {
             map={dialWashersDiffuse}
             normalMap={dialWashersNormal}
             roughnessMap={dialWashersRoughness}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
@@ -199,6 +202,7 @@ export function Tele({ setTVDialogOpen }) {
             normalMap={bodyNormal}
             roughnessMap={bodyRoughness}
             roughness={0.8}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
@@ -209,20 +213,18 @@ export function Tele({ setTVDialogOpen }) {
         >
           <MeshReflectorMaterial
             color={"#222222"}
-            // distance={0.2}
-            blur={[300, 300]} // Blur ground reflections (width, height), 0 skips blur
-            mixBlur={1} // How much blur mixes with surface roughness (default = 1)
-            mixStrength={1} // Strength of the reflections
-            mixContrast={1} // Contrast of the reflections
-            resolution={512} // Off-buffer resolution, lower=faster, higher=better quality, slower
-            mirror={0.2} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-            depthScale={0} // Scale the depth factor (0 = no depth, default = 0)
-            minDepthThreshold={0.2} // Lower edge for the depthTexture interpolation (default = 0)
-            maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
-            depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
-            //distortion={1} // Amount of distortion based on the distortionMap texture
-            //distortionMap={distortionTexture} // The red channel of this texture is used as the distortion map. Default is null
-            reflectorOffset={2} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+            blur={[300, 300]}
+            mixBlur={1}
+            mixStrength={1}
+            mixContrast={1}
+            resolution={512}
+            mirror={0.2}
+            depthScale={0}
+            minDepthThreshold={0.2}
+            maxDepthThreshold={1}
+            depthToBlurRatioBias={0.25}
+            reflectorOffset={2}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
@@ -239,19 +241,20 @@ export function Tele({ setTVDialogOpen }) {
             // emissiveIntensity={60}
           />
         </mesh>
-        {/*reflection*/}
+        {/*flipped screen to fake screen emission*/}
         <mesh
           geometry={nodes.screen_Baked.geometry}
           material={nodes.screen_Baked.material}
-          position={[0, 0.65, 5]}
+          position={[-0.05, 0.25, 4.7]}
           rotation={[0, degToRad(180), 0]}
-          scale={[-0.8, 0.8, 1]}
+          scale={[-0.8, 0.9, 1]}
         >
           <meshStandardMaterial
             color="#111"
             emissive="#ffffff"
             emissiveIntensity={200}
             emissiveMap={videoTexture}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh receiveShadow geometry={nodes["access-panel_Baked"].geometry}>
@@ -259,6 +262,7 @@ export function Tele({ setTVDialogOpen }) {
             map={accessPanelDiffuse}
             normalMap={accessPanelNormal}
             roughnessMap={accessPanelRoughness}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
@@ -272,6 +276,7 @@ export function Tele({ setTVDialogOpen }) {
             map={aerialDiffuse}
             normalMap={aerialNormal}
             roughnessMap={aerialRoughness}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
@@ -284,6 +289,7 @@ export function Tele({ setTVDialogOpen }) {
             map={buttonBottomDiffuse}
             normalMap={buttonBottomNormal}
             roughnessMap={buttonBottomRoughness}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
@@ -296,6 +302,7 @@ export function Tele({ setTVDialogOpen }) {
             map={buttonTopDiffuse}
             normalMap={buttonTopNormal}
             roughnessMap={buttonTopRoughness}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
@@ -308,6 +315,7 @@ export function Tele({ setTVDialogOpen }) {
             map={buttonsChannelDiffuse}
             normalMap={buttonsChannelNormal}
             roughnessMap={buttonsChannelRoughness}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
@@ -319,6 +327,7 @@ export function Tele({ setTVDialogOpen }) {
             map={dialGuardDiffuse}
             normalMap={dialGuardNormal}
             roughnessMap={dialGuardRoughness}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
@@ -330,6 +339,7 @@ export function Tele({ setTVDialogOpen }) {
             map={dialsDiffuse}
             normalMap={dialsNormal}
             roughnessMap={dialsRoughness}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
@@ -344,6 +354,7 @@ export function Tele({ setTVDialogOpen }) {
             map={aerialHolderDiffuse}
             normalMap={aerialHolderNormal}
             roughnessMap={aerialHolderRoughness}
+            envMapIntensity={envMapIntensity}
           />
         </mesh>
       </group>
