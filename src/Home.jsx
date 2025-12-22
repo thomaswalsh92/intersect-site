@@ -2,7 +2,7 @@
 import "./Home.scss";
 
 //react
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Suspense } from "react";
 
 //gsap
 import { gsap } from "gsap";
@@ -36,9 +36,6 @@ gsap.registerPlugin(
 export default function Home() {
   const { height, width } = useWindowDimensions();
 
-  window.addEventListener("load", () => {
-    console.log("load");
-  });
   //*BG
 
   //*LANDING
@@ -48,16 +45,16 @@ export default function Home() {
   const [TVDialogOpen, setTVDialogOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (event) => {
-    setMousePosition({
-      x: event.clientX,
-      y: event.clientY,
-    });
-  };
+  // const handleMouseMove = (event) => {
+  //   setMousePosition({
+  //     x: event.clientX,
+  //     y: event.clientY,
+  //   });
+  // };
 
-  useEffect(() => {
-    console.log(TVDialogOpen);
-  }, [TVDialogOpen]);
+  // useEffect(() => {
+  //   console.log(TVDialogOpen);
+  // }, [TVDialogOpen]);
 
   //*WORK
   //get computed size of details section for bg on workDetails section
@@ -109,6 +106,7 @@ export default function Home() {
   let pinSectionVal = "+=1200";
 
   useGSAP(() => {
+    if (!loaded) return;
     //*SCROLL PINNING
     gsap.from("#home-fixed", {
       scrollTrigger: {
@@ -271,6 +269,12 @@ export default function Home() {
     });
   };
 
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    console.log("loaded = ", loaded);
+  }, [loaded]);
+
   return (
     <>
       <div id="navbar">
@@ -351,7 +355,7 @@ export default function Home() {
               </div>
             </div>
             <div id="home-content">
-              <div id="landing" ref={landingRef}>
+              {/* <div id="landing" ref={landingRef}>
                 <div id="landing-capabilities" className="text-2">
                   <p className="landing-capability-text">
                     DESIGN & DEVELOPMENT
@@ -390,12 +394,12 @@ export default function Home() {
                     <p id="landing-cta-arrow" className="text-1">{`->`}</p>
                   </div>
                 </div>
-                {/* <div id="landing-title-container">
-                  <span id="landing-title" className="text-1">
-                    INTERSECT
-                  </span>
-                </div> */}
-              </div>
+                // {/* <div id="landing-title-container">
+                //   <span id="landing-title" className="text-1">
+                //     INTERSECT
+                //   </span>
+                // </div>
+              </div> */}
               <div id="reel">
                 <div
                   id="reel-tv-dialog"
@@ -412,6 +416,7 @@ export default function Home() {
                   contextId={"reel-tv-canvas"}
                   TVDialogOpen={TVDialogOpen}
                   setTVDialogOpen={(bool) => setTVDialogOpen(bool)}
+                  setLoaded={setLoaded}
                 />
               </div>
               <div id="work" ref={workRef}>

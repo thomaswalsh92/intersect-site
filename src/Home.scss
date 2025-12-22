@@ -90,6 +90,17 @@
 //   background: $Accent;
 // }
 
+//*LOADING
+#fallback-test {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background-color: red;
+}
+
 //*LANDING
 #landing {
   width: 100vw;
@@ -190,8 +201,6 @@
 #reel {
   width: 100vw;
   height: 130vh;
-  // font-family: JetBrainsMono;
-  // font-weight: light;
 }
 
 #reel-image {

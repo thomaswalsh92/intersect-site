@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.2.13 public/models/telly.glb
 */
 
 //react
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, Suspense } from "react";
 
 //r3f
 import * as THREE from "three";
@@ -19,11 +19,13 @@ import { MeshLambertMaterial } from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 
-export function Tele({ setTVDialogOpen }) {
-  const { scene, nodes } = useGLTF("/models/tele.glb");
+const onLoad = (url) => {
+  console.log(url);
+};
 
-  // console.log(scene);
-  //access panel tex
+export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
+  const { scene, nodes } = useGLTF("/models/tele.glb");
+  // //access panel tex
   const accessPanelDiffuse = useTexture(
     "/textures/access-panel_Bake1_PBR_Diffuse.png"
   );
@@ -73,6 +75,7 @@ export function Tele({ setTVDialogOpen }) {
   const buttonTopRoughness = useTexture(
     "/textures/button-top_Bake1_PBR_Roughness.png"
   );
+
   //button top tex
   const buttonsChannelDiffuse = useTexture(
     "/textures/buttons-channel_Bake1_PBR_Diffuse.png"
@@ -114,20 +117,18 @@ export function Tele({ setTVDialogOpen }) {
 
   const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
 
-  useEffect(() => {
-    bodyDiffuse.flipY = false;
-    bodyDiffuse.needsUpdate = true;
-    bodyNormal.flipY = false;
-    bodyNormal.needsUpdate = true;
-    bodyRoughness.flipY = false;
-    bodyRoughness.needsUpdate = true;
-    aerialHolderDiffuse.flipY = false;
-    aerialHolderDiffuse.needsUpdate = true;
-    aerialHolderNormal.flipY = false;
-    aerialHolderNormal.needsUpdate = true;
-    aerialHolderRoughness.flipY = false;
-    aerialHolderRoughness.needsUpdate = true;
-  }, []);
+  bodyDiffuse.flipY = false;
+  bodyDiffuse.needsUpdate = true;
+  bodyNormal.flipY = false;
+  bodyNormal.needsUpdate = true;
+  bodyRoughness.flipY = false;
+  bodyRoughness.needsUpdate = true;
+  aerialHolderDiffuse.flipY = false;
+  aerialHolderDiffuse.needsUpdate = true;
+  aerialHolderNormal.flipY = false;
+  aerialHolderNormal.needsUpdate = true;
+  aerialHolderRoughness.flipY = false;
+  aerialHolderRoughness.needsUpdate = true;
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -154,11 +155,15 @@ export function Tele({ setTVDialogOpen }) {
   });
 
   const { camera } = useThree();
-  useEffect(() => {
-    camera.lookAt(0, -2, 0);
-  }, [camera]);
+  // useEffect(() => {
+  camera.lookAt(0, -2, 0);
+  // }, [camera]);
 
   const envMapIntensity = 0.2;
+
+  useEffect(() => {
+    setLoaded(true);
+  }, [setLoaded]);
 
   return (
     <>
@@ -362,4 +367,37 @@ export function Tele({ setTVDialogOpen }) {
   );
 }
 
-useGLTF.preload("/tele.glb");
+// useGLTF.preload("/tele.glb");
+
+// [
+//   "/textures/access-panel_Bake1_PBR_Diffuse.png",
+//   "/textures/access-panel_Bake1_PBR_Normal.png",
+//   "/textures/access-panel_Bake1_PBR_Roughness.png",
+//   "/textures/aerial_Bake1_PBR_Diffuse.png",
+//   "/textures/aerial_Bake1_PBR_Normal.png",
+//   "/textures/aerial_Bake1_PBR_Roughness.png",
+//   "/textures/aerial-holder_Bake1_PBR_Diffuse.png",
+//   "/textures/aerial-holder_Bake1_PBR_Normal.png",
+//   "/textures/aerial-holder_Bake1_PBR_Roughness.png",
+//   "/textures/body_Bake1_PBR_Diffuse.png",
+//   "/textures/body_Bake1_PBR_Normal.png",
+//   "/textures/body_Bake1_PBR_Roughness.png",
+//   "/textures/button-bottom_Bake1_PBR_Diffuse.png",
+//   "/textures/button-bottom_Bake1_PBR_Normal.png",
+//   "/textures/button-bottom_Bake1_PBR_Roughness.png",
+//   "/textures/button-top_Bake1_PBR_Diffuse.png",
+//   "/textures/button-top_Bake1_PBR_Normal.png",
+//   "/textures/button-top_Bake1_PBR_Roughness.png",
+//   "/textures/buttons-channel_Bake1_PBR_Diffuse.png",
+//   "/textures/buttons-channel_Bake1_PBR_Normal.png",
+//   "/textures/buttons-channel_Bake1_PBR_Roughness.png",
+//   "/textures/dial-guard_Bake1_PBR_Diffuse.png",
+//   "/textures/dial-guard_Bake1_PBR_Normal.png",
+//   "/textures/dial-guard_Bake1_PBR_Roughness.png",
+//   "/textures/dial-washers_Bake1_PBR_Diffuse.png",
+//   "/textures/dial-washers_Bake1_PBR_Normal.png",
+//   "/textures/dial-washers_Bake1_PBR_Roughness.png",
+//   "/textures/dials_Bake1_PBR_Diffuse.png",
+//   "/textures/dials_Bake1_PBR_Normal.png",
+//   "/textures/dials_Bake1_PBR_Roughness.png",
+// ];
