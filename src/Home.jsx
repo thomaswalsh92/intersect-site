@@ -9,6 +9,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrambleTextPlugin } from "gsap/all";
 import { SplitText } from "gsap/all";
 
@@ -27,6 +28,7 @@ gsap.registerPlugin(
   useGSAP,
   ScrollTrigger,
   ScrollSmoother,
+  ScrollToPlugin,
   ScrambleTextPlugin,
   SplitText
 );
@@ -34,6 +36,9 @@ gsap.registerPlugin(
 export default function Home() {
   const { height, width } = useWindowDimensions();
 
+  window.addEventListener("load", () => {
+    console.log("load");
+  });
   //*BG
 
   //*LANDING
@@ -228,7 +233,7 @@ export default function Home() {
     scrollCTATl
       .to("#landing-scroll-cta", { y: 86, duration: 99 })
       .to("#landing-scroll-cta", { opacity: 0, duration: 1 });
-  });
+  }, []);
 
   //* GSAP smooth scroll init
   const wrapper = useRef();
@@ -246,16 +251,55 @@ export default function Home() {
     { scope: wrapper }
   );
 
+  const landingRef = useRef();
+  const workRef = useRef();
+  const infoRef = useRef();
+
+  const handleNavScroll = (ref) => {
+    // ScrollTrigger.getAll().forEach((st) => {
+    //   if (st.pin) st.enabled = false;
+    // });
+    gsap.to(window, {
+      duration: 0.2,
+      scrollTo: ref,
+      ease: "none",
+      // onComplete: () => {
+      //   ScrollTrigger.getAll().forEach((st) => {
+      //     if (st.pin) st.enabled = true;
+      //   });
+      // },
+    });
+  };
+
   return (
     <>
       <div id="navbar">
-        <p id="navbar-title" className="text-1">
+        <p
+          id="navbar-title"
+          className="text-1"
+          onClick={() => handleNavScroll(landingRef.current)}
+        >
           INTERSECT
         </p>
         <div id="navbar-menu">
-          <p className="text-2">HOME</p>
-          <p className="text-2">WORK</p>
-          <p className="text-2">INFO</p>
+          <p
+            className="text-2"
+            onClick={() => handleNavScroll(landingRef.current)}
+          >
+            HOME
+          </p>
+          <p
+            className="text-2"
+            onClick={() => handleNavScroll(workRef.current)}
+          >
+            WORK
+          </p>
+          <p
+            className="text-2"
+            onClick={() => handleNavScroll(infoRef.current)}
+          >
+            INFO
+          </p>
         </div>
       </div>
       <div id="footer">
@@ -307,7 +351,7 @@ export default function Home() {
               </div>
             </div>
             <div id="home-content">
-              <div id="landing">
+              <div id="landing" ref={landingRef}>
                 <div id="landing-capabilities" className="text-2">
                   <p className="landing-capability-text">
                     DESIGN & DEVELOPMENT
@@ -370,7 +414,7 @@ export default function Home() {
                   setTVDialogOpen={(bool) => setTVDialogOpen(bool)}
                 />
               </div>
-              <div id="work">
+              <div id="work" ref={workRef}>
                 <div id="work-grid">
                   <div id="work-gallery-container">
                     <div id="work-gallery-image-container">
@@ -516,7 +560,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div id="info">
+              <div id="info" ref={infoRef}>
                 <div id="info-text">
                   <p className="text-2 info-heading">
                     WE ARE <span className="text-1">INTERSECT</span>

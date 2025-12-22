@@ -113,7 +113,7 @@ export function Tele({ setTVDialogOpen }) {
   // );
 
   const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
-  const flippedVideoTexture = videoTexture;
+
   useEffect(() => {
     bodyDiffuse.flipY = false;
     bodyDiffuse.needsUpdate = true;
