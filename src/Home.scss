@@ -91,14 +91,18 @@
 // }
 
 //*LOADING
-#fallback-test {
+#loading-screen {
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
-  background-color: red;
+  background-color: $GrayDark;
+}
+
+#loading-counter {
+  color: $White;
 }
 
 //*LANDING

@@ -2,41 +2,55 @@
 import "./Home.scss";
 
 //react
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 
 //three
 import * as THREE from "three";
+
 //r3f
 import { Canvas, useThree } from "@react-three/fiber";
 import {
-  // PerformanceMonitor,
-  AccumulativeShadows,
-  RandomizedLight,
-  Stage,
   Environment,
   Lightformer,
-  Text,
   SoftShadows,
   useProgress,
 } from "@react-three/drei";
-// import {
-//   EffectComposer,
-//   Bloom,
-//   DepthOfField,
-//   ToneMapping,
-// } from "@react-three/postprocessing";
+
+import { gsap } from "gsap";
 
 //app
 import { Tele } from "./Tele";
 
-const TeleFallback = () => {
-  const progress = useProgress();
-  let loaded = progress.loaded;
-  let percentageLoaded = Math.floor((loaded / 33) * 100);
+const LoadingProgress = () => {
+  const { loaded } = useProgress();
 
+  const loadedRef = useRef(0);
+  const [percentage, setPercentage] = useState(0);
+
+  useEffect(() => {
+    gsap.to(loadedRef, {
+      current: loaded,
+      duration: 0.4,
+      ease: "power2.out",
+      onUpdate: () => {
+        const value = loadedRef.current;
+        const percent = Math.ceil((value / 32) * 100);
+        setPercentage(percent);
+      },
+    });
+  }, [loaded]);
+
+  return <div>{percentage}%</div>;
+};
+const TeleFallback = () => {
   return (
-    <div id="fallback-test">
-      <p className="text-1">{percentageLoaded}%</p>
+    <div id="loading-screen">
+      <p id="loading-counter" className="text-1">
+        {<LoadingProgress />}
+      </p>
+      <div id="loading-bar-container">
+        <div id="loading-bar"></div>
+      </div>
     </div>
   );
 };
@@ -45,7 +59,6 @@ export default function TeleCanvas({
   width,
   height,
   contextId,
-  setLoaded,
   TVDialogOpen,
   setTVDialogOpen,
 }) {
@@ -116,7 +129,6 @@ export default function TeleCanvas({
           />
         </Environment>
         <Tele
-          setLoaded={setLoaded}
           TVDialogOpen={TVDialogOpen}
           setTVDialogOpen={(bool) => setTVDialogOpen(bool)}
         />

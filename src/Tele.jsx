@@ -19,103 +19,100 @@ import { MeshLambertMaterial } from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 
-const onLoad = (url) => {
-  console.log(url);
-};
-
 export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
   const { scene, nodes } = useGLTF("/models/tele.glb");
   // //access panel tex
+
+  const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
+
   const accessPanelDiffuse = useTexture(
-    "/textures/access-panel_Bake1_PBR_Diffuse.png"
+    "/textures/access-panel_Bake1_PBR_Diffuse.webp"
   );
   const accessPanelNormal = useTexture(
-    "/textures/access-panel_Bake1_PBR_Normal.png"
+    "/textures/access-panel_Bake1_PBR_Normal.webp"
   );
   const accessPanelRoughness = useTexture(
-    "/textures/access-panel_Bake1_PBR_Roughness.png"
+    "/textures/access-panel_Bake1_PBR_Roughness.webp"
   );
   //aerial tex
-  const aerialDiffuse = useTexture("/textures/aerial_Bake1_PBR_Diffuse.png");
-  const aerialNormal = useTexture("/textures/aerial_Bake1_PBR_Normal.png");
+  const aerialDiffuse = useTexture("/textures/aerial_Bake1_PBR_Diffuse.webp");
+  const aerialNormal = useTexture("/textures/aerial_Bake1_PBR_Normal.webp");
   const aerialRoughness = useTexture(
-    "/textures/aerial_Bake1_PBR_Roughness.png"
+    "/textures/aerial_Bake1_PBR_Roughness.webp"
   );
   //aerial holder tex
   const aerialHolderDiffuse = useTexture(
-    "/textures/aerial-holder_Bake1_PBR_Diffuse.png"
+    "/textures/aerial-holder_Bake1_PBR_Diffuse.webp"
   );
   const aerialHolderNormal = useTexture(
-    "/textures/aerial-holder_Bake1_PBR_Normal.png"
+    "/textures/aerial-holder_Bake1_PBR_Normal.webp"
   );
   const aerialHolderRoughness = useTexture(
-    "/textures/aerial-holder_Bake1_PBR_Roughness.png"
+    "/textures/aerial-holder_Bake1_PBR_Roughness.webp"
   );
   //body tex
-  const bodyDiffuse = useTexture("/textures/body_Bake1_PBR_Diffuse.png");
-  const bodyNormal = useTexture("/textures/body_Bake1_PBR_Normal.png");
-  const bodyRoughness = useTexture("/textures/body_Bake1_PBR_Roughness.png");
+  const bodyDiffuse = useTexture("/textures/body_Bake1_PBR_Diffuse.webp");
+  const bodyNormal = useTexture("/textures/body_Bake1_PBR_Normal.webp");
+  const bodyRoughness = useTexture("/textures/body_Bake1_PBR_Roughness.webp");
   //button bottom tex
   const buttonBottomDiffuse = useTexture(
-    "/textures/button-bottom_Bake1_PBR_Diffuse.png"
+    "/textures/button-bottom_Bake1_PBR_Diffuse.webp"
   );
   const buttonBottomNormal = useTexture(
-    "/textures/button-bottom_Bake1_PBR_Normal.png"
+    "/textures/button-bottom_Bake1_PBR_Normal.webp"
   );
   const buttonBottomRoughness = useTexture(
-    "/textures/button-bottom_Bake1_PBR_Roughness.png"
+    "/textures/button-bottom_Bake1_PBR_Roughness.webp"
   );
   //button top tex
   const buttonTopDiffuse = useTexture(
-    "/textures/button-top_Bake1_PBR_Diffuse.png"
+    "/textures/button-top_Bake1_PBR_Diffuse.webp"
   );
   const buttonTopNormal = useTexture(
-    "/textures/button-top_Bake1_PBR_Normal.png"
+    "/textures/button-top_Bake1_PBR_Normal.webp"
   );
   const buttonTopRoughness = useTexture(
-    "/textures/button-top_Bake1_PBR_Roughness.png"
+    "/textures/button-top_Bake1_PBR_Roughness.webp"
   );
 
   //button top tex
   const buttonsChannelDiffuse = useTexture(
-    "/textures/buttons-channel_Bake1_PBR_Diffuse.png"
+    "/textures/buttons-channel_Bake1_PBR_Diffuse.webp"
   );
   const buttonsChannelNormal = useTexture(
-    "/textures/buttons-channel_Bake1_PBR_Normal.png"
+    "/textures/buttons-channel_Bake1_PBR_Normal.webp"
   );
   const buttonsChannelRoughness = useTexture(
-    "/textures/buttons-channel_Bake1_PBR_Roughness.png"
+    "/textures/buttons-channel_Bake1_PBR_Roughness.webp"
   );
   //dial guard tex
   const dialGuardDiffuse = useTexture(
-    "/textures/dial-guard_Bake1_PBR_Diffuse.png"
+    "/textures/dial-guard_Bake1_PBR_Diffuse.webp"
   );
   const dialGuardNormal = useTexture(
-    "/textures/dial-guard_Bake1_PBR_Normal.png"
+    "/textures/dial-guard_Bake1_PBR_Normal.webp"
   );
   const dialGuardRoughness = useTexture(
-    "/textures/dial-guard_Bake1_PBR_Roughness.png"
+    "/textures/dial-guard_Bake1_PBR_Roughness.webp"
   );
   //dial washers tex
   const dialWashersDiffuse = useTexture(
-    "/textures/dial-washers_Bake1_PBR_Diffuse.png"
+    "/textures/dial-washers_Bake1_PBR_Diffuse.webp"
   );
   const dialWashersNormal = useTexture(
-    "/textures/dial-washers_Bake1_PBR_Normal.png"
+    "/textures/dial-washers_Bake1_PBR_Normal.webp"
   );
   const dialWashersRoughness = useTexture(
-    "/textures/dial-washers_Bake1_PBR_Roughness.png"
+    "/textures/dial-washers_Bake1_PBR_Roughness.webp"
   );
   //dials tex
-  const dialsDiffuse = useTexture("/textures/dials_Bake1_PBR_Diffuse.png");
-  const dialsNormal = useTexture("/textures/dials_Bake1_PBR_Normal.png");
-  const dialsRoughness = useTexture("/textures/dials_Bake1_PBR_Roughness.png");
+  const dialsDiffuse = useTexture("/textures/dials_Bake1_PBR_Diffuse.webp");
+  const dialsNormal = useTexture("/textures/dials_Bake1_PBR_Normal.webp");
+  const dialsRoughness = useTexture("/textures/dials_Bake1_PBR_Roughness.webp");
   //screen housing tex
   // const screenHousingDiffuse = useTexture(
-  //   "/textures/screen-housing_Bake1_PBR_Diffuse.png"
+  //   "/textures/screen-housing_Bake1_PBR_Diffuse.webp"
   // );
-
-  const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
 
   bodyDiffuse.flipY = false;
   bodyDiffuse.needsUpdate = true;
@@ -161,9 +158,9 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
 
   const envMapIntensity = 0.2;
 
-  useEffect(() => {
-    setLoaded(true);
-  }, [setLoaded]);
+  // useEffect(() => {
+  //   setLoaded(true);
+  // }, []);
 
   return (
     <>
@@ -370,34 +367,34 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
 // useGLTF.preload("/tele.glb");
 
 // [
-//   "/textures/access-panel_Bake1_PBR_Diffuse.png",
-//   "/textures/access-panel_Bake1_PBR_Normal.png",
-//   "/textures/access-panel_Bake1_PBR_Roughness.png",
-//   "/textures/aerial_Bake1_PBR_Diffuse.png",
-//   "/textures/aerial_Bake1_PBR_Normal.png",
-//   "/textures/aerial_Bake1_PBR_Roughness.png",
-//   "/textures/aerial-holder_Bake1_PBR_Diffuse.png",
-//   "/textures/aerial-holder_Bake1_PBR_Normal.png",
-//   "/textures/aerial-holder_Bake1_PBR_Roughness.png",
-//   "/textures/body_Bake1_PBR_Diffuse.png",
-//   "/textures/body_Bake1_PBR_Normal.png",
-//   "/textures/body_Bake1_PBR_Roughness.png",
-//   "/textures/button-bottom_Bake1_PBR_Diffuse.png",
-//   "/textures/button-bottom_Bake1_PBR_Normal.png",
-//   "/textures/button-bottom_Bake1_PBR_Roughness.png",
-//   "/textures/button-top_Bake1_PBR_Diffuse.png",
-//   "/textures/button-top_Bake1_PBR_Normal.png",
-//   "/textures/button-top_Bake1_PBR_Roughness.png",
-//   "/textures/buttons-channel_Bake1_PBR_Diffuse.png",
-//   "/textures/buttons-channel_Bake1_PBR_Normal.png",
-//   "/textures/buttons-channel_Bake1_PBR_Roughness.png",
-//   "/textures/dial-guard_Bake1_PBR_Diffuse.png",
-//   "/textures/dial-guard_Bake1_PBR_Normal.png",
-//   "/textures/dial-guard_Bake1_PBR_Roughness.png",
-//   "/textures/dial-washers_Bake1_PBR_Diffuse.png",
-//   "/textures/dial-washers_Bake1_PBR_Normal.png",
-//   "/textures/dial-washers_Bake1_PBR_Roughness.png",
-//   "/textures/dials_Bake1_PBR_Diffuse.png",
-//   "/textures/dials_Bake1_PBR_Normal.png",
-//   "/textures/dials_Bake1_PBR_Roughness.png",
+//   "/textures/access-panel_Bake1_PBR_Diffuse.webp",
+//   "/textures/access-panel_Bake1_PBR_Normal.webp",
+//   "/textures/access-panel_Bake1_PBR_Roughness.webp",
+//   "/textures/aerial_Bake1_PBR_Diffuse.webp",
+//   "/textures/aerial_Bake1_PBR_Normal.webp",
+//   "/textures/aerial_Bake1_PBR_Roughness.webp",
+//   "/textures/aerial-holder_Bake1_PBR_Diffuse.webp",
+//   "/textures/aerial-holder_Bake1_PBR_Normal.webp",
+//   "/textures/aerial-holder_Bake1_PBR_Roughness.webp",
+//   "/textures/body_Bake1_PBR_Diffuse.webp",
+//   "/textures/body_Bake1_PBR_Normal.webp",
+//   "/textures/body_Bake1_PBR_Roughness.webp",
+//   "/textures/button-bottom_Bake1_PBR_Diffuse.webp",
+//   "/textures/button-bottom_Bake1_PBR_Normal.webp",
+//   "/textures/button-bottom_Bake1_PBR_Roughness.webp",
+//   "/textures/button-top_Bake1_PBR_Diffuse.webp",
+//   "/textures/button-top_Bake1_PBR_Normal.webp",
+//   "/textures/button-top_Bake1_PBR_Roughness.webp",
+//   "/textures/buttons-channel_Bake1_PBR_Diffuse.webp",
+//   "/textures/buttons-channel_Bake1_PBR_Normal.webp",
+//   "/textures/buttons-channel_Bake1_PBR_Roughness.webp",
+//   "/textures/dial-guard_Bake1_PBR_Diffuse.webp",
+//   "/textures/dial-guard_Bake1_PBR_Normal.webp",
+//   "/textures/dial-guard_Bake1_PBR_Roughness.webp",
+//   "/textures/dial-washers_Bake1_PBR_Diffuse.webp",
+//   "/textures/dial-washers_Bake1_PBR_Normal.webp",
+//   "/textures/dial-washers_Bake1_PBR_Roughness.webp",
+//   "/textures/dials_Bake1_PBR_Diffuse.webp",
+//   "/textures/dials_Bake1_PBR_Normal.webp",
+//   "/textures/dials_Bake1_PBR_Roughness.webp",
 // ];
