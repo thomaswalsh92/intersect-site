@@ -349,7 +349,7 @@ export default function Home() {
               </div>
             </div>
             <div id="home-content">
-              {/* <div id="landing" ref={landingRef}>
+              <div id="landing" ref={landingRef}>
                 <div id="landing-capabilities" className="text-2">
                   <p className="landing-capability-text">
                     DESIGN & DEVELOPMENT
@@ -388,12 +388,12 @@ export default function Home() {
                     <p id="landing-cta-arrow" className="text-1">{`->`}</p>
                   </div>
                 </div>
-                // {/* <div id="landing-title-container">
-                //   <span id="landing-title" className="text-1">
-                //     INTERSECT
-                //   </span>
-                // </div>
-              </div> */}
+                {/* <div id="landing-title-container">
+                  <span id="landing-title" className="text-1">
+                    INTERSECT
+                  </span>
+                </div>*/}
+              </div>
               <div id="reel">
                 <div
                   id="reel-tv-dialog"
