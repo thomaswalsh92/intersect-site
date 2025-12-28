@@ -106,7 +106,7 @@ export default function Home() {
   let pinSectionVal = "+=1200";
 
   useGSAP(() => {
-    if (!loaded) return;
+    // if (!loaded) return;
     //*SCROLL PINNING
     gsap.from("#home-fixed", {
       scrollTrigger: {
@@ -269,12 +269,6 @@ export default function Home() {
     });
   };
 
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    console.log("loaded = ", loaded);
-  }, [loaded]);
-
   return (
     <>
       <div id="navbar">
@@ -410,14 +404,15 @@ export default function Home() {
                   }}
                 ></div>
                 {/* <img id="reel-image" src={sonyTv}></img> */}
+                {/* <Suspense> */}
                 <TeleCanvas
                   height={height}
                   width={width}
                   contextId={"reel-tv-canvas"}
                   TVDialogOpen={TVDialogOpen}
                   setTVDialogOpen={(bool) => setTVDialogOpen(bool)}
-                  setLoaded={setLoaded}
                 />
+                {/* </Suspense> */}
               </div>
               <div id="work" ref={workRef}>
                 <div id="work-grid">

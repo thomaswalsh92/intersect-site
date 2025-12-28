@@ -21,40 +21,6 @@ import { gsap } from "gsap";
 //app
 import { Tele } from "./Tele";
 
-const LoadingProgress = () => {
-  const { loaded } = useProgress();
-
-  const loadedRef = useRef(0);
-  const [percentage, setPercentage] = useState(0);
-
-  useEffect(() => {
-    gsap.to(loadedRef, {
-      current: loaded,
-      duration: 0.4,
-      ease: "power2.out",
-      onUpdate: () => {
-        const value = loadedRef.current;
-        const percent = Math.ceil((value / 32) * 100);
-        setPercentage(percent);
-      },
-    });
-  }, [loaded]);
-
-  return <div>{percentage}%</div>;
-};
-const TeleFallback = () => {
-  return (
-    <div id="loading-screen">
-      <p id="loading-counter" className="text-1">
-        {<LoadingProgress />}
-      </p>
-      <div id="loading-bar-container">
-        <div id="loading-bar"></div>
-      </div>
-    </div>
-  );
-};
-
 export default function TeleCanvas({
   width,
   height,
@@ -63,21 +29,20 @@ export default function TeleCanvas({
   setTVDialogOpen,
 }) {
   return (
-    <Suspense fallback={<TeleFallback />}>
-      <Canvas
-        shadows
-        id={contextId}
-        gl={(gl) => {
-          gl.physicallyCorrectLights = true;
-          gl.useLegacyLights = false;
-          gl.shadowMap = true;
-          gl.shadowMapType = THREE.PCFSoftShadowMap;
-        }}
-        size={[width, height]}
-        // shadows={{ type: "PCFSoftShadowMap" }}
-        camera={{ position: [0, 1, 35], fov: 19 }}
-      >
-        {/* <AccumulativeShadows
+    <Canvas
+      shadows
+      id={contextId}
+      gl={(gl) => {
+        gl.physicallyCorrectLights = true;
+        gl.useLegacyLights = false;
+        gl.shadowMap = true;
+        gl.shadowMapType = THREE.PCFSoftShadowMap;
+      }}
+      size={[width, height]}
+      // shadows={{ type: "PCFSoftShadowMap" }}
+      camera={{ position: [0, 1, 35], fov: 19 }}
+    >
+      {/* <AccumulativeShadows
         frames={100}
         alphaTest={0.85}
         opacity={0.8}
@@ -94,90 +59,62 @@ export default function TeleCanvas({
           bias={0.001}
         />
       </AccumulativeShadows> */}
-        {/* <fog attach="fog" args={["#17171b", 20, 90]} /> */}
-        <SoftShadows size={25} samples={64} focus={0.5} />
-        <Environment
-          preset="studio"
-          //env intensity controlled in tele.jsx
-          environmentIntensity={0}
-          resolution={256}
-          blur={1}
-        >
-          <Lightformer
-            form="ring"
-            intensity={2}
-            // rotation-x={Math.PI / 2}
-            position={[0, 0, 3]}
-            scale={[4, 4, 1]}
-            target={[0, 0, 0]}
-          />
-          <Lightformer
-            form="rect"
-            intensity={1}
-            // rotation-x={Math.PI / 2}
-            position={[0, 2, 0]}
-            scale={[1, 1, 1]}
-            target={[0, 0, 0]}
-          />
-          <Lightformer
-            form="rect"
-            intensity={1}
-            // rotation-x={Math.PI / 2}
-            position={[2, 25, 0]}
-            scale={[10, 10, 1]}
-            target={[0, 0, 0]}
-          />
-        </Environment>
-        <Tele
-          TVDialogOpen={TVDialogOpen}
-          setTVDialogOpen={(bool) => setTVDialogOpen(bool)}
+      {/* <fog attach="fog" args={["#17171b", 20, 90]} /> */}
+      <SoftShadows size={25} samples={64} focus={0.5} />
+      <Environment
+        preset="studio"
+        //env intensity controlled in tele.jsx
+        environmentIntensity={0}
+        resolution={256}
+        blur={1}
+      >
+        <Lightformer
+          form="ring"
+          intensity={2}
+          // rotation-x={Math.PI / 2}
+          position={[0, 0, 3]}
+          scale={[4, 4, 1]}
+          target={[0, 0, 0]}
         />
-        {/* </Stage> */}
-        <directionalLight
-          castShadow
-          color={0xffffff}
-          position={[7, 10, 15]}
-          angle={5}
-          penumbra={0.2}
-          decay={0}
-          intensity={0.8}
-          shadow-mapSize-width={2048} // higher = sharper shadows
-          shadow-mapSize-height={2048}
-          shadow-camera-near={0.1}
-          shadow-camera-far={20}
-          shadow-camera-left={-10}
-          shadow-camera-right={10}
-          shadow-camera-top={10}
-          shadow-camera-bottom={-10}
+        <Lightformer
+          form="rect"
+          intensity={1}
+          // rotation-x={Math.PI / 2}
+          position={[0, 2, 0]}
+          scale={[1, 1, 1]}
+          target={[0, 0, 0]}
         />
-        {/* <spotLight
-        castShadows
+        <Lightformer
+          form="rect"
+          intensity={1}
+          // rotation-x={Math.PI / 2}
+          position={[2, 25, 0]}
+          scale={[10, 10, 1]}
+          target={[0, 0, 0]}
+        />
+      </Environment>
+      <Tele
+        TVDialogOpen={TVDialogOpen}
+        setTVDialogOpen={(bool) => setTVDialogOpen(bool)}
+      />
+      {/* </Stage> */}
+      <directionalLight
+        castShadow
         color={0xffffff}
-        position={[10, 10, 10]}
-        angle={0.5}
-        penumbra={1}
+        position={[7, 10, 15]}
+        angle={5}
+        penumbra={0.2}
         decay={0}
-        intensity={1.2}
-      /> */}
-        {/* <pointLight position={[-40, -10, -10]} decay={0} intensity={Math.PI} /> */}
-      </Canvas>
-    </Suspense>
+        intensity={0.8}
+        shadow-mapSize-width={2048} // higher = sharper shadows
+        shadow-mapSize-height={2048}
+        shadow-camera-near={0.1}
+        shadow-camera-far={20}
+        shadow-camera-left={-10}
+        shadow-camera-right={10}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-10}
+      />
+    </Canvas>
   );
-}
-
-{
-  /* <EffectComposer disableNormalPass>
-  <Bloom
-    luminanceThreshold={0}
-    mipmapBlur
-    luminanceSmoothing={0.0}
-    intensity={5}
-  />
-  <DepthOfField
-    target={[0, 0, 13]}
-    focalLength={0.3}
-    bokehScale={15}
-    height={700}
-  />
-</EffectComposer>; */
 }

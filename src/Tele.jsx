@@ -15,117 +15,82 @@ import {
   MeshReflectorMaterial,
   useVideoTexture,
 } from "@react-three/drei";
-import { MeshLambertMaterial } from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 
-export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
+export function Tele() {
   const { scene, nodes } = useGLTF("/models/tele.glb");
   // //access panel tex
 
+  const textures = useTexture({
+    // access panel
+    accessPanelDiffuse: "/textures/access-panel_Bake1_PBR_Diffuse.webp",
+    accessPanelNormal: "/textures/access-panel_Bake1_PBR_Normal.webp",
+    accessPanelRoughness: "/textures/access-panel_Bake1_PBR_Roughness.webp",
+
+    // aerial
+    aerialDiffuse: "/textures/aerial_Bake1_PBR_Diffuse.webp",
+    aerialNormal: "/textures/aerial_Bake1_PBR_Normal.webp",
+    aerialRoughness: "/textures/aerial_Bake1_PBR_Roughness.webp",
+
+    // aerial holder
+    aerialHolderDiffuse: "/textures/aerial-holder_Bake1_PBR_Diffuse.webp",
+    aerialHolderNormal: "/textures/aerial-holder_Bake1_PBR_Normal.webp",
+    aerialHolderRoughness: "/textures/aerial-holder_Bake1_PBR_Roughness.webp",
+
+    // body
+    bodyDiffuse: "/textures/body_Bake1_PBR_Diffuse.webp",
+    bodyNormal: "/textures/body_Bake1_PBR_Normal.webp",
+    bodyRoughness: "/textures/body_Bake1_PBR_Roughness.webp",
+
+    // button bottom
+    buttonBottomDiffuse: "/textures/button-bottom_Bake1_PBR_Diffuse.webp",
+    buttonBottomNormal: "/textures/button-bottom_Bake1_PBR_Normal.webp",
+    buttonBottomRoughness: "/textures/button-bottom_Bake1_PBR_Roughness.webp",
+
+    // button top
+    buttonTopDiffuse: "/textures/button-top_Bake1_PBR_Diffuse.webp",
+    buttonTopNormal: "/textures/button-top_Bake1_PBR_Normal.webp",
+    buttonTopRoughness: "/textures/button-top_Bake1_PBR_Roughness.webp",
+
+    // buttons channel
+    buttonsChannelDiffuse: "/textures/buttons-channel_Bake1_PBR_Diffuse.webp",
+    buttonsChannelNormal: "/textures/buttons-channel_Bake1_PBR_Normal.webp",
+    buttonsChannelRoughness:
+      "/textures/buttons-channel_Bake1_PBR_Roughness.webp",
+
+    // dial guard
+    dialGuardDiffuse: "/textures/dial-guard_Bake1_PBR_Diffuse.webp",
+    dialGuardNormal: "/textures/dial-guard_Bake1_PBR_Normal.webp",
+    dialGuardRoughness: "/textures/dial-guard_Bake1_PBR_Roughness.webp",
+
+    // dial washers
+    dialWashersDiffuse: "/textures/dial-washers_Bake1_PBR_Diffuse.webp",
+    dialWashersNormal: "/textures/dial-washers_Bake1_PBR_Normal.webp",
+    dialWashersRoughness: "/textures/dial-washers_Bake1_PBR_Roughness.webp",
+
+    // dials
+    dialsDiffuse: "/textures/dials_Bake1_PBR_Diffuse.webp",
+    dialsNormal: "/textures/dials_Bake1_PBR_Normal.webp",
+    dialsRoughness: "/textures/dials_Bake1_PBR_Roughness.webp",
+  });
+
+  console.log(textures);
+
   const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
 
-  const accessPanelDiffuse = useTexture(
-    "/textures/access-panel_Bake1_PBR_Diffuse.webp"
-  );
-  const accessPanelNormal = useTexture(
-    "/textures/access-panel_Bake1_PBR_Normal.webp"
-  );
-  const accessPanelRoughness = useTexture(
-    "/textures/access-panel_Bake1_PBR_Roughness.webp"
-  );
-  //aerial tex
-  const aerialDiffuse = useTexture("/textures/aerial_Bake1_PBR_Diffuse.webp");
-  const aerialNormal = useTexture("/textures/aerial_Bake1_PBR_Normal.webp");
-  const aerialRoughness = useTexture(
-    "/textures/aerial_Bake1_PBR_Roughness.webp"
-  );
-  //aerial holder tex
-  const aerialHolderDiffuse = useTexture(
-    "/textures/aerial-holder_Bake1_PBR_Diffuse.webp"
-  );
-  const aerialHolderNormal = useTexture(
-    "/textures/aerial-holder_Bake1_PBR_Normal.webp"
-  );
-  const aerialHolderRoughness = useTexture(
-    "/textures/aerial-holder_Bake1_PBR_Roughness.webp"
-  );
-  //body tex
-  const bodyDiffuse = useTexture("/textures/body_Bake1_PBR_Diffuse.webp");
-  const bodyNormal = useTexture("/textures/body_Bake1_PBR_Normal.webp");
-  const bodyRoughness = useTexture("/textures/body_Bake1_PBR_Roughness.webp");
-  //button bottom tex
-  const buttonBottomDiffuse = useTexture(
-    "/textures/button-bottom_Bake1_PBR_Diffuse.webp"
-  );
-  const buttonBottomNormal = useTexture(
-    "/textures/button-bottom_Bake1_PBR_Normal.webp"
-  );
-  const buttonBottomRoughness = useTexture(
-    "/textures/button-bottom_Bake1_PBR_Roughness.webp"
-  );
-  //button top tex
-  const buttonTopDiffuse = useTexture(
-    "/textures/button-top_Bake1_PBR_Diffuse.webp"
-  );
-  const buttonTopNormal = useTexture(
-    "/textures/button-top_Bake1_PBR_Normal.webp"
-  );
-  const buttonTopRoughness = useTexture(
-    "/textures/button-top_Bake1_PBR_Roughness.webp"
-  );
-
-  //button top tex
-  const buttonsChannelDiffuse = useTexture(
-    "/textures/buttons-channel_Bake1_PBR_Diffuse.webp"
-  );
-  const buttonsChannelNormal = useTexture(
-    "/textures/buttons-channel_Bake1_PBR_Normal.webp"
-  );
-  const buttonsChannelRoughness = useTexture(
-    "/textures/buttons-channel_Bake1_PBR_Roughness.webp"
-  );
-  //dial guard tex
-  const dialGuardDiffuse = useTexture(
-    "/textures/dial-guard_Bake1_PBR_Diffuse.webp"
-  );
-  const dialGuardNormal = useTexture(
-    "/textures/dial-guard_Bake1_PBR_Normal.webp"
-  );
-  const dialGuardRoughness = useTexture(
-    "/textures/dial-guard_Bake1_PBR_Roughness.webp"
-  );
-  //dial washers tex
-  const dialWashersDiffuse = useTexture(
-    "/textures/dial-washers_Bake1_PBR_Diffuse.webp"
-  );
-  const dialWashersNormal = useTexture(
-    "/textures/dial-washers_Bake1_PBR_Normal.webp"
-  );
-  const dialWashersRoughness = useTexture(
-    "/textures/dial-washers_Bake1_PBR_Roughness.webp"
-  );
-  //dials tex
-  const dialsDiffuse = useTexture("/textures/dials_Bake1_PBR_Diffuse.webp");
-  const dialsNormal = useTexture("/textures/dials_Bake1_PBR_Normal.webp");
-  const dialsRoughness = useTexture("/textures/dials_Bake1_PBR_Roughness.webp");
-  //screen housing tex
-  // const screenHousingDiffuse = useTexture(
-  //   "/textures/screen-housing_Bake1_PBR_Diffuse.webp"
-  // );
-
-  bodyDiffuse.flipY = false;
-  bodyDiffuse.needsUpdate = true;
-  bodyNormal.flipY = false;
-  bodyNormal.needsUpdate = true;
-  bodyRoughness.flipY = false;
-  bodyRoughness.needsUpdate = true;
-  aerialHolderDiffuse.flipY = false;
-  aerialHolderDiffuse.needsUpdate = true;
-  aerialHolderNormal.flipY = false;
-  aerialHolderNormal.needsUpdate = true;
-  aerialHolderRoughness.flipY = false;
-  aerialHolderRoughness.needsUpdate = true;
+  textures.bodyDiffuse.flipY = false;
+  // bodyDiffuse.needsUpdate = true;
+  textures.bodyNormal.flipY = false;
+  // bodyNormal.needsUpdate = true;
+  textures.bodyRoughness.flipY = false;
+  // bodyRoughness.needsUpdate = true;
+  // aerialHolderDiffuse.flipY = false;
+  // aerialHolderDiffuse.needsUpdate = true;
+  // aerialHolderNormal.flipY = false;
+  // aerialHolderNormal.needsUpdate = true;
+  // aerialHolderRoughness.flipY = false;
+  // aerialHolderRoughness.needsUpdate = true;
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -134,11 +99,6 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
         const merged = BufferGeometryUtils.mergeVertices(geometry);
         merged.computeVertexNormals();
         child.geometry = merged;
-        // const merged = BufferGeometryUtils.mergeVertices(child.geometry);
-        // merged.computeVertexNormals();
-        // child.geometry = merged;
-        // geometry.computeVertexNormals();
-        // geometry.normalsNeedUpdate = true;
       }
     });
   }, [scene]);
@@ -157,10 +117,6 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
   // }, [camera]);
 
   const envMapIntensity = 0.2;
-
-  // useEffect(() => {
-  //   setLoaded(true);
-  // }, []);
 
   return (
     <>
@@ -185,24 +141,24 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
         <mesh
           receiveShadow
           geometry={nodes["dial-washers_Baked"].geometry}
-          material={nodes["dial-washers_Baked"].material}
+          // material={nodes["dial-washers_Baked"].material}
         >
           <meshStandardMaterial
-            map={dialWashersDiffuse}
-            normalMap={dialWashersNormal}
-            roughnessMap={dialWashersRoughness}
+            map={textures.dialWashersDiffuse}
+            normalMap={textures.dialWashersNormal}
+            roughnessMap={textures.dialWashersRoughness}
             envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
           receiveShadow
           geometry={nodes.body_Baked.geometry}
-          material={nodes.body_Baked.material}
+          // material={nodes.body_Baked.material}
         >
           <meshStandardMaterial
-            map={bodyDiffuse}
-            normalMap={bodyNormal}
-            roughnessMap={bodyRoughness}
+            map={textures.bodyDiffuse}
+            normalMap={textures.bodyNormal}
+            roughnessMap={textures.bodyRoughness}
             roughness={0.8}
             envMapIntensity={envMapIntensity}
           />
@@ -261,9 +217,9 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
         </mesh>
         <mesh receiveShadow geometry={nodes["access-panel_Baked"].geometry}>
           <meshStandardMaterial
-            map={accessPanelDiffuse}
-            normalMap={accessPanelNormal}
-            roughnessMap={accessPanelRoughness}
+            map={textures.accessPanelDiffuse}
+            normalMap={textures.accessPanelNormal}
+            roughnessMap={textures.accessPanelRoughness}
             envMapIntensity={envMapIntensity}
           />
         </mesh>
@@ -271,13 +227,13 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
           castShadow
           receiveShadow
           geometry={nodes.aerial_Baked.geometry}
-          material={nodes.aerial_Baked.material}
+          // material={nodes.aerial_Baked.material}
           position={[0.148, 0, 0]}
         >
           <meshStandardMaterial
-            map={aerialDiffuse}
-            normalMap={aerialNormal}
-            roughnessMap={aerialRoughness}
+            map={textures.aerialDiffuse}
+            normalMap={textures.aerialNormal}
+            roughnessMap={textures.aerialRoughness}
             envMapIntensity={envMapIntensity}
           />
         </mesh>
@@ -288,9 +244,9 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
           material={nodes["button-bottom_Baked"].material}
         >
           <meshStandardMaterial
-            map={buttonBottomDiffuse}
-            normalMap={buttonBottomNormal}
-            roughnessMap={buttonBottomRoughness}
+            map={textures.buttonBottomDiffuse}
+            normalMap={textures.buttonBottomNormal}
+            roughnessMap={textures.buttonBottomRoughness}
             envMapIntensity={envMapIntensity}
           />
         </mesh>
@@ -298,12 +254,12 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
           castShadow
           receiveShadow
           geometry={nodes["button-top_Baked"].geometry}
-          material={nodes["button-top_Baked"].material}
+          // material={nodes["button-top_Baked"].material}
         >
           <meshStandardMaterial
-            map={buttonTopDiffuse}
-            normalMap={buttonTopNormal}
-            roughnessMap={buttonTopRoughness}
+            map={textures.buttonTopDiffuse}
+            normalMap={textures.buttonTopNormal}
+            roughnessMap={textures.buttonTopRoughness}
             envMapIntensity={envMapIntensity}
           />
         </mesh>
@@ -311,24 +267,24 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
           castShadow
           receiveShadow
           geometry={nodes["buttons-channel_Baked"].geometry}
-          material={nodes["buttons-channel_Baked"].material}
+          // material={nodes["buttons-channel_Baked"].material}
         >
           <meshStandardMaterial
-            map={buttonsChannelDiffuse}
-            normalMap={buttonsChannelNormal}
-            roughnessMap={buttonsChannelRoughness}
+            map={textures.buttonsChannelDiffuse}
+            normalMap={textures.buttonsChannelNormal}
+            roughnessMap={textures.buttonsChannelRoughness}
             envMapIntensity={envMapIntensity}
           />
         </mesh>
         <mesh
           receiveShadow
           geometry={nodes["dial-guard_Baked"].geometry}
-          material={nodes["dial-guard_Baked"].material}
+          // material={nodes["dial-guard_Baked"].material}
         >
           <meshStandardMaterial
-            map={dialGuardDiffuse}
-            normalMap={dialGuardNormal}
-            roughnessMap={dialGuardRoughness}
+            map={textures.dialGuardDiffuse}
+            normalMap={textures.dialGuardNormal}
+            roughnessMap={textures.dialGuardRoughness}
             envMapIntensity={envMapIntensity}
           />
         </mesh>
@@ -338,9 +294,9 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
           material={nodes.dials_Baked.material}
         >
           <meshStandardMaterial
-            map={dialsDiffuse}
-            normalMap={dialsNormal}
-            roughnessMap={dialsRoughness}
+            map={textures.dialsDiffuse}
+            normalMap={textures.dialsNormal}
+            roughnessMap={textures.dialsRoughness}
             envMapIntensity={envMapIntensity}
           />
         </mesh>
@@ -353,9 +309,9 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
           scale={[0.155, 0.531, 0.155]}
         >
           <meshStandardMaterial
-            map={aerialHolderDiffuse}
-            normalMap={aerialHolderNormal}
-            roughnessMap={aerialHolderRoughness}
+            map={textures.aerialHolderDiffuse}
+            normalMap={textures.aerialHolderNormal}
+            roughnessMap={textures.aerialHolderRoughness}
             envMapIntensity={envMapIntensity}
           />
         </mesh>
@@ -365,36 +321,3 @@ export function Tele({ setTVDialogOpen, setLoaded, setLoadedNumber }) {
 }
 
 // useGLTF.preload("/tele.glb");
-
-// [
-//   "/textures/access-panel_Bake1_PBR_Diffuse.webp",
-//   "/textures/access-panel_Bake1_PBR_Normal.webp",
-//   "/textures/access-panel_Bake1_PBR_Roughness.webp",
-//   "/textures/aerial_Bake1_PBR_Diffuse.webp",
-//   "/textures/aerial_Bake1_PBR_Normal.webp",
-//   "/textures/aerial_Bake1_PBR_Roughness.webp",
-//   "/textures/aerial-holder_Bake1_PBR_Diffuse.webp",
-//   "/textures/aerial-holder_Bake1_PBR_Normal.webp",
-//   "/textures/aerial-holder_Bake1_PBR_Roughness.webp",
-//   "/textures/body_Bake1_PBR_Diffuse.webp",
-//   "/textures/body_Bake1_PBR_Normal.webp",
-//   "/textures/body_Bake1_PBR_Roughness.webp",
-//   "/textures/button-bottom_Bake1_PBR_Diffuse.webp",
-//   "/textures/button-bottom_Bake1_PBR_Normal.webp",
-//   "/textures/button-bottom_Bake1_PBR_Roughness.webp",
-//   "/textures/button-top_Bake1_PBR_Diffuse.webp",
-//   "/textures/button-top_Bake1_PBR_Normal.webp",
-//   "/textures/button-top_Bake1_PBR_Roughness.webp",
-//   "/textures/buttons-channel_Bake1_PBR_Diffuse.webp",
-//   "/textures/buttons-channel_Bake1_PBR_Normal.webp",
-//   "/textures/buttons-channel_Bake1_PBR_Roughness.webp",
-//   "/textures/dial-guard_Bake1_PBR_Diffuse.webp",
-//   "/textures/dial-guard_Bake1_PBR_Normal.webp",
-//   "/textures/dial-guard_Bake1_PBR_Roughness.webp",
-//   "/textures/dial-washers_Bake1_PBR_Diffuse.webp",
-//   "/textures/dial-washers_Bake1_PBR_Normal.webp",
-//   "/textures/dial-washers_Bake1_PBR_Roughness.webp",
-//   "/textures/dials_Bake1_PBR_Diffuse.webp",
-//   "/textures/dials_Bake1_PBR_Normal.webp",
-//   "/textures/dials_Bake1_PBR_Roughness.webp",
-// ];
