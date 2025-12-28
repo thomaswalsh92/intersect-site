@@ -13,6 +13,9 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrambleTextPlugin } from "gsap/all";
 import { SplitText } from "gsap/all";
 
+//r3f/drei
+import { useProgress } from "@react-three/drei";
+
 //app
 import {
   IntersectLogoLeft,
@@ -56,13 +59,18 @@ export default function Home() {
   //   console.log(TVDialogOpen);
   // }, [TVDialogOpen]);
 
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    console.log(loaded);
+  }, [loaded]);
+
   //*WORK
   //get computed size of details section for bg on workDetails section
   const workDetails = useRef(null);
   const [workDetailsHeight, setWorkDetailsHeight] = useState();
-  useEffect(() => {
-    setWorkDetailsHeight(workDetails.current.clientHeight);
-  }, [workDetails]);
+  // useEffect(() => {
+  //   setWorkDetailsHeight(workDetails.current.clientHeight);
+  // }, [workDetails]);
 
   const projectDetails = [
     {
@@ -86,9 +94,9 @@ export default function Home() {
   //get computed width of work image to align controls section
   const workImage = useRef(null);
   const [workImageWidth, setWorkImageWidth] = useState();
-  useEffect(() => {
-    setWorkImageWidth(workImage.current.clientWidth);
-  }, [workImage]);
+  // useEffect(() => {
+  //   setWorkImageWidth(workImage.current.clientWidth);
+  // }, [workImage]);
 
   const [selectedProject, setSelectedProject] = useState(0);
 
@@ -105,133 +113,136 @@ export default function Home() {
   //*GSAP
   let pinSectionVal = "+=1200";
 
-  useGSAP(() => {
-    // if (!loaded) return;
-    //*SCROLL PINNING
-    gsap.from("#home-fixed", {
-      scrollTrigger: {
-        trigger: "#home-fixed",
-        start: "top top",
-        end: pinSectionVal,
-        scrub: true,
-        pin: true,
-        // pinType: "fixed",
-      },
-    });
+  useGSAP(
+    () => {
+      if (!loaded) return;
+      //*SCROLL PINNING
+      gsap.from("#home-fixed", {
+        scrollTrigger: {
+          trigger: "#home-fixed",
+          start: "top top",
+          end: pinSectionVal,
+          scrub: true,
+          pin: true,
+          // pinType: "fixed",
+        },
+      });
 
-    gsap.from("#landing", {
-      scrollTrigger: {
-        trigger: "#landing",
-        start: "top top",
-        end: pinSectionVal,
-        scrub: true,
-        pin: true,
-      },
-    });
+      gsap.from("#landing", {
+        scrollTrigger: {
+          trigger: "#landing",
+          start: "top top",
+          end: pinSectionVal,
+          scrub: true,
+          pin: true,
+        },
+      });
 
-    gsap.from("#reel", {
-      scrollTrigger: {
-        trigger: "#reel",
-        start: "top top",
-        end: pinSectionVal,
-        scrub: true,
-        pin: true,
-      },
-    });
+      gsap.from("#reel", {
+        scrollTrigger: {
+          trigger: "#reel",
+          start: "top top",
+          end: pinSectionVal,
+          scrub: true,
+          pin: true,
+        },
+      });
 
-    gsap.from("#work", {
-      scrollTrigger: {
-        trigger: "#work",
-        start: "top top",
-        end: pinSectionVal,
-        scrub: true,
-        pin: true,
-      },
-    });
+      gsap.from("#work", {
+        scrollTrigger: {
+          trigger: "#work",
+          start: "top top",
+          end: pinSectionVal,
+          scrub: true,
+          pin: true,
+        },
+      });
 
-    gsap.from("#info", {
-      scrollTrigger: {
-        trigger: "#info",
-        start: "top top",
-        end: pinSectionVal,
-        scrub: true,
-        pin: true,
-      },
-    });
+      gsap.from("#info", {
+        scrollTrigger: {
+          trigger: "#info",
+          start: "top top",
+          end: pinSectionVal,
+          scrub: true,
+          pin: true,
+        },
+      });
 
-    //*LANDING
-    //*Landing title anims
+      //*LANDING
+      //*Landing title anims
 
-    function getStaggeredDuration(i, factor) {
-      return Math.round(((i * factor) + factor + Number.EPSILON) * 100) / 100; //prettier-ignore
-    }
+      function getStaggeredDuration(i, factor) {
+        return Math.round(((i * factor) + factor + Number.EPSILON) * 100) / 100; //prettier-ignore
+      }
 
-    let landingTitleSplit = SplitText.create("#landing-title", {
-      type: "chars",
-      mask: "chars",
-    });
+      let landingTitleSplit = SplitText.create("#landing-title", {
+        type: "chars",
+        mask: "chars",
+      });
 
-    landingTitleSplit.chars.forEach((char, i) => {
-      const text = landingTitleSplit._data.orig[0].html[i];
-      const duration = getStaggeredDuration(
-        Math.round((Math.random() * landingTitleSplit.chars.length) / 2),
-        0.2
+      landingTitleSplit.chars.forEach((char, i) => {
+        const text = landingTitleSplit._data.orig[0].html[i];
+        const duration = getStaggeredDuration(
+          Math.round((Math.random() * landingTitleSplit.chars.length) / 2),
+          0.2
+        );
+        gsap.to(char, {
+          duration: duration,
+          scrambleText: {
+            text: text,
+            revealDelay: duration,
+            speed: 0.8,
+          },
+        });
+      });
+
+      const landingCapabiltiesText = gsap.utils.toArray(
+        ".landing-capability-text"
       );
-      gsap.to(char, {
-        duration: duration,
-        scrambleText: {
-          text: text,
-          revealDelay: duration,
-          speed: 0.8,
+
+      landingCapabiltiesText.forEach((el, i) => {
+        const duration = getStaggeredDuration(i, 0.1);
+        gsap.to(el, {
+          duration: duration,
+          scrambleText: {
+            text: el.innerText,
+            revealDelay: duration,
+            speed: 1.5,
+          },
+        });
+      });
+
+      const landingFlavourText = gsap.utils.toArray(".landing-flavour-text");
+
+      landingFlavourText.forEach((el, i) => {
+        const duration = getStaggeredDuration(i, 0.2);
+        gsap.to(el, {
+          duration: duration,
+          scrambleText: {
+            text: el.innerText,
+            revealDelay: duration,
+            speed: 1.5,
+          },
+        });
+      });
+
+      //*Hide Scroll call to action
+      let scrollCTATl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#home-bg",
+          start: "top top",
+          end: "+=1200",
+          scrub: true,
+          // pin: true,
         },
       });
-    });
 
-    const landingCapabiltiesText = gsap.utils.toArray(
-      ".landing-capability-text"
-    );
-
-    landingCapabiltiesText.forEach((el, i) => {
-      const duration = getStaggeredDuration(i, 0.1);
-      gsap.to(el, {
-        duration: duration,
-        scrambleText: {
-          text: el.innerText,
-          revealDelay: duration,
-          speed: 1.5,
-        },
-      });
-    });
-
-    const landingFlavourText = gsap.utils.toArray(".landing-flavour-text");
-
-    landingFlavourText.forEach((el, i) => {
-      const duration = getStaggeredDuration(i, 0.2);
-      gsap.to(el, {
-        duration: duration,
-        scrambleText: {
-          text: el.innerText,
-          revealDelay: duration,
-          speed: 1.5,
-        },
-      });
-    });
-
-    //*Hide Scroll call to action
-    let scrollCTATl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#home-bg",
-        start: "top top",
-        end: "+=1200",
-        scrub: true,
-        // pin: true,
-      },
-    });
-
-    scrollCTATl
-      .to("#landing-scroll-cta", { y: 86, duration: 99 })
-      .to("#landing-scroll-cta", { opacity: 0, duration: 1 });
-  }, []);
+      scrollCTATl
+        .to("#landing-scroll-cta", { y: 86, duration: 99 })
+        .to("#landing-scroll-cta", { opacity: 0, duration: 1 });
+    },
+    { dependencies: [loaded] }
+  );
 
   //* GSAP smooth scroll init
   const wrapper = useRef();
@@ -349,6 +360,7 @@ export default function Home() {
               </div>
             </div>
             <div id="home-content">
+              {!loaded && <div id="loading-screen"></div>}
               <div id="landing" ref={landingRef}>
                 <div id="landing-capabilities" className="text-2">
                   <p className="landing-capability-text">
@@ -388,11 +400,6 @@ export default function Home() {
                     <p id="landing-cta-arrow" className="text-1">{`->`}</p>
                   </div>
                 </div>
-                {/* <div id="landing-title-container">
-                  <span id="landing-title" className="text-1">
-                    INTERSECT
-                  </span>
-                </div>*/}
               </div>
               <div id="reel">
                 <div
@@ -404,15 +411,14 @@ export default function Home() {
                   }}
                 ></div>
                 {/* <img id="reel-image" src={sonyTv}></img> */}
-                {/* <Suspense> */}
                 <TeleCanvas
                   height={height}
                   width={width}
                   contextId={"reel-tv-canvas"}
                   TVDialogOpen={TVDialogOpen}
                   setTVDialogOpen={(bool) => setTVDialogOpen(bool)}
+                  setLoaded={setLoaded}
                 />
-                {/* </Suspense> */}
               </div>
               <div id="work" ref={workRef}>
                 <div id="work-grid">

@@ -18,7 +18,10 @@ import {
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 
-export function Tele() {
+export function Tele({ setLoaded }) {
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
   const { scene, nodes } = useGLTF("/models/tele.glb");
   // //access panel tex
 
@@ -75,8 +78,6 @@ export function Tele() {
     dialsRoughness: "/textures/dials_Bake1_PBR_Roughness.webp",
   });
 
-  console.log(textures);
-
   const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
 
   textures.bodyDiffuse.flipY = false;
@@ -113,11 +114,10 @@ export function Tele() {
 
   const { camera } = useThree();
   // useEffect(() => {
-  camera.lookAt(0, -2, 0);
+  camera.lookAt(0, -1, 0);
   // }, [camera]);
 
   const envMapIntensity = 0.2;
-
   return (
     <>
       <group
