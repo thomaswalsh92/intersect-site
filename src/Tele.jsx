@@ -18,13 +18,13 @@ import {
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 
-export function Tele({ setLoaded }) {
+export function Tele({ onAssetsLoaded }) {
   useEffect(() => {
-    setLoaded(true);
+    onAssetsLoaded();
   }, []);
   const { scene, nodes } = useGLTF("/models/tele.glb");
   // //access panel tex
-
+  const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
   const textures = useTexture({
     // access panel
     accessPanelDiffuse: "/textures/access-panel_Bake1_PBR_Diffuse.webp",
@@ -78,8 +78,6 @@ export function Tele({ setLoaded }) {
     dialsRoughness: "/textures/dials_Bake1_PBR_Roughness.webp",
   });
 
-  const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
-
   textures.bodyDiffuse.flipY = false;
   // bodyDiffuse.needsUpdate = true;
   textures.bodyNormal.flipY = false;
@@ -117,7 +115,25 @@ export function Tele({ setLoaded }) {
   camera.lookAt(0, -1, 0);
   // }, [camera]);
 
+  useGLTF.preload("/tele.glb");
+
   const envMapIntensity = 0.2;
+
+  // const { gl } = useThree();
+  // const fired = useRef(false);
+
+  // useEffect(() => {
+  //   gl.compile(scene, camera);
+  // }, []);
+
+  // useFrame(() => {
+  //   if (!fired.current) {
+  //     fired.current = true;
+  //   }
+  //   if (fired.current) {
+  //     console.log("webGLready");
+  //   }
+  // });
   return (
     <>
       <group
@@ -156,9 +172,9 @@ export function Tele({ setLoaded }) {
           // material={nodes.body_Baked.material}
         >
           <meshStandardMaterial
-            map={textures.bodyDiffuse}
+            color={"#D3D3D2"}
             normalMap={textures.bodyNormal}
-            roughnessMap={textures.bodyRoughness}
+            // roughnessMap={textures.bodyRoughness}
             roughness={0.8}
             envMapIntensity={envMapIntensity}
           />
@@ -210,7 +226,7 @@ export function Tele({ setLoaded }) {
           <meshStandardMaterial
             color="#111"
             emissive="#ffffff"
-            emissiveIntensity={200}
+            emissiveIntensity={100}
             emissiveMap={videoTexture}
             envMapIntensity={envMapIntensity}
           />
@@ -319,5 +335,3 @@ export function Tele({ setLoaded }) {
     </>
   );
 }
-
-// useGLTF.preload("/tele.glb");

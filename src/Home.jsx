@@ -14,6 +14,7 @@ import { ScrambleTextPlugin } from "gsap/all";
 import { SplitText } from "gsap/all";
 
 //r3f/drei
+import { useFrame } from "@react-three/fiber";
 import { useProgress } from "@react-three/drei";
 
 //app
@@ -24,6 +25,7 @@ import {
 } from "./IntersectLogo";
 import rainydayImage from "./assets/images/rainyday-image.png";
 import sonyTv from "./assets/images/sony-tv.png";
+import loadingGIF from "./assets/images/loading.gif";
 import useWindowDimensions from "./utils/useWindowDimensions";
 import TeleCanvas from "./TeleCanvas";
 
@@ -35,6 +37,67 @@ gsap.registerPlugin(
   ScrambleTextPlugin,
   SplitText
 );
+
+function LoadingSpinner({ size = 48, color = "#333", speed = 1 }) {
+  const spinnerRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to(spinnerRef.current, {
+        rotation: 360,
+        duration: speed,
+        repeat: -1,
+        ease: "linear",
+      });
+    });
+
+    return () => ctx.revert();
+  }, [speed]);
+
+  return (
+    <div
+      ref={spinnerRef}
+      style={{
+        zIndex: 101,
+        width: size,
+        height: size,
+        border: `${size / 8}px solid rgba(0, 119, 255, 1)`,
+        borderTop: `${size / 8}px solid color`,
+        borderRadius: "10%",
+        boxSizing: "border-box",
+      }}
+    />
+  );
+}
+
+function LoadingScreen() {
+  const counterRef = useRef(null);
+
+  useGSAP(() => {
+    gsap.fromTo(
+      counterRef.current,
+      { innerText: 0 },
+      {
+        innerText: 100,
+        duration: 2,
+        ease: "power1.out",
+        snap: { innerText: 1 },
+      }
+    );
+  });
+
+  return (
+    <div id="loading-screen">
+      <img src={loadingGIF} alt="Loading..." />
+      <p className="text-1">
+        LOADING
+        <span className="text-1" id="loading-underscore-blink">
+          _
+        </span>
+      </p>
+    </div>
+  );
+}
 
 export default function Home() {
   const { height, width } = useWindowDimensions();
@@ -59,10 +122,28 @@ export default function Home() {
   //   console.log(TVDialogOpen);
   // }, [TVDialogOpen]);
 
-  const [loaded, setLoaded] = useState(false);
+  //*LOADING
+  function onAssetsLoaded() {
+    setAssetsLoaded(true);
+    console.log("assets loaded");
+  }
+
+  const [assetsLoaded, setAssetsLoaded] = useState(false);
+
+  function onWebGLReady() {
+    setWebGLReady(true);
+    console.log("web gl ready steady");
+  }
+
+  const [webGLReady, setWebGLReady] = useState(false);
+
+  const [appReady, setAppReady] = useState(false);
+
   useEffect(() => {
-    console.log(loaded);
-  }, [loaded]);
+    if (assetsLoaded && webGLReady) setAppReady(true);
+  }, [assetsLoaded, webGLReady]);
+  // const { progress, total } = useProgress();
+  // if (total > 20 && progress === 100 && !assetsLoaded) setAssetsLoaded(true);
 
   //*WORK
   //get computed size of details section for bg on workDetails section
@@ -115,7 +196,7 @@ export default function Home() {
 
   useGSAP(
     () => {
-      if (!loaded) return;
+      if (!appReady) return;
       //*SCROLL PINNING
       gsap.from("#home-fixed", {
         scrollTrigger: {
@@ -241,7 +322,7 @@ export default function Home() {
         .to("#landing-scroll-cta", { y: 86, duration: 99 })
         .to("#landing-scroll-cta", { opacity: 0, duration: 1 });
     },
-    { dependencies: [loaded] }
+    { dependencies: [appReady] }
   );
 
   //* GSAP smooth scroll init
@@ -249,6 +330,7 @@ export default function Home() {
   const content = useRef();
   useGSAP(
     () => {
+      if (!appReady) return;
       wrapper.current = ScrollSmoother.create({
         wrapper: wrapper.current,
         content: content.current,
@@ -257,7 +339,7 @@ export default function Home() {
         //normalizeScroll: true,
       });
     },
-    { scope: wrapper }
+    { scope: wrapper, dependencies: [appReady] }
   );
 
   const landingRef = useRef();
@@ -282,6 +364,8 @@ export default function Home() {
 
   return (
     <>
+      {/* <LoadingScreen /> */}
+      {!appReady && <LoadingScreen />}
       <div id="navbar">
         <p
           id="navbar-title"
@@ -360,7 +444,6 @@ export default function Home() {
               </div>
             </div>
             <div id="home-content">
-              {!loaded && <div id="loading-screen"></div>}
               <div id="landing" ref={landingRef}>
                 <div id="landing-capabilities" className="text-2">
                   <p className="landing-capability-text">
@@ -402,22 +485,23 @@ export default function Home() {
                 </div>
               </div>
               <div id="reel">
-                <div
+                {/* <div
                   id="reel-tv-dialog"
-                  style={{
-                    opacity: TVDialogOpen ? "100%" : "0%",
-                    top: mousePosition.y + 5,
-                    left: mousePosition.x + 5,
-                  }}
-                ></div>
+                  style={
+                    {
+                      // opacity: TVDialogOpen ? "100%" : "0%",
+                      // top: mousePosition.y + 5,
+                      // left: mousePosition.x + 5,
+                    }
+                  }
+                ></div> */}
                 {/* <img id="reel-image" src={sonyTv}></img> */}
                 <TeleCanvas
                   height={height}
                   width={width}
                   contextId={"reel-tv-canvas"}
-                  TVDialogOpen={TVDialogOpen}
-                  setTVDialogOpen={(bool) => setTVDialogOpen(bool)}
-                  setLoaded={setLoaded}
+                  onAssetsLoaded={onAssetsLoaded}
+                  onWebGLReady={onWebGLReady}
                 />
               </div>
               <div id="work" ref={workRef}>
@@ -599,9 +683,7 @@ export default function Home() {
                     </p>
                   </a>
                 </div>
-                <div id="info-image">
-                  <img src={sonyTv} />
-                </div>
+                <div id="info-image">{/* <img src={sonyTv} /> */}</div>
               </div>
             </div>
           </div>
