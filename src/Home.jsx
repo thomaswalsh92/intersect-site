@@ -111,18 +111,8 @@ export default function Home() {
   const [TVDialogOpen, setTVDialogOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // const handleMouseMove = (event) => {
-  //   setMousePosition({
-  //     x: event.clientX,
-  //     y: event.clientY,
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   console.log(TVDialogOpen);
-  // }, [TVDialogOpen]);
-
   //*LOADING
+
   function onAssetsLoaded() {
     setAssetsLoaded(true);
     console.log("assets loaded");
@@ -140,18 +130,16 @@ export default function Home() {
   const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
-    if (assetsLoaded && webGLReady) setAppReady(true);
+    if (assetsLoaded && webGLReady) {
+      setAppReady(true);
+      document.documentElement.style.overflow = "auto";
+      document.body.style.overflow = "auto";
+    }
   }, [assetsLoaded, webGLReady]);
-  // const { progress, total } = useProgress();
-  // if (total > 20 && progress === 100 && !assetsLoaded) setAssetsLoaded(true);
 
   //*WORK
-  //get computed size of details section for bg on workDetails section
   const workDetails = useRef(null);
   const [workDetailsHeight, setWorkDetailsHeight] = useState();
-  // useEffect(() => {
-  //   setWorkDetailsHeight(workDetails.current.clientHeight);
-  // }, [workDetails]);
 
   const projectDetails = [
     {
