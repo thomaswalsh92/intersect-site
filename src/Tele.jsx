@@ -25,6 +25,9 @@ export function Tele({ onAssetsLoaded }) {
   const { scene, nodes } = useGLTF("/models/tele.glb");
   // //access panel tex
   const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
+  const glitchVideoTexture = useVideoTexture(
+    "/textures/intersect-logo-glitch-1x1.mp4"
+  );
   const textures = useTexture({
     // access panel
     accessPanelDiffuse: "/textures/access-panel_Bake1_PBR_Diffuse.webp",
@@ -90,6 +93,10 @@ export function Tele({ onAssetsLoaded }) {
   // aerialHolderNormal.needsUpdate = true;
   // aerialHolderRoughness.flipY = false;
   // aerialHolderRoughness.needsUpdate = true;
+  // glitchVideoTexture.repeat.x = -1;
+  // glitchVideoTexture.offset.x = 1;
+  glitchVideoTexture.repeat.y = -1;
+  glitchVideoTexture.offset.y = 1;
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -103,16 +110,43 @@ export function Tele({ onAssetsLoaded }) {
   }, [scene]);
 
   const ref = useRef(null);
-  const start = Math.PI / 10;
-  const end = -Math.PI / 10;
+  const startY = Math.PI / 10;
+  const endY = -Math.PI / 10;
+  const startX = Math.PI / 100;
+  const endX = -Math.PI / 100;
   const { pointer } = useThree();
-  useFrame(() => {
-    ref.current.rotation.y = -(start + (end - start)) * pointer.x;
+  // useFrame(() => {
+  //   ref.current.rotation.y = -(startY + (endY - startY)) * pointer.x;
+  //   ref.current.rotation.x = (startX + (endX - startX)) * pointer.y;
+  // });
+
+  const maxY = Math.PI / 10; // ±18°
+  const maxX = Math.PI / 100; // ±1.8°
+
+  useFrame((state, delta) => {
+    if (!ref.current) return;
+
+    const targetY = pointer.x * maxY;
+    const targetX = -pointer.y * maxX;
+
+    ref.current.rotation.y = THREE.MathUtils.damp(
+      ref.current.rotation.y,
+      targetY,
+      6,
+      delta
+    );
+
+    ref.current.rotation.x = THREE.MathUtils.damp(
+      ref.current.rotation.x,
+      targetX,
+      6,
+      delta
+    );
   });
 
   const { camera } = useThree();
   // useEffect(() => {
-  camera.lookAt(0, -1, 0);
+  camera.lookAt(0, -0.7, 0);
   // }, [camera]);
 
   useGLTF.preload("/tele.glb");
@@ -210,7 +244,7 @@ export function Tele({ onAssetsLoaded }) {
         >
           <meshBasicMaterial
             // color="orange"
-            map={videoTexture}
+            map={glitchVideoTexture}
             // emissive="orange" // the glow color
             // emissiveIntensity={60}
           />
@@ -226,8 +260,8 @@ export function Tele({ onAssetsLoaded }) {
           <meshStandardMaterial
             color="#111"
             emissive="#ffffff"
-            emissiveIntensity={100}
-            emissiveMap={videoTexture}
+            emissiveIntensity={200}
+            emissiveMap={glitchVideoTexture}
             envMapIntensity={envMapIntensity}
           />
         </mesh>

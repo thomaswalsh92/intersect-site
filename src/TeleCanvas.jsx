@@ -61,7 +61,7 @@ export default function TeleCanvas({
       }}
       size={[width, height]}
       // shadows={{ type: "PCFSoftShadowMap" }}
-      camera={{ position: [0, 2, 35], fov: 19 }}
+      camera={{ position: [0, 0, 28], fov: 19 }}
     >
       <WebGLWarmup />
       {/* <Suspense fallback={<LoadingScreen setLoaded={setLoaded} />}> */}

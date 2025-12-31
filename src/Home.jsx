@@ -131,6 +131,12 @@ export default function Home() {
 
   useEffect(() => {
     if (assetsLoaded && webGLReady) {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+
+      // Force scroll to top
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       setAppReady(true);
       document.documentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";
