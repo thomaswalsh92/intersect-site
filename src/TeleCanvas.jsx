@@ -48,11 +48,13 @@ export default function TeleCanvas({
   onAssetsLoaded,
   onWebGLReady,
 }) {
+  console.log(width);
+  console.log(height);
   return (
     <Canvas
       // frameloop="demand"
       shadows
-      id={contextId}
+      id="tele-canvas"
       gl={(gl) => {
         gl.physicallyCorrectLights = true;
         gl.useLegacyLights = false;

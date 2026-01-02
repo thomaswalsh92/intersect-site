@@ -114,6 +114,12 @@ export default function Home() {
 
   //*LOADING
 
+  //! DEV-remove force loadind without TV element
+  useEffect(() => {
+    setWebGLReady(true);
+    setAssetsLoaded(true);
+  });
+
   function onAssetsLoaded() {
     setAssetsLoaded(true);
     console.log("assets loaded");
@@ -188,6 +194,7 @@ export default function Home() {
 
   //*GSAP
   let pinSectionVal = "+=1200";
+  let tvSectionPin = () => "+=" + (window.innerHeight * 3 + 3600);
 
   useGSAP(
     () => {
@@ -211,6 +218,17 @@ export default function Home() {
           end: pinSectionVal,
           scrub: true,
           pin: true,
+        },
+      });
+
+      gsap.from("#tele-container", {
+        scrollTrigger: {
+          trigger: "#tele-container",
+          start: "top top",
+          end: tvSectionPin,
+          scrub: true,
+          pin: true,
+          markers: true,
         },
       });
 
@@ -479,206 +497,57 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div id="reel">
-                {/* <div
-                  id="reel-tv-dialog"
-                  style={
-                    {
-                      // opacity: TVDialogOpen ? "100%" : "0%",
-                      // top: mousePosition.y + 5,
-                      // left: mousePosition.x + 5,
-                    }
-                  }
-                ></div> */}
-                {/* <img id="reel-image" src={sonyTv}></img> */}
-                <TeleCanvas
-                  height={height}
-                  width={width}
-                  contextId={"reel-tv-canvas"}
-                  onAssetsLoaded={onAssetsLoaded}
-                  onWebGLReady={onWebGLReady}
-                />
-              </div>
-              <div id="work" ref={workRef}>
-                <div id="work-grid">
-                  <div id="work-gallery-container">
-                    <div id="work-gallery-image-container">
-                      <img
-                        ref={workImage}
-                        id="work-gallery-image"
-                        src={rainydayImage}
-                      />
-                    </div>
-                    <div id="work-gallery-controls-container">
-                      <div
-                        style={{ width: workImageWidth }}
-                        id="work-gallery-controls"
-                      >
-                        <div
-                          className="work-gallery-controls-click-area"
-                          id="work-gallery-controls-click-area-l"
-                          onClick={() =>
-                            selectedProject > 0 &&
-                            setSelectedProject(selectedProject - 1)
-                          }
-                        ></div>
-                        <div
-                          className="work-gallery-controls-arrow"
-                          id="work-gallery-controls-arrow-l"
-                        ></div>
-                        <div
-                          id="work-gallery-controls-indicator"
-                          style={{
-                            width:
-                              12 +
-                              (projectDetails.length - 1) * 8 +
-                              24 +
-                              4 * projectDetails.length,
-                          }}
-                        >
-                          {projectDetails.map((project, index) => {
-                            return (
-                              <div
-                                style={{
-                                  width: index === selectedProject ? 12 : 8,
-                                  height: index === selectedProject ? 12 : 8,
-                                  marginLeft: 2,
-                                  marginRight: 2,
-                                  background: "#e2e2e1",
-                                  clipPath: `circle(${
-                                    index === selectedProject ? 6 : 4
-                                  }px)`,
-                                }}
-                              ></div>
-                            );
-                          })}
-                        </div>
-                        <div
-                          className="work-gallery-controls-arrow"
-                          id="work-gallery-controls-arrow-r"
-                        ></div>
-                        <div
-                          className="work-gallery-controls-click-area"
-                          id="work-gallery-controls-click-area-r"
-                          onClick={() =>
-                            selectedProject < projectDetails.length - 1 &&
-                            setSelectedProject(selectedProject + 1)
-                          }
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="work-details-container">
-                    <div
-                      id="work-details-bg"
-                      style={{ height: workDetailsHeight }}
-                    ></div>
-                    <div id="work-details" ref={workDetails}>
-                      {/*! stubbed data below */}
-                      <div id="work-details-col-1">
-                        <p
-                          id="work-details-project-heading"
-                          className="text-2 work-details-heading"
-                        >
-                          PROJECT
-                        </p>
-                        <p
-                          id="work-details-project-text"
-                          className="text-2 work-details-text"
-                        >
-                          {projectDetails[0].project}
-                        </p>
-                        <p
-                          id="work-details-client-heading"
-                          className="text-2 work-details-heading"
-                        >
-                          CLIENT
-                        </p>
-                        <p
-                          id="work-details-client-text"
-                          className="text-2 work-details-text"
-                        >
-                          {projectDetails[0].client}
-                        </p>
-                        <p
-                          id="work-details-disciplines-heading"
-                          className="text-2 work-details-heading"
-                        >
-                          DISCIPLINES
-                        </p>
-                        <div id="work-details-disciplines-badges-container">
-                          {projectDetails[0].disciplines.map((item, index) => {
-                            return (
-                              <div
-                                className="work-details-discipline-badge"
-                                key={item + ":" + index}
-                              >
-                                <p className="text-2 work-details-discipline-badge-text">
-                                  {item}
-                                </p>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                      <div id="work-details-col-2">
-                        <p
-                          id="work-details-published-heading"
-                          className="text-2 work-details-heading"
-                        >
-                          PUBLISHED
-                        </p>
-                        <p
-                          id="work-details-published-text"
-                          className="text-2 work-details-text"
-                        >
-                          2025
-                        </p>
-                        <p
-                          id="work-details-description-text"
-                          className="text-2 work-details-text"
-                        >
-                          {projectDetails[0].description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+              <div id="tele-section">
+                <div id="tele-container">
+                  <TeleCanvas
+                    height={height} //!height state
+                    width={width} //!width state
+                    onAssetsLoaded={onAssetsLoaded}
+                    onWebGLReady={onWebGLReady}
+                  />
                 </div>
-              </div>
-              <div id="info" ref={infoRef}>
-                <div id="info-text">
-                  <p className="text-2 info-heading">
-                    WE ARE <span className="text-1">INTERSECT</span>
-                  </p>
-                  <p className="text-3 info-text" style={{ marginTop: 8 }}>
-                    A design studio focusing on the delivery of ideas across
-                    digital mediums, pushing creative boundaries and exploration
-                    of the fertile space between creativity and technology.
-                  </p>
-                  <p className="text-1 info-heading" style={{ marginTop: 16 }}>
-                    CAPABILITIES
-                  </p>
-                  <div id="info-capabilities" style={{ marginTop: 8 }}>
-                    {infoCapabilities.map((x) => {
-                      return <p className="text-3 info-text">{`> ${x}`}</p>;
-                    })}
-                  </div>
-                  {/*Change mail to when domain registered*/}
-                  <a
-                    href="mailto:test@test.com"
-                    style={{ textDecoration: "none" }}
-                  >
-                    <p id="info-contact" style={{ marginTop: 32 }}>
-                      <span className="text-1 info-underlined">GET</span>
-                      <span className="text-3 info-non-underlined">_</span>
-                      <span className="text-1 info-underlined">IN</span>
-                      <span className="text-3 info-non-underlined">_</span>
-                      <span className="text-1 info-underlined">TOUCH</span>
-                      <span className="text-2 info-non-underlined">{`->`}</span>
+
+                <div id="reel"></div>
+                <div id="work" ref={workRef}></div>
+                <div id="info" ref={infoRef}>
+                  <div id="info-text">
+                    <p className="text-2 info-heading">
+                      WE ARE <span className="text-1">INTERSECT</span>
                     </p>
-                  </a>
+                    <p className="text-3 info-text" style={{ marginTop: 8 }}>
+                      A design studio focusing on the delivery of ideas across
+                      digital mediums, pushing creative boundaries and
+                      exploration of the fertile space between creativity and
+                      technology.
+                    </p>
+                    <p
+                      className="text-1 info-heading"
+                      style={{ marginTop: 16 }}
+                    >
+                      CAPABILITIES
+                    </p>
+                    <div id="info-capabilities" style={{ marginTop: 8 }}>
+                      {infoCapabilities.map((x) => {
+                        return <p className="text-3 info-text">{`> ${x}`}</p>;
+                      })}
+                    </div>
+                    {/*Change mail to when domain registered*/}
+                    <a
+                      href="mailto:test@test.com"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <p id="info-contact" style={{ marginTop: 32 }}>
+                        <span className="text-1 info-underlined">GET</span>
+                        <span className="text-3 info-non-underlined">_</span>
+                        <span className="text-1 info-underlined">IN</span>
+                        <span className="text-3 info-non-underlined">_</span>
+                        <span className="text-1 info-underlined">TOUCH</span>
+                        <span className="text-2 info-non-underlined">{`->`}</span>
+                      </p>
+                    </a>
+                  </div>
+                  <div id="info-image">{/* <img src={sonyTv} /> */}</div>
                 </div>
-                <div id="info-image">{/* <img src={sonyTv} /> */}</div>
               </div>
             </div>
           </div>
