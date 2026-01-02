@@ -103,6 +103,7 @@ export default function Home() {
   const { height, width } = useWindowDimensions();
 
   //*BG
+  //checkpoint
 
   //*LANDING
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
