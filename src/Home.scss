@@ -260,12 +260,13 @@ html {
   width: 100vw;
   height: 100vh;
   position: absolute;
-  z-index: 100;
+  z-index: 99;
 }
 
 #tele-canvas {
   width: 100vw;
   height: 100vh;
+  z-index: 99;
 }
 
 //*REEL
@@ -501,13 +502,13 @@ $IndicatorMarginTune: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: blue;
-  opacity: 60%;
+  z-index: 101;
   // font-family: JetBrainsMono;
   // font-weight: light;
   p,
   span {
     color: $White;
+    z-index: 102;
   }
 }
 

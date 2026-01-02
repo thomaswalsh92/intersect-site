@@ -38,38 +38,6 @@ gsap.registerPlugin(
   SplitText
 );
 
-function LoadingSpinner({ size = 48, color = "#333", speed = 1 }) {
-  const spinnerRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.to(spinnerRef.current, {
-        rotation: 360,
-        duration: speed,
-        repeat: -1,
-        ease: "linear",
-      });
-    });
-
-    return () => ctx.revert();
-  }, [speed]);
-
-  return (
-    <div
-      ref={spinnerRef}
-      style={{
-        zIndex: 101,
-        width: size,
-        height: size,
-        border: `${size / 8}px solid rgba(0, 119, 255, 1)`,
-        borderTop: `${size / 8}px solid color`,
-        borderRadius: "10%",
-        boxSizing: "border-box",
-      }}
-    />
-  );
-}
-
 function LoadingScreen() {
   const counterRef = useRef(null);
 
@@ -193,8 +161,10 @@ export default function Home() {
   ];
 
   //*GSAP
-  let pinSectionVal = "+=1200";
-  let tvSectionPin = () => "+=" + (window.innerHeight * 3 + 3600);
+  //1 pin unit is half of the windowHeight
+  const pinUnit = window.innerHeight;
+  const pinSectionVal = "+=" + pinUnit;
+  const tvSectionPin = "+=" + pinUnit * 6;
 
   useGSAP(
     () => {
@@ -228,7 +198,6 @@ export default function Home() {
           end: tvSectionPin,
           scrub: true,
           pin: true,
-          markers: true,
         },
       });
 
@@ -325,7 +294,7 @@ export default function Home() {
         scrollTrigger: {
           trigger: "#home-bg",
           start: "top top",
-          end: "+=1200",
+          end: pinSectionVal,
           scrub: true,
           // pin: true,
         },
