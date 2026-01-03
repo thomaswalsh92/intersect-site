@@ -18,22 +18,11 @@ import {
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 
-//gsap
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
-
 export function Tele({ onAssetsLoaded }) {
   useEffect(() => {
     onAssetsLoaded();
   }, []);
-
-  useGSAP(() => {});
   const { scene, nodes } = useGLTF("/models/tele.glb");
-  const { camera, pointer } = useThree();
-
   // //access panel tex
   const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
   const glitchVideoTexture = useVideoTexture(
@@ -125,6 +114,7 @@ export function Tele({ onAssetsLoaded }) {
   const endY = -Math.PI / 10;
   const startX = Math.PI / 100;
   const endX = -Math.PI / 100;
+  const { pointer } = useThree();
   // useFrame(() => {
   //   ref.current.rotation.y = -(startY + (endY - startY)) * pointer.x;
   //   ref.current.rotation.x = (startX + (endX - startX)) * pointer.y;
@@ -154,20 +144,48 @@ export function Tele({ onAssetsLoaded }) {
     );
   });
 
-  useEffect(() => {
-    camera.lookAt(0, -0.7, 0);
-  }, [camera]);
+  const { camera } = useThree();
+  // useEffect(() => {
+  camera.lookAt(0, -0.7, 0);
+  // }, [camera]);
 
   useGLTF.preload("/tele.glb");
 
   const envMapIntensity = 0.2;
 
+  // const { gl } = useThree();
+  // const fired = useRef(false);
+
+  // useEffect(() => {
+  //   gl.compile(scene, camera);
+  // }, []);
+
+  // useFrame(() => {
+  //   if (!fired.current) {
+  //     fired.current = true;
+  //   }
+  //   if (fired.current) {
+  //     console.log("webGLready");
+  //   }
+  // });
   return (
     <>
       <group
         ref={ref}
+        // onPointerOver={(e) => {
+        //   e.stopPropagation();
+        //   setTVDialogOpen(true);
+        // }}
+        // onPointerOut={(e) => {
+        //   e.stopPropagation();
+        //   setTVDialogOpen(false);
+        // }}
+        // ref={ref}
         position={[0, -3, 0]}
         rotation={[0, -Math.PI / 1, 0]}
+        // {...props}
+        // position={[0, -4, -2]}
+        // rotation={[0, Math.PI * 1.8, 0]}
         dispose={null}
       >
         <mesh

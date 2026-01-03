@@ -41,7 +41,7 @@ html {
 //*HOME FIXED ELEMENTS
 #home-fixed {
   position: absolute;
-  height: 1700vh;
+  height: 900vh;
   width: 100vw;
   background: $Black;
   opacity: 100%;
@@ -81,7 +81,7 @@ html {
   top: 48px;
   left: 0;
   width: 100vw;
-  height: 1700vh;
+  height: 900vh;
   background: rgba(0, 0, 0, 1);
   background: linear-gradient(
     90deg,
@@ -250,31 +250,10 @@ html {
   transform: rotate(90deg);
 }
 
-//*TV-SECTION
-#tele-section {
-  width: 100vw;
-  height: auto;
-}
-
-#tele-container {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  z-index: 99;
-}
-
-#tele-canvas {
-  width: 100vw;
-  height: 100vh;
-  z-index: 99;
-}
-
 //*REEL
 #reel {
   width: 100vw;
   height: 100vh;
-  background-color: red;
-  opacity: 60%;
 }
 
 #reel-image {
@@ -284,9 +263,12 @@ html {
   width: 100vw;
 }
 
-// #reel-tv-canvas {
-//   visibility: hidden;
-// }
+#reel-tv-canvas {
+  position: absolute;
+  bottom: 0px;
+  // height: 100vh;
+  // width: 100vw;
+}
 
 #reel-tv-dialog {
   position: absolute;
@@ -305,8 +287,6 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: green;
-  opacity: 60%;
   // font-family: JetBrainsMono;
   // font-weight: light;
 }
@@ -502,13 +482,11 @@ $IndicatorMarginTune: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 101;
   // font-family: JetBrainsMono;
   // font-weight: light;
   p,
   span {
     color: $White;
-    z-index: 102;
   }
 }
 

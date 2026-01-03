@@ -11,13 +11,6 @@ import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { Environment, Lightformer, SoftShadows } from "@react-three/drei";
 
-//gsap
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
-
 //app
 import { Tele } from "./Tele";
 
@@ -48,98 +41,6 @@ function WebGLReady({ onWebGLReady }) {
   return null;
 }
 
-function CanvasAnimationController() {
-  const { camera } = useThree();
-
-  // useGSAP(() => {
-  //   gsap.to(camera.position, {
-  //     z: 40,
-  //     scrollTrigger: {
-  //       trigger: "#reel",
-  //       start: "bottom top",
-  //       end: "+=1200",
-  //       scrub: true,
-  //     },
-  //   });
-
-  //   gsap.to(camera.position, {
-  //     x: 7,
-  //     scrollTrigger: {
-  //       trigger: "#reel",
-  //       start: "bottom top",
-  //       end: "+=1200",
-  //       scrub: true,
-  //     },
-  //   });
-
-  //   gsap.to(camera.position, {
-  //     x: -7,
-  //     scrollTrigger: {
-  //       trigger: "#work",
-  //       start: "bottom top",
-  //       end: "+=1200",
-  //       scrub: true,
-  //       markers: true,
-  //     },
-  //   });
-  // });
-
-  useGSAP(() => {
-    const pinUnit = window.innerHeight;
-    const totalScroll = "+=" + pinUnit * 6;
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#reel",
-        start: "top top",
-        end: totalScroll, // total scroll distance
-        scrub: true,
-        markers: true,
-      },
-    });
-    tl.to(
-      camera.position,
-      {
-        x: 0,
-        duration: 1,
-      },
-      0
-    );
-    tl.to(
-      camera.position,
-      {
-        z: 40,
-        duration: 1,
-      },
-      1
-    );
-    tl.to(
-      camera.position,
-      {
-        x: 6,
-        duration: 1,
-      },
-      1
-    );
-
-    tl.to(camera.position, {
-      x: 6,
-      duration: 1,
-    });
-
-    tl.to(camera.position, {
-      x: -6,
-      duration: 1,
-    });
-
-    tl.to(camera.position, {
-      x: -6,
-      duration: 1,
-    });
-  });
-  return null;
-}
-
 export default function TeleCanvas({
   width,
   height,
@@ -151,7 +52,7 @@ export default function TeleCanvas({
     <Canvas
       // frameloop="demand"
       shadows
-      id="tele-canvas"
+      id={contextId}
       gl={(gl) => {
         gl.physicallyCorrectLights = true;
         gl.useLegacyLights = false;
@@ -236,7 +137,6 @@ export default function TeleCanvas({
       />
       {/* </Suspense> */}
       <WebGLReady onWebGLReady={onWebGLReady} />
-      <CanvasAnimationController />
     </Canvas>
   );
 }
