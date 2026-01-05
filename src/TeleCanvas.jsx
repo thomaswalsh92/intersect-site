@@ -10,6 +10,12 @@ import * as THREE from "three";
 //r3f
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { Environment, Lightformer, SoftShadows } from "@react-three/drei";
+// import {
+//   EffectComposer,
+//   Bloom,
+//   Noise,
+//   ChromaticAberration,
+// } from "@react-three/postprocessing";
 
 //app
 import { Tele } from "./Tele";
@@ -123,6 +129,25 @@ export default function TeleCanvas({
       />
       {/* </Suspense> */}
       <WebGLReady onWebGLReady={onWebGLReady} />
+      {/*<EffectComposer>
+        <Bloom
+          intensity={1.0} // The bloom intensity.
+          //blurPass={undefined} // A blur pass.
+          //kernelSize={KernelSize.LARGE} // blur kernel size
+          luminanceThreshold={0.9} // luminance threshold. Raise this value to mask out darker elements in the scene.
+          luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1]
+          mipmapBlur={true} // Enables or disables mipmap blur.
+          //resolutionX={Resolution.AUTO_SIZE} // The horizontal resolution.
+          //resolutionY={Resolution.AUTO_SIZE} // The vertical resolution.
+        />
+        <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={10} />{" "}
+        {/* <Noise opacity={0.5} />
+        {/* <Blur resolution={1080} scale={0.1} /> 
+        <ChromaticAberration
+          // blendFunction={BlendFunction.NORMAL} // blend mode
+          offset={[0.0002, 0.0002]} // color offset
+        />
+      </EffectComposer>*/}
     </Canvas>
   );
 }
