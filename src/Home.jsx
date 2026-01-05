@@ -130,7 +130,7 @@ export default function Home() {
   }
 
   const [reelAssetsLoaded, setReelAssetsLoaded] = useState(false);
-  const [infoAssetsLoaded, setInfoAssetsLoaded] = useState(false);
+  const [infoAssetsLoaded, setInfoAssetsLoaded] = useState(true);
 
   function onReelWebGLReady() {
     setReelWebGLReady(true);
@@ -143,7 +143,7 @@ export default function Home() {
   }
 
   const [reelWebGLReady, setReelWebGLReady] = useState(false);
-  const [infoWebGLReady, setInfoWebGLReady] = useState(false);
+  const [infoWebGLReady, setInfoWebGLReady] = useState(true);
 
   const [appReady, setAppReady] = useState(false);
 
@@ -454,6 +454,21 @@ export default function Home() {
                   <IntersectLogoRight />
                 </div>
               </div>
+              {/* <video
+                style={{
+                  zIndex: 0,
+                  width: "auto",
+                  height: 3000,
+                  minWidth: 3000,
+                }}
+                src="/textures/intersect-logo-glitch-1x1.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                controls={false}
+              /> */}
+
               <div id="home-bg-invert-layer"></div>
               <div id="landing-title-container">
                 <span id="landing-title" className="text-1">
@@ -503,17 +518,6 @@ export default function Home() {
                 </div>
               </div>
               <div id="reel">
-                {/* <div
-                  id="reel-tv-dialog"
-                  style={
-                    {
-                      // opacity: TVDialogOpen ? "100%" : "0%",
-                      // top: mousePosition.y + 5,
-                      // left: mousePosition.x + 5,
-                    }
-                  }
-                ></div> */}
-                {/* <img id="reel-image" src={sonyTv}></img> */}
                 <TeleCanvas
                   height={height}
                   width={width}
@@ -703,16 +707,15 @@ export default function Home() {
                     </p>
                   </a>
                 </div>
-                <div id="info-image">
-                  {" "}
-                  <TeleCanvas
+                <div id="info-tv-container">
+                  {/* <TeleCanvas
                     height={height}
                     width={width}
                     contextId={"info-tv-canvas"}
                     onAssetsLoaded={onInfoAssetsLoaded}
                     onWebGLReady={onInfoWebGLReady}
-                    cameraPos={[0, 0, 18]}
-                  />
+                    cameraPos={[0, 0, 36]}
+                  /> */}
                 </div>
               </div>
             </div>

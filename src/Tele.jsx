@@ -18,7 +18,7 @@ import {
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 
-export function Tele({ onAssetsLoaded }) {
+export function Tele({ onAssetsLoaded, contextId }) {
   useEffect(() => {
     onAssetsLoaded();
   }, []);
@@ -123,26 +123,27 @@ export function Tele({ onAssetsLoaded }) {
   const maxY = Math.PI / 10; // ±18°
   const maxX = Math.PI / 100; // ±1.8°
 
-  useFrame((state, delta) => {
-    if (!ref.current) return;
+  contextId === "reel-tv-canvas" &&
+    useFrame((state, delta) => {
+      if (!ref.current) return;
 
-    const targetY = pointer.x * maxY;
-    const targetX = -pointer.y * maxX;
+      const targetY = pointer.x * maxY;
+      const targetX = -pointer.y * maxX;
 
-    ref.current.rotation.y = THREE.MathUtils.damp(
-      ref.current.rotation.y,
-      targetY,
-      6,
-      delta
-    );
+      ref.current.rotation.y = THREE.MathUtils.damp(
+        ref.current.rotation.y,
+        targetY,
+        6,
+        delta
+      );
 
-    ref.current.rotation.x = THREE.MathUtils.damp(
-      ref.current.rotation.x,
-      targetX,
-      6,
-      delta
-    );
-  });
+      ref.current.rotation.x = THREE.MathUtils.damp(
+        ref.current.rotation.x,
+        targetX,
+        6,
+        delta
+      );
+    });
 
   const { camera } = useThree();
   // useEffect(() => {
@@ -182,7 +183,7 @@ export function Tele({ onAssetsLoaded }) {
         // }}
         // ref={ref}
         position={[0, -3, 0]}
-        rotation={[0, -Math.PI / 1, 0]}
+        rotation={[0, -Math.PI * 0.07, 0]}
         // {...props}
         // position={[0, -4, -2]}
         // rotation={[0, Math.PI * 1.8, 0]}
@@ -219,13 +220,20 @@ export function Tele({ onAssetsLoaded }) {
           geometry={nodes["screen-housing_Baked"].geometry}
           material={nodes["screen-housing_Baked"].material}
         >
+          {/* <meshStandardMaterial
+            color={"#D3D3D2"}
+            // normalMap={textures.bodyNormal}
+            // roughnessMap={textures.bodyRoughness}
+            roughness={0.8}
+            envMapIntensity={envMapIntensity}
+          /> */}
           <MeshReflectorMaterial
             color={"#222222"}
             blur={[300, 300]}
             mixBlur={1}
             mixStrength={1}
             mixContrast={1}
-            resolution={512}
+            resolution={128}
             mirror={0.2}
             depthScale={0}
             minDepthThreshold={0.2}

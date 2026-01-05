@@ -20,6 +20,38 @@ import { Environment, Lightformer, SoftShadows } from "@react-three/drei";
 //app
 import { Tele } from "./Tele";
 
+// function CanvasVisibilityController() {
+//   const { gl, invalidate, setFrameloop } = useThree();
+
+//   useEffect(() => {
+//     const canvas = gl.domElement;
+
+//     let visible = false;
+
+//     const observer = new IntersectionObserver(
+//       ([entry]) => {
+//         if (entry.isIntersecting && !visible) {
+//           visible = true;
+//           setFrameloop("demand");
+//           invalidate(); // force immediate render
+//         }
+
+//         if (!entry.isIntersecting && visible) {
+//           visible = false;
+//           setFrameloop("never");
+//         }
+//       },
+//       { threshold: 0.15 }
+//     );
+
+//     observer.observe(canvas);
+
+//     return () => observer.disconnect();
+//   }, [gl, invalidate, setFrameloop]);
+
+//   return null;
+// }
+
 function WebGLWarmup({ assetsLoaded }) {
   const { gl, scene, camera } = useThree();
 
@@ -59,7 +91,7 @@ export default function TeleCanvas({
 }) {
   return (
     <Canvas
-      // frameloop="demand"
+      //frameloop="demand"
       shadows
       id={contextId}
       gl={(gl) => {
@@ -72,9 +104,10 @@ export default function TeleCanvas({
       // shadows={{ type: "PCFSoftShadowMap" }}
       camera={{ position: cameraPos, fov: 19 }}
     >
+      {/* <CanvasVisibilityController /> */}
       <WebGLWarmup />
       {contextId === "reel-tv-canvas" && (
-        <SoftShadows size={25} samples={64} focus={0.5} />
+        <SoftShadows frames={1} size={25} samples={64} focus={0.5} />
       )}
       <Environment
         preset="studio"
@@ -129,25 +162,6 @@ export default function TeleCanvas({
       />
       {/* </Suspense> */}
       <WebGLReady onWebGLReady={onWebGLReady} />
-      {/*<EffectComposer>
-        <Bloom
-          intensity={1.0} // The bloom intensity.
-          //blurPass={undefined} // A blur pass.
-          //kernelSize={KernelSize.LARGE} // blur kernel size
-          luminanceThreshold={0.9} // luminance threshold. Raise this value to mask out darker elements in the scene.
-          luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1]
-          mipmapBlur={true} // Enables or disables mipmap blur.
-          //resolutionX={Resolution.AUTO_SIZE} // The horizontal resolution.
-          //resolutionY={Resolution.AUTO_SIZE} // The vertical resolution.
-        />
-        <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={10} />{" "}
-        {/* <Noise opacity={0.5} />
-        {/* <Blur resolution={1080} scale={0.1} /> 
-        <ChromaticAberration
-          // blendFunction={BlendFunction.NORMAL} // blend mode
-          offset={[0.0002, 0.0002]} // color offset
-        />
-      </EffectComposer>*/}
     </Canvas>
   );
 }

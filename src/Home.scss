@@ -502,7 +502,7 @@ $IndicatorMarginTune: 2px;
 
 #info-text {
   padding: 22vh 0 22vh 10vh;
-  width: 48vw;
+  width: 50vw;
   display: flex;
   flex-direction: column;
 }
@@ -523,10 +523,12 @@ $IndicatorMarginTune: 2px;
 //   text-decoration: none;
 // }
 
-#info-image {
-  position: relative;
-  top: -135px;
-  width: 52vw;
+#info-tv-container {
+  width: 50vw;
+  height: 100vh;
+}
+
+#info-tv-canvas {
 }
 
 //*FOOTER
