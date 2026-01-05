@@ -207,7 +207,7 @@ export function Tele({ onAssetsLoaded }) {
         >
           <meshStandardMaterial
             color={"#D3D3D2"}
-            normalMap={textures.bodyNormal}
+            // normalMap={textures.bodyNormal}
             // roughnessMap={textures.bodyRoughness}
             roughness={0.8}
             envMapIntensity={envMapIntensity}

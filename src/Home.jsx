@@ -15,7 +15,10 @@ import { SplitText } from "gsap/all";
 
 //r3f/drei
 import { useFrame } from "@react-three/fiber";
-import { useProgress, View } from "@react-three/drei";
+import { useProgress } from "@react-three/drei";
+
+//three
+import * as THREE from "three";
 
 //app
 import {
@@ -28,7 +31,8 @@ import sonyTv from "./assets/images/sony-tv.png";
 import loadingGIF from "./assets/images/loading.gif";
 import useWindowDimensions from "./utils/useWindowDimensions";
 import TeleCanvas from "./TeleCanvas";
-// import DebugCanvas from "./DebugCanvas";
+
+THREE.Cache.enabled = true;
 
 gsap.registerPlugin(
   useGSAP,
@@ -115,24 +119,42 @@ export default function Home() {
 
   //*LOADING
 
-  function onAssetsLoaded() {
-    setAssetsLoaded(true);
-    console.log("assets loaded");
+  function onReelAssetsLoaded() {
+    setReelAssetsLoaded(true);
+    console.log("assets loaded: REEL");
   }
 
-  const [assetsLoaded, setAssetsLoaded] = useState(false);
-
-  function onWebGLReady() {
-    setWebGLReady(true);
-    console.log("web gl ready steady");
+  function onInfoAssetsLoaded() {
+    setInfoAssetsLoaded(true);
+    console.log("assets loaded: INFO");
   }
 
-  const [webGLReady, setWebGLReady] = useState(false);
+  const [reelAssetsLoaded, setReelAssetsLoaded] = useState(false);
+  const [infoAssetsLoaded, setInfoAssetsLoaded] = useState(false);
+
+  function onReelWebGLReady() {
+    setReelWebGLReady(true);
+    console.log("web GL ready: REEL");
+  }
+
+  function onInfoWebGLReady() {
+    setInfoWebGLReady(true);
+    console.log("web GL ready: INFO");
+  }
+
+  const [reelWebGLReady, setReelWebGLReady] = useState(false);
+  const [infoWebGLReady, setInfoWebGLReady] = useState(false);
 
   const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
-    if (assetsLoaded && webGLReady) {
+    if (
+      reelAssetsLoaded &&
+      infoAssetsLoaded &&
+      infoWebGLReady &&
+      reelWebGLReady
+    ) {
+      console.log("all checks done");
       if ("scrollRestoration" in window.history) {
         window.history.scrollRestoration = "manual";
       }
@@ -143,13 +165,8 @@ export default function Home() {
       document.documentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";
     }
-  }, [assetsLoaded, webGLReady]);
+  }, [reelAssetsLoaded, infoAssetsLoaded, infoWebGLReady, reelWebGLReady]);
 
-  //! force app loading
-  useEffect(() => {
-    setWebGLReady(true);
-    setAssetsLoaded(true);
-  }, []);
   //*WORK
   const workDetails = useRef(null);
   const [workDetailsHeight, setWorkDetailsHeight] = useState();
@@ -195,136 +212,136 @@ export default function Home() {
   //*GSAP
   let pinSectionVal = "+=1200";
 
-  // useGSAP(
-  //   () => {
-  //     if (!appReady) return;
-  //     //*SCROLL PINNING
-  //     // gsap.from("#home-fixed", {
-  //     //   scrollTrigger: {
-  //     //     trigger: "#home-fixed",
-  //     //     start: "top top",
-  //     //     end: pinSectionVal,
-  //     //     scrub: true,
-  //     //     pin: true,
-  //     //     // pinType: "fixed",
-  //     //   },
-  //     // });
+  useGSAP(
+    () => {
+      if (!appReady) return;
+      //*SCROLL PINNING
+      gsap.from("#home-fixed", {
+        scrollTrigger: {
+          trigger: "#home-fixed",
+          start: "top top",
+          end: pinSectionVal,
+          scrub: true,
+          pin: true,
+          // pinType: "fixed",
+        },
+      });
 
-  //     // gsap.from("#landing", {
-  //     //   scrollTrigger: {
-  //     //     trigger: "#landing",
-  //     //     start: "top top",
-  //     //     end: pinSectionVal,
-  //     //     scrub: true,
-  //     //     pin: true,
-  //     //   },
-  //     // });
+      gsap.from("#landing", {
+        scrollTrigger: {
+          trigger: "#landing",
+          start: "top top",
+          end: pinSectionVal,
+          scrub: true,
+          pin: true,
+        },
+      });
 
-  //     // gsap.from("#reel", {
-  //     //   scrollTrigger: {
-  //     //     trigger: "#reel",
-  //     //     start: "top top",
-  //     //     end: pinSectionVal,
-  //     //     scrub: true,
-  //     //     pin: true,
-  //     //   },
-  //     // });
+      gsap.from("#reel", {
+        scrollTrigger: {
+          trigger: "#reel",
+          start: "top top",
+          end: pinSectionVal,
+          scrub: true,
+          pin: true,
+        },
+      });
 
-  //     // gsap.from("#work", {
-  //     //   scrollTrigger: {
-  //     //     trigger: "#work",
-  //     //     start: "top top",
-  //     //     end: pinSectionVal,
-  //     //     scrub: true,
-  //     //     pin: true,
-  //     //   },
-  //     // });
+      gsap.from("#work", {
+        scrollTrigger: {
+          trigger: "#work",
+          start: "top top",
+          end: pinSectionVal,
+          scrub: true,
+          pin: true,
+        },
+      });
 
-  //     // gsap.from("#info", {
-  //     //   scrollTrigger: {
-  //     //     trigger: "#info",
-  //     //     start: "top top",
-  //     //     end: pinSectionVal,
-  //     //     scrub: true,
-  //     //     pin: true,
-  //     //   },
-  //     // });
+      gsap.from("#info", {
+        scrollTrigger: {
+          trigger: "#info",
+          start: "top top",
+          end: pinSectionVal,
+          scrub: true,
+          pin: true,
+        },
+      });
 
-  //     //*LANDING
-  //     //*Landing title anims
+      //*LANDING
+      //*Landing title anims
 
-  //     function getStaggeredDuration(i, factor) {
-  //       return Math.round(((i * factor) + factor + Number.EPSILON) * 100) / 100; //prettier-ignore
-  //     }
+      function getStaggeredDuration(i, factor) {
+        return Math.round(((i * factor) + factor + Number.EPSILON) * 100) / 100; //prettier-ignore
+      }
 
-  //     let landingTitleSplit = SplitText.create("#landing-title", {
-  //       type: "chars",
-  //       mask: "chars",
-  //     });
+      let landingTitleSplit = SplitText.create("#landing-title", {
+        type: "chars",
+        mask: "chars",
+      });
 
-  //     landingTitleSplit.chars.forEach((char, i) => {
-  //       const text = landingTitleSplit._data.orig[0].html[i];
-  //       const duration = getStaggeredDuration(
-  //         Math.round((Math.random() * landingTitleSplit.chars.length) / 2),
-  //         0.2
-  //       );
-  //       gsap.to(char, {
-  //         duration: duration,
-  //         scrambleText: {
-  //           text: text,
-  //           revealDelay: duration,
-  //           speed: 0.8,
-  //         },
-  //       });
-  //     });
+      landingTitleSplit.chars.forEach((char, i) => {
+        const text = landingTitleSplit._data.orig[0].html[i];
+        const duration = getStaggeredDuration(
+          Math.round((Math.random() * landingTitleSplit.chars.length) / 2),
+          0.2
+        );
+        gsap.to(char, {
+          duration: duration,
+          scrambleText: {
+            text: text,
+            revealDelay: duration,
+            speed: 0.8,
+          },
+        });
+      });
 
-  //     const landingCapabiltiesText = gsap.utils.toArray(
-  //       ".landing-capability-text"
-  //     );
+      const landingCapabiltiesText = gsap.utils.toArray(
+        ".landing-capability-text"
+      );
 
-  //     landingCapabiltiesText.forEach((el, i) => {
-  //       const duration = getStaggeredDuration(i, 0.1);
-  //       gsap.to(el, {
-  //         duration: duration,
-  //         scrambleText: {
-  //           text: el.innerText,
-  //           revealDelay: duration,
-  //           speed: 1.5,
-  //         },
-  //       });
-  //     });
+      landingCapabiltiesText.forEach((el, i) => {
+        const duration = getStaggeredDuration(i, 0.1);
+        gsap.to(el, {
+          duration: duration,
+          scrambleText: {
+            text: el.innerText,
+            revealDelay: duration,
+            speed: 1.5,
+          },
+        });
+      });
 
-  //     const landingFlavourText = gsap.utils.toArray(".landing-flavour-text");
+      const landingFlavourText = gsap.utils.toArray(".landing-flavour-text");
 
-  //     landingFlavourText.forEach((el, i) => {
-  //       const duration = getStaggeredDuration(i, 0.2);
-  //       gsap.to(el, {
-  //         duration: duration,
-  //         scrambleText: {
-  //           text: el.innerText,
-  //           revealDelay: duration,
-  //           speed: 1.5,
-  //         },
-  //       });
-  //     });
+      landingFlavourText.forEach((el, i) => {
+        const duration = getStaggeredDuration(i, 0.2);
+        gsap.to(el, {
+          duration: duration,
+          scrambleText: {
+            text: el.innerText,
+            revealDelay: duration,
+            speed: 1.5,
+          },
+        });
+      });
 
-  //     //*Hide Scroll call to action
-  //     let scrollCTATl = gsap.timeline({
-  //       scrollTrigger: {
-  //         trigger: "#home-bg",
-  //         start: "top top",
-  //         end: "+=1200",
-  //         scrub: true,
-  //         // pin: true,
-  //       },
-  //     });
+      //*Hide Scroll call to action
+      let scrollCTATl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#home-bg",
+          start: "top top",
+          end: "+=1200",
+          scrub: true,
+          // pin: true,
+        },
+      });
 
-  //     scrollCTATl
-  //       .to("#landing-scroll-cta", { y: 86, duration: 99 })
-  //       .to("#landing-scroll-cta", { opacity: 0, duration: 1 });
-  //   },
-  //   { dependencies: [appReady] }
-  // );
+      scrollCTATl
+        .to("#landing-scroll-cta", { y: 86, duration: 99 })
+        .to("#landing-scroll-cta", { opacity: 0, duration: 1 });
+    },
+    { dependencies: [appReady] }
+  );
 
   //* GSAP smooth scroll init
   const wrapper = useRef();
@@ -337,7 +354,7 @@ export default function Home() {
         content: content.current,
         smooth: 1.5,
         effects: true,
-        normalizeScroll: true,
+        //normalizeScroll: true,
       });
     },
     { scope: wrapper, dependencies: [appReady] }
@@ -362,9 +379,6 @@ export default function Home() {
       // },
     });
   };
-
-  const view1Ref = useRef(null);
-  const view2Ref = useRef(null);
 
   return (
     <>
@@ -489,45 +503,26 @@ export default function Home() {
                 </div>
               </div>
               <div id="reel">
-                <>
-                  {/* DOM layout */}
-                  <div style={{ height: "100vh" }}>
-                    <h2>View 1 (Blue Cube)</h2>
-                    <div
-                      ref={view1Ref}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        border: "1px solid white",
-                        zIndex: 1000,
-                      }}
-                    />
-                  </div>
-
-                  {/*<div style={{ height: "50vh" }}>
-                    <h2>View 2 (Red Sphere)</h2>
-                    <div
-                      ref={view2Ref}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        border: "1px solid white",
-                        zIndex: 1000,
-                      }}
-                    />
-                  </div> */}
-
-                  {/* One canvas for both views */}
-                  <TeleCanvas
-                    height={height}
-                    width={width}
-                    contextId={"reel-tv-canvas"}
-                    onAssetsLoaded={onAssetsLoaded}
-                    onWebGLReady={onWebGLReady}
-                    view1Ref={view1Ref}
-                    view2Ref={view2Ref}
-                  />
-                </>
+                {/* <div
+                  id="reel-tv-dialog"
+                  style={
+                    {
+                      // opacity: TVDialogOpen ? "100%" : "0%",
+                      // top: mousePosition.y + 5,
+                      // left: mousePosition.x + 5,
+                    }
+                  }
+                ></div> */}
+                {/* <img id="reel-image" src={sonyTv}></img> */}
+                <TeleCanvas
+                  height={height}
+                  width={width}
+                  contextId={"reel-tv-canvas"}
+                  assetsLoaded={reelAssetsLoaded}
+                  onAssetsLoaded={onReelAssetsLoaded}
+                  onWebGLReady={onReelWebGLReady}
+                  cameraPos={[0, 0, 28]}
+                />
               </div>
               <div id="work" ref={workRef}>
                 <div id="work-grid">
@@ -708,7 +703,17 @@ export default function Home() {
                     </p>
                   </a>
                 </div>
-                <div id="info-image">{/* <img src={sonyTv} /> */}</div>
+                <div id="info-image">
+                  {" "}
+                  <TeleCanvas
+                    height={height}
+                    width={width}
+                    contextId={"info-tv-canvas"}
+                    onAssetsLoaded={onInfoAssetsLoaded}
+                    onWebGLReady={onInfoWebGLReady}
+                    cameraPos={[0, 0, 18]}
+                  />
+                </div>
               </div>
             </div>
           </div>
