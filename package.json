@@ -9,7 +9,7 @@
   "main": "src/index.js",
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "@react-three/drei": "9.92.0",
+    "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "8.15.12",
     "@types/three": "0.158.3",
     "gsap": "^3.13.0",

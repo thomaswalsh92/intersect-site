@@ -254,31 +254,33 @@ html {
 #reel {
   width: 100vw;
   height: 100vh;
+  z-index: 1000;
 }
 
-#reel-image {
-  position: relative;
-  top: 0;
-  height: 100vh;
-  width: 100vw;
-}
+// #reel-image {
+//   position: relative;
+//   top: 0;
+//   height: 100vh;
+//   width: 100vw;
+// }
 
-#reel-tv-canvas {
-  position: absolute;
-  bottom: 0px;
-  // height: 100vh;
-  // width: 100vw;
-}
+// #reel-tv-canvas {
+//   position: fixed;
+//   top: 0px;
+//   bottom: 0px;
+//   // height: 100vh;
+//   // width: 100vw;
+// }
 
-#reel-tv-dialog {
-  position: absolute;
-  background: red;
-  z-index: 100;
-  // top: 0;
-  // left: 0;
-  width: 100px;
-  height: 100px;
-}
+// #reel-tv-dialog {
+//   position: absolute;
+//   background: red;
+//   z-index: 100;
+//   // top: 0;
+//   // left: 0;
+//   width: 100px;
+//   height: 100px;
+// }
 
 //*WORK
 #work {
