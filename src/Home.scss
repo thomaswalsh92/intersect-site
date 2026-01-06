@@ -255,6 +255,12 @@ html {
   width: 100vw;
   height: 100vh;
   z-index: 1000;
+  background: linear-gradient(
+    to bottom,
+    rgba(22, 23, 23, 0) 0%,
+    rgba(22, 23, 23, 1) 85%,
+    rgba(22, 23, 23, 1) 100%
+  );
 }
 
 #tele-container {
@@ -293,192 +299,29 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: $Black;
   // font-family: JetBrainsMono;
   // font-weight: light;
 }
 
-#work-grid {
-  width: 100vw;
-  display: grid;
-  grid-template-columns: 35vw 30vw 35vw;
+#work-container {
+  background-color: red;
+  width: 85vw;
+  height: 70vh;
 }
 
-#work-gallery-container {
-  grid-column: 1 / 3;
-  height: 100vh;
+#work-gallery {
+  width: 100%;
+  height: 100%;
   display: grid;
-  grid-template-rows: 1fr 45vh 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  // grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-#work-gallery-spacer {
+.grid-test-row {
+  grid-column: 1 / 5;
   height: 100%;
   width: 100%;
-  grid-row: 1 / 2;
-}
-
-//! some work to do here to get a satisfactory
-//! scale down behaviour for lower viewport sizes
-//! maybe better to have a different approach for different screen sizes
-//! via breakpoints
-#work-gallery-image-container {
-  height: 100%;
-  width: 100%;
-  grid-row: 2 / 3;
-  padding-left: 5vw;
-  padding-right: 64px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-#work-gallery-image {
-  width: fit-content;
-  height: 45vh;
-  object-fit: cover;
-  // padding: 0 64px 0 64px;
-  background-color: #ececec;
-  // img {
-  //   aspect-ratio: 1 / 4;
-  // }
-}
-
-#work-gallery-controls-container {
-  height: 100%;
-  width: 100%;
-  grid-row: 3 / 4;
-  padding: 0 64px 0 5vw;
-  // padding-left: 5vw;
-  // padding-right: 64px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-#work-gallery-controls {
-  height: 64px;
-  display: flex;
-  justify-content: center;
-  padding-top: 32px;
-}
-
-//CSS render triangles
-$ControlsHeight: 30px;
-$TriBottom: calc($ControlsHeight * 0.33);
-$TriSides: calc(($TriBottom / 0.8660254) / 2);
-$IndicatorMarginTune: 2px;
-
-.work-gallery-controls-arrow {
-  width: 0;
-  height: 0;
-  border-right: $TriSides solid transparent;
-  border-left: $TriSides solid transparent;
-  border-bottom: $TriBottom solid $Black;
-  // transform: rotate(-90deg);
-  margin-top: calc(($ControlsHeight - $TriSides) / 2);
-}
-
-#work-gallery-controls-arrow-l {
-  transform: rotate(-90deg);
-}
-
-#work-gallery-controls-arrow-r {
-  transform: rotate(90deg);
-}
-
-.work-gallery-controls-click-area {
-  position: relative;
-  width: 32px;
-  height: 32px;
-  z-index: 20;
-  cursor: pointer;
-}
-
-#work-gallery-controls-click-area-l {
-  right: -20px;
-}
-
-#work-gallery-controls-click-area-r {
-  right: 20px;
-}
-
-#work-gallery-controls-indicator {
-  height: $ControlsHeight;
-  margin: $IndicatorMarginTune 16px 0 16px;
-  background: $Black;
-  border-radius: $ControlsHeight;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#work-details-container {
-  grid-column: 3 / 4;
-  height: 100vh;
-  max-width: 480px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  padding-right: 5vw;
-}
-
-#work-details-bg {
-  position: absolute;
-  height: 35vh;
-  width: 30vw;
-  max-width: 480px;
-  background: $Black;
-  z-index: -1;
-  opacity: 75%;
-}
-
-#work-details {
-  max-width: 480px;
-  display: grid;
-  grid-template-columns: 40% 60%;
-}
-
-#work-details-col-1 {
-  padding: 24px 16px 24px 16px;
-}
-
-#work-details-col-2 {
-  padding: 24px 16px 24px 0;
-}
-
-.work-details-heading {
-  color: $GrayLight;
-  font-size: 10px;
-}
-
-.work-details-text {
-  color: $White;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-#work-details-disciplines-badges-container {
-  display: flex;
-  flex-direction: column;
-  padding-top: 4px;
-}
-
-.work-details-discipline-badge {
-  background: $GrayVeryLight;
-  height: 24px;
-  width: fit-content;
-  padding: 0 10px 0 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.work-details-discipline-badge-text {
-  color: $Black;
-  font-size: 10px;
-}
-
-#work-details-description-text {
-  font-size: 10px;
 }
 
 //*INFO
@@ -494,6 +337,12 @@ $IndicatorMarginTune: 2px;
   span {
     color: $White;
   }
+  background: linear-gradient(
+    to bottom,
+    rgba(22, 23, 23, 1) 0%,
+    rgba(22, 23, 23, 1) 5%,
+    rgba(22, 23, 23, 0) 100%
+  );
 }
 
 .info-heading {

@@ -30,6 +30,7 @@ import rainydayImage from "./assets/images/rainyday-image.png";
 import loadingGIF from "./assets/images/loading.gif";
 import useWindowDimensions from "./utils/useWindowDimensions";
 import TeleCanvas from "./TeleCanvas";
+import WorkGrid from "./WorkGrid";
 
 THREE.Cache.enabled = true;
 
@@ -151,38 +152,6 @@ export default function Home() {
       document.body.style.overflow = "auto";
     }
   }, [teleAssetsLoaded, teleWebGLReady]);
-
-  //*WORK
-  // const workDetails = useRef(null);
-  // const [workDetailsHeight, setWorkDetailsHeight] = useState();
-
-  const projectDetails = [
-    {
-      project: "RAINYDAY WEBSITE",
-      client: "RAINYDAY STUDIO",
-      disciplines: ["WEB DESIGN", "WEB DEVELOPMENT"],
-      published: 2025,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mollis interdum tellus ut ultricies. In et faucibus enim, in suscipit nisi. Suspendisse quis ultrices turpis, quis pellentesque felis. Mauris et orci massa. Aenean ut dui urna. Morbi mauris dolor, cursus.",
-      image: rainydayImage,
-    },
-    { placeholder: true, placeholderNum: 2 },
-    { placeholder: true, placeholderNum: 3 },
-    { placeholder: true, placeholderNum: 4 },
-    { placeholder: true, placeholderNum: 5 },
-    { placeholder: true, placeholderNum: 6 },
-    { placeholder: true, placeholderNum: 7 },
-    { placeholder: true, placeholderNum: 8 },
-  ];
-
-  //get computed width of work image to align controls section
-  const workImage = useRef(null);
-  const [workImageWidth, setWorkImageWidth] = useState();
-  // useEffect(() => {
-  //   setWorkImageWidth(workImage.current.clientWidth);
-  // }, [workImage]);
-
-  const [selectedProject, setSelectedProject] = useState(0);
 
   //*INFO
   const infoCapabilities = [
@@ -556,152 +525,9 @@ export default function Home() {
                   />
                 </div>
               </div>
-              {/* REMOVE */}
+
               <div id="work" ref={workRef}>
-                <div id="work-grid">
-                  <div id="work-gallery-container">
-                    <div id="work-gallery-image-container">
-                      <img
-                        ref={workImage}
-                        id="work-gallery-image"
-                        src={rainydayImage}
-                      />
-                    </div>
-                    <div id="work-gallery-controls-container">
-                      <div
-                        style={{ width: workImageWidth }}
-                        id="work-gallery-controls"
-                      >
-                        <div
-                          className="work-gallery-controls-click-area"
-                          id="work-gallery-controls-click-area-l"
-                          onClick={() =>
-                            selectedProject > 0 &&
-                            setSelectedProject(selectedProject - 1)
-                          }
-                        ></div>
-                        <div
-                          className="work-gallery-controls-arrow"
-                          id="work-gallery-controls-arrow-l"
-                        ></div>
-                        <div
-                          id="work-gallery-controls-indicator"
-                          style={{
-                            width:
-                              12 +
-                              (projectDetails.length - 1) * 8 +
-                              24 +
-                              4 * projectDetails.length,
-                          }}
-                        >
-                          {projectDetails.map((project, index) => {
-                            return (
-                              <div
-                                style={{
-                                  width: index === selectedProject ? 12 : 8,
-                                  height: index === selectedProject ? 12 : 8,
-                                  marginLeft: 2,
-                                  marginRight: 2,
-                                  background: "#e2e2e1",
-                                  clipPath: `circle(${
-                                    index === selectedProject ? 6 : 4
-                                  }px)`,
-                                }}
-                              ></div>
-                            );
-                          })}
-                        </div>
-                        <div
-                          className="work-gallery-controls-arrow"
-                          id="work-gallery-controls-arrow-r"
-                        ></div>
-                        <div
-                          className="work-gallery-controls-click-area"
-                          id="work-gallery-controls-click-area-r"
-                          onClick={() =>
-                            selectedProject < projectDetails.length - 1 &&
-                            setSelectedProject(selectedProject + 1)
-                          }
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="work-details-container">
-                    <div
-                      id="work-details-bg"
-                      // style={{ height: workDetailsHeight }}
-                    ></div>
-                    <div id="work-details">
-                      {/*! stubbed data below */}
-                      <div id="work-details-col-1">
-                        <p
-                          id="work-details-project-heading"
-                          className="text-2 work-details-heading"
-                        >
-                          PROJECT
-                        </p>
-                        <p
-                          id="work-details-project-text"
-                          className="text-2 work-details-text"
-                        >
-                          {projectDetails[0].project}
-                        </p>
-                        <p
-                          id="work-details-client-heading"
-                          className="text-2 work-details-heading"
-                        >
-                          CLIENT
-                        </p>
-                        <p
-                          id="work-details-client-text"
-                          className="text-2 work-details-text"
-                        >
-                          {projectDetails[0].client}
-                        </p>
-                        <p
-                          id="work-details-disciplines-heading"
-                          className="text-2 work-details-heading"
-                        >
-                          DISCIPLINES
-                        </p>
-                        <div id="work-details-disciplines-badges-container">
-                          {projectDetails[0].disciplines.map((item, index) => {
-                            return (
-                              <div
-                                className="work-details-discipline-badge"
-                                key={item + ":" + index}
-                              >
-                                <p className="text-2 work-details-discipline-badge-text">
-                                  {item}
-                                </p>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                      <div id="work-details-col-2">
-                        <p
-                          id="work-details-published-heading"
-                          className="text-2 work-details-heading"
-                        >
-                          PUBLISHED
-                        </p>
-                        <p
-                          id="work-details-published-text"
-                          className="text-2 work-details-text"
-                        >
-                          2025
-                        </p>
-                        <p
-                          id="work-details-description-text"
-                          className="text-2 work-details-text"
-                        >
-                          {projectDetails[0].description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <WorkGrid />
               </div>
               <div id="info" ref={infoRef}>
                 <div id="info-text">
