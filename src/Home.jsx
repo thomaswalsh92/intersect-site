@@ -435,11 +435,11 @@ export default function Home() {
                   <IntersectLogoCenter />
                   <IntersectLogoRight />
                 </div>
-                <div id="home-bg-logo-container">
+                {/* <div id="home-bg-logo-container">
                   <IntersectLogoLeft />
                   <IntersectLogoCenter />
                   <IntersectLogoRight />
-                </div>
+                </div> */}
               </div>
               {/* <video
                 style={{

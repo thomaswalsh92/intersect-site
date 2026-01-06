@@ -64,7 +64,7 @@ html {
   justify-content: center;
   align-items: flex-start;
   svg {
-    opacity: 5%;
+    opacity: 50%;
     width: 30vw;
     z-index: -5;
     overflow-y: hidden;
@@ -86,7 +86,8 @@ html {
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 1) 0%,
-    rgba(255, 255, 255, 1) 85%
+    rgb(70, 70, 70) 35%,
+    rgba(255, 255, 255, 1) 100%
   );
   mix-blend-mode: difference;
   opacity: 100%;
