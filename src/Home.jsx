@@ -556,6 +556,7 @@ export default function Home() {
                   />
                 </div>
               </div>
+              {/* REMOVE */}
               <div id="work" ref={workRef}>
                 <div id="work-grid">
                   <div id="work-gallery-container">
