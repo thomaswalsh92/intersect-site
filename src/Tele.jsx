@@ -18,7 +18,7 @@ import {
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 
-export function Tele({ onAssetsLoaded, contextId }) {
+export function Tele({ onAssetsLoaded }) {
   useEffect(() => {
     onAssetsLoaded();
   }, []);
@@ -123,27 +123,26 @@ export function Tele({ onAssetsLoaded, contextId }) {
   const maxY = Math.PI / 10; // ±18°
   const maxX = Math.PI / 100; // ±1.8°
 
-  contextId === "reel-tv-canvas" &&
-    useFrame((state, delta) => {
-      if (!ref.current) return;
+  useFrame((state, delta) => {
+    if (!ref.current) return;
 
-      const targetY = pointer.x * maxY;
-      const targetX = -pointer.y * maxX;
+    const targetY = pointer.x * maxY;
+    const targetX = -pointer.y * maxX;
 
-      ref.current.rotation.y = THREE.MathUtils.damp(
-        ref.current.rotation.y,
-        targetY,
-        6,
-        delta
-      );
+    ref.current.rotation.y = THREE.MathUtils.damp(
+      ref.current.rotation.y,
+      targetY,
+      6,
+      delta
+    );
 
-      ref.current.rotation.x = THREE.MathUtils.damp(
-        ref.current.rotation.x,
-        targetX,
-        6,
-        delta
-      );
-    });
+    ref.current.rotation.x = THREE.MathUtils.damp(
+      ref.current.rotation.x,
+      targetX,
+      6,
+      delta
+    );
+  });
 
   const { camera } = useThree();
   // useEffect(() => {
@@ -268,7 +267,7 @@ export function Tele({ onAssetsLoaded, contextId }) {
           <meshStandardMaterial
             color="#111"
             emissive="#ffffff"
-            emissiveIntensity={200}
+            emissiveIntensity={40}
             emissiveMap={glitchVideoTexture}
             envMapIntensity={envMapIntensity}
           />

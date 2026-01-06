@@ -83,7 +83,6 @@ function WebGLReady({ onWebGLReady }) {
 export default function TeleCanvas({
   width,
   height,
-  contextId,
   assetsLoaded,
   onAssetsLoaded,
   onWebGLReady,
@@ -93,7 +92,7 @@ export default function TeleCanvas({
     <Canvas
       //frameloop="demand"
       shadows
-      id={contextId}
+      id={"tele-canvas"}
       gl={(gl) => {
         gl.physicallyCorrectLights = true;
         gl.useLegacyLights = false;
@@ -106,9 +105,7 @@ export default function TeleCanvas({
     >
       {/* <CanvasVisibilityController /> */}
       <WebGLWarmup />
-      {contextId === "reel-tv-canvas" && (
-        <SoftShadows frames={1} size={25} samples={64} focus={0.5} />
-      )}
+      <SoftShadows frames={1} size={25} samples={64} focus={0.5} />
       <Environment
         preset="studio"
         //env intensity controlled in tele.jsx
@@ -141,7 +138,7 @@ export default function TeleCanvas({
           target={[0, 0, 0]}
         />
       </Environment>
-      <Tele onAssetsLoaded={onAssetsLoaded} contextId={contextId} />
+      <Tele onAssetsLoaded={onAssetsLoaded} />
       {/* </Stage> */}
       <directionalLight
         castShadow

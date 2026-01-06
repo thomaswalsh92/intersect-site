@@ -27,7 +27,6 @@ import {
   IntersectLogoRight,
 } from "./IntersectLogo";
 import rainydayImage from "./assets/images/rainyday-image.png";
-import sonyTv from "./assets/images/sony-tv.png";
 import loadingGIF from "./assets/images/loading.gif";
 import useWindowDimensions from "./utils/useWindowDimensions";
 import TeleCanvas from "./TeleCanvas";
@@ -114,46 +113,32 @@ export default function Home() {
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
 
   //*REEL
-  const [TVDialogOpen, setTVDialogOpen] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // const [teleDialogOpen, setTeleDialogOpen] = useState(false);
+  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [teleContext, setTeleContext] = useState("reel"); //reel or info
 
   //*LOADING
 
-  function onReelAssetsLoaded() {
-    setReelAssetsLoaded(true);
+  function onTeleAssetsLoaded() {
+    setTeleAssetsLoaded(true);
     console.log("assets loaded: REEL");
   }
 
-  function onInfoAssetsLoaded() {
-    setInfoAssetsLoaded(true);
-    console.log("assets loaded: INFO");
-  }
+  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(false);
+  // const [infoAssetsLoaded, setInfoAssetsLoaded] = useState(true);
 
-  const [reelAssetsLoaded, setReelAssetsLoaded] = useState(false);
-  const [infoAssetsLoaded, setInfoAssetsLoaded] = useState(true);
-
-  function onReelWebGLReady() {
-    setReelWebGLReady(true);
+  function onTeleWebGLReady() {
+    setTeleWebGLReady(true);
     console.log("web GL ready: REEL");
   }
 
-  function onInfoWebGLReady() {
-    setInfoWebGLReady(true);
-    console.log("web GL ready: INFO");
-  }
-
-  const [reelWebGLReady, setReelWebGLReady] = useState(false);
-  const [infoWebGLReady, setInfoWebGLReady] = useState(true);
+  const [teleWebGLReady, setTeleWebGLReady] = useState(false);
+  // const [infoWebGLReady, setInfoWebGLReady] = useState(true);
 
   const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
-    if (
-      reelAssetsLoaded &&
-      infoAssetsLoaded &&
-      infoWebGLReady &&
-      reelWebGLReady
-    ) {
+    if (teleAssetsLoaded && teleWebGLReady) {
       console.log("all checks done");
       if ("scrollRestoration" in window.history) {
         window.history.scrollRestoration = "manual";
@@ -165,11 +150,11 @@ export default function Home() {
       document.documentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";
     }
-  }, [reelAssetsLoaded, infoAssetsLoaded, infoWebGLReady, reelWebGLReady]);
+  }, [teleAssetsLoaded, teleWebGLReady]);
 
   //*WORK
-  const workDetails = useRef(null);
-  const [workDetailsHeight, setWorkDetailsHeight] = useState();
+  // const workDetails = useRef(null);
+  // const [workDetailsHeight, setWorkDetailsHeight] = useState();
 
   const projectDetails = [
     {
@@ -257,15 +242,15 @@ export default function Home() {
         },
       });
 
-      gsap.from("#info", {
-        scrollTrigger: {
-          trigger: "#info",
-          start: "top top",
-          end: pinSectionVal,
-          scrub: true,
-          pin: true,
-        },
-      });
+      // gsap.from("#info", {
+      //   scrollTrigger: {
+      //     trigger: "#info",
+      //     start: "top top",
+      //     end: pinSectionVal,
+      //     scrub: true,
+      //     pin: true,
+      //   },
+      // });
 
       //*LANDING
       //*Landing title anims
@@ -339,9 +324,32 @@ export default function Home() {
       scrollCTATl
         .to("#landing-scroll-cta", { y: 86, duration: 99 })
         .to("#landing-scroll-cta", { opacity: 0, duration: 1 });
+
+      //* slightly hacky way of getting the canvas in two spots in the site
+      const reelY = reelRef.current.getBoundingClientRect().top;
+      const infoY = infoRef.current.getBoundingClientRect().top;
+      const translateTele = infoY - reelY - 1200;
+
+      ScrollTrigger.create({
+        trigger: "#work",
+        start: "top top",
+        onEnter: () => {
+          gsap.set("#tele-canvas", { y: translateTele });
+          setTeleContext("info");
+        },
+        onLeaveBack: () => {
+          gsap.set("#tele-canvas", { y: 0 });
+          setTeleContext("reel");
+        },
+        markers: true,
+      });
     },
     { dependencies: [appReady] }
   );
+
+  useEffect(() => {
+    console.log(teleContext);
+  }, [teleContext]);
 
   //* GSAP smooth scroll init
   const wrapper = useRef();
@@ -362,7 +370,9 @@ export default function Home() {
 
   const landingRef = useRef();
   const workRef = useRef();
+  const reelRef = useRef();
   const infoRef = useRef();
+  const infoTeleTarget = useRef();
 
   const handleNavScroll = (ref) => {
     // ScrollTrigger.getAll().forEach((st) => {
@@ -517,14 +527,13 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div id="reel">
+              <div id="reel" ref={reelRef}>
                 <TeleCanvas
                   height={height}
                   width={width}
-                  contextId={"reel-tv-canvas"}
-                  assetsLoaded={reelAssetsLoaded}
-                  onAssetsLoaded={onReelAssetsLoaded}
-                  onWebGLReady={onReelWebGLReady}
+                  assetsLoaded={teleAssetsLoaded}
+                  onAssetsLoaded={onTeleAssetsLoaded}
+                  onWebGLReady={onTeleWebGLReady}
                   cameraPos={[0, 0, 28]}
                 />
               </div>
@@ -600,9 +609,9 @@ export default function Home() {
                   <div id="work-details-container">
                     <div
                       id="work-details-bg"
-                      style={{ height: workDetailsHeight }}
+                      // style={{ height: workDetailsHeight }}
                     ></div>
-                    <div id="work-details" ref={workDetails}>
+                    <div id="work-details">
                       {/*! stubbed data below */}
                       <div id="work-details-col-1">
                         <p
@@ -707,16 +716,7 @@ export default function Home() {
                     </p>
                   </a>
                 </div>
-                <div id="info-tv-container">
-                  {/* <TeleCanvas
-                    height={height}
-                    width={width}
-                    contextId={"info-tv-canvas"}
-                    onAssetsLoaded={onInfoAssetsLoaded}
-                    onWebGLReady={onInfoWebGLReady}
-                    cameraPos={[0, 0, 36]}
-                  /> */}
-                </div>
+                <div id="info-tele-container" ref={infoTeleTarget}></div>
               </div>
             </div>
           </div>
