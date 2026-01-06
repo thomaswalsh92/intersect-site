@@ -43,38 +43,6 @@ gsap.registerPlugin(
   SplitText
 );
 
-function LoadingSpinner({ size = 48, color = "#333", speed = 1 }) {
-  const spinnerRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.to(spinnerRef.current, {
-        rotation: 360,
-        duration: speed,
-        repeat: -1,
-        ease: "linear",
-      });
-    });
-
-    return () => ctx.revert();
-  }, [speed]);
-
-  return (
-    <div
-      ref={spinnerRef}
-      style={{
-        zIndex: 101,
-        width: size,
-        height: size,
-        border: `${size / 8}px solid rgba(0, 119, 255, 1)`,
-        borderTop: `${size / 8}px solid color`,
-        borderRadius: "10%",
-        boxSizing: "border-box",
-      }}
-    />
-  );
-}
-
 function LoadingScreen() {
   const counterRef = useRef(null);
 
@@ -170,25 +138,24 @@ export default function Home() {
     () => {
       if (!appReady) return;
       //*SCROLL PINNING
-      gsap.from("#home-fixed", {
-        scrollTrigger: {
-          trigger: "#home-fixed",
-          start: "top top",
-          end: pinSectionVal,
-          scrub: true,
-          pin: true,
-          // pinType: "fixed",
-        },
-      });
+      // gsap.from("#landing", {
+      //   scrollTrigger: {
+      //     trigger: "#landing",
+      //     start: "top top",
+      //     end: pinSectionVal,
+      //     scrub: true,
+      //     pin: true,
+      //   },
+      // });
 
-      gsap.from("#landing", {
-        scrollTrigger: {
-          trigger: "#landing",
-          start: "top top",
-          end: pinSectionVal,
-          scrub: true,
-          pin: true,
-        },
+      ScrollTrigger.create({
+        trigger: "#home",
+        start: "top top",
+        end: "+=50000",
+        pin: "#blend-stage",
+        pinSpacing: false, // critical
+        anticipatePin: 1,
+        markers: true,
       });
 
       gsap.from("#reel", {
@@ -278,6 +245,39 @@ export default function Home() {
           },
         });
       });
+
+      // gsap.to("#landing-title", {
+      //   opacity: 0,
+      //   scrollTrigger: {
+      //     trigger: "#reel",
+      //     start: "bottom top",
+      //     end: "+=600",
+      //     scrub: true,
+      //     markers: true,
+      //   },
+      // });
+
+      // gsap.to("#landing-flavour", {
+      //   opacity: 0,
+      //   scrollTrigger: {
+      //     trigger: "#reel",
+      //     start: "top top",
+      //     end: "+=600",
+      //     scrub: true,
+      //     markers: true,
+      //   },
+      // });
+
+      // gsap.to("#landing-capabilities", {
+      //   opacity: 0,
+      //   scrollTrigger: {
+      //     trigger: "#home-bg",
+      //     start: "center top",
+      //     end: "+=600",
+      //     scrub: true,
+      //     markers: true,
+      //   },
+      // });
 
       //*Hide Scroll call to action
       let scrollCTATl = gsap.timeline({
@@ -417,54 +417,29 @@ export default function Home() {
           <p className="text-1">© INTERSECT 2025</p>
         </div>
       </div>
+      {/* <div id="home-bg-logo-container">
+        <IntersectLogoLeft />
+        <IntersectLogoCenter />
+        <IntersectLogoRight />
+      </div> */}
+
+      {/* <div id="home-bg-invert-layer"></div> */}
       <div id="smooth-wrapper" ref={wrapper}>
         <div id="smooth-content" ref={content}>
-          <div id="home">
-            <div id="home-fixed">
-              <div id="home-bg-logo-stack">
-                <div id="home-bg-logo-container">
-                  <IntersectLogoLeft />
-                  <IntersectLogoCenter />
-                  <IntersectLogoRight />
-                </div>
-                <div id="home-bg-logo-container">
-                  <IntersectLogoLeft />
-                  <IntersectLogoCenter />
-                  <IntersectLogoRight />
-                </div>
-                {/* <div id="home-bg-logo-container" style={{ opacity: "25%" }}>
-                  <IntersectLogoLeft />
-                  <IntersectLogoCenter />
-                  <IntersectLogoRight />
-                </div>
-                <div id="home-bg-logo-container" style={{ opacity: "25%" }}>
-                  <IntersectLogoCenter />
-                  <IntersectLogoCenter />
-                  <IntersectLogoCenter />
-                </div> */}
-              </div>
-              {/* <video
-                style={{
-                  zIndex: 0,
-                  width: "auto",
-                  height: 3000,
-                  minWidth: 3000,
-                }}
-                src="/textures/intersect-logo-glitch-1x1.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                controls={false}
-              /> */}
-
-              <div id="home-bg-invert-layer"></div>
-              <div id="landing-title-container">
-                <span id="landing-title" className="text-1">
-                  INTERSECT
-                </span>
-              </div>
+          <div id="blend-stage">
+            <div id="home-bg-logo-container">
+              <IntersectLogoLeft />
+              <IntersectLogoCenter />
+              <IntersectLogoRight />
             </div>
+            <div id="home-bg-invert-layer" />
+          </div>
+          <div id="landing-title-container">
+            <span id="landing-title" className="text-1">
+              INTERSECT
+            </span>
+          </div>
+          <div id="home">
             <div id="home-content">
               <div id="landing" ref={landingRef}>
                 <div id="landing-capabilities" className="text-2">
