@@ -282,17 +282,17 @@ export default function Home() {
       //*Hide Scroll call to action
       let scrollCTATl = gsap.timeline({
         scrollTrigger: {
-          trigger: "#home-bg",
+          trigger: "#nav-bar",
           start: "top top",
-          end: "+=1200",
+          end: "+=128",
           scrub: true,
-          // pin: true,
+          markers: true,
         },
       });
 
       scrollCTATl
-        .to("#landing-scroll-cta", { y: 86, duration: 99 })
-        .to("#landing-scroll-cta", { opacity: 0, duration: 1 });
+        .to("#landing-scroll-cta", { y: 256, duration: 99, ease: "none" })
+        .to("#landing-scroll-cta", { opacity: 0, duration: 1, ease: "none" });
 
       //* slightly hacky way of getting the canvas in two spots in the site
       const reelY = reelRef.current.getBoundingClientRect().top;
@@ -367,6 +367,10 @@ export default function Home() {
       //   });
       // },
     });
+  };
+
+  const getCTATop = () => {
+    return window.innerHeight - 48 - 86;
   };
 
   return (
@@ -474,7 +478,10 @@ export default function Home() {
                     </span>
                   </p>
                 </div>
-                <div id="landing-scroll-cta-container">
+                <div
+                  id="landing-scroll-cta-container"
+                  style={{ top: getCTATop() }}
+                >
                   <div id="landing-scroll-cta">
                     <p className="text-1">SCROLL</p>
                     <p id="landing-cta-arrow" className="text-1">{`->`}</p>

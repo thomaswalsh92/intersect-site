@@ -74,7 +74,7 @@ html {
   svg {
     opacity: 60%;
     width: 30vw;
-    z-index: 1000;
+    // z-index: 1000;
     overflow-y: hidden;
   }
 }
@@ -238,8 +238,7 @@ html {
   display: flex;
   width: 100vw;
   justify-content: center;
-  bottom: 40px;
-  // z-index: 500;
+  // z-index: 100;
 }
 
 #landing-scroll-cta {
@@ -260,7 +259,6 @@ html {
   p {
     color: $Accent;
   }
-  // z-index: 500;
 }
 
 #landing-cta-arrow {
