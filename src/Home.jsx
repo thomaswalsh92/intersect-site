@@ -339,12 +339,16 @@ export default function Home() {
           gsap.set("#tele-container", { y: translateTeleY });
           setTeleContext("info");
         },
+        onLeaveBack: () => {
+          gsap.set("#tele-container", { y: 0 });
+          gsap.set("#tele-container", { x: 0 });
+          setTeleContext("reel");
+        },
         onEnterBack: () => {
           gsap.set("#tele-container", { y: 0 });
           gsap.set("#tele-container", { x: 0 });
           setTeleContext("reel");
         },
-        markers: true,
       });
     },
     { dependencies: [appReady] }
