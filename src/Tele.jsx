@@ -18,7 +18,7 @@ import {
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 
-export function Tele({ onAssetsLoaded }) {
+export function Tele({ onAssetsLoaded, teleContext }) {
   useEffect(() => {
     onAssetsLoaded();
   }, []);
@@ -125,24 +125,36 @@ export function Tele({ onAssetsLoaded }) {
 
   useFrame((state, delta) => {
     if (!ref.current) return;
+    // if (teleContext !== "reel") return;
 
-    const targetY = pointer.x * maxY;
-    const targetX = -pointer.y * maxX;
+    if (teleContext === "reel") {
+      const targetY = pointer.x * maxY;
+      const targetX = -pointer.y * maxX;
 
-    ref.current.rotation.y = THREE.MathUtils.damp(
-      ref.current.rotation.y,
-      targetY,
-      6,
-      delta
-    );
+      ref.current.rotation.y = THREE.MathUtils.damp(
+        ref.current.rotation.y,
+        targetY,
+        6,
+        delta
+      );
 
-    ref.current.rotation.x = THREE.MathUtils.damp(
-      ref.current.rotation.x,
-      targetX,
-      6,
-      delta
-    );
+      ref.current.rotation.x = THREE.MathUtils.damp(
+        ref.current.rotation.x,
+        targetX,
+        6,
+        delta
+      );
+    }
+
+    if (teleContext === "info" && ref.current.rotation.y !== -0.19) {
+      ref.current.rotation.y = -0.19;
+    }
+    // //console.log(ref.current.rotation.x);
+    // console.log(ref.current.rotation.y);
   });
+
+  if (ref.current && teleContext === "info") {
+  }
 
   const { camera } = useThree();
   // useEffect(() => {
@@ -274,7 +286,8 @@ export function Tele({ onAssetsLoaded }) {
         </mesh>
         <mesh receiveShadow geometry={nodes["access-panel_Baked"].geometry}>
           <meshStandardMaterial
-            map={textures.accessPanelDiffuse}
+            color={"#161717"}
+            // map={textures.accessPanelDiffuse}
             normalMap={textures.accessPanelNormal}
             roughnessMap={textures.accessPanelRoughness}
             envMapIntensity={envMapIntensity}

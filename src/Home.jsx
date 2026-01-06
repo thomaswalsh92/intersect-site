@@ -328,17 +328,20 @@ export default function Home() {
       //* slightly hacky way of getting the canvas in two spots in the site
       const reelY = reelRef.current.getBoundingClientRect().top;
       const infoY = infoRef.current.getBoundingClientRect().top;
-      const translateTele = infoY - reelY - 1200;
+      const translateTeleY = infoY - reelY - 1200;
+      const translateTeleX = window.innerWidth / 2;
 
       ScrollTrigger.create({
         trigger: "#work",
         start: "top top",
         onEnter: () => {
-          gsap.set("#tele-canvas", { y: translateTele });
+          gsap.set("#tele-container", { x: translateTeleX });
+          gsap.set("#tele-container", { y: translateTeleY });
           setTeleContext("info");
         },
-        onLeaveBack: () => {
-          gsap.set("#tele-canvas", { y: 0 });
+        onEnterBack: () => {
+          gsap.set("#tele-container", { y: 0 });
+          gsap.set("#tele-container", { x: 0 });
           setTeleContext("reel");
         },
         markers: true,
@@ -347,9 +350,10 @@ export default function Home() {
     { dependencies: [appReady] }
   );
 
-  useEffect(() => {
-    console.log(teleContext);
-  }, [teleContext]);
+  // //test
+  // useEffect(() => {
+  //   console.log(teleContext);
+  // }, [teleContext]);
 
   //* GSAP smooth scroll init
   const wrapper = useRef();
@@ -528,14 +532,25 @@ export default function Home() {
                 </div>
               </div>
               <div id="reel" ref={reelRef}>
-                <TeleCanvas
-                  height={height}
-                  width={width}
-                  assetsLoaded={teleAssetsLoaded}
-                  onAssetsLoaded={onTeleAssetsLoaded}
-                  onWebGLReady={onTeleWebGLReady}
-                  cameraPos={[0, 0, 28]}
-                />
+                <div
+                  id="tele-container"
+                  style={{
+                    height: "100%",
+                    width: teleContext === "reel" ? "100%" : "50%",
+                  }}
+                >
+                  <TeleCanvas
+                    height={height}
+                    width={width}
+                    assetsLoaded={teleAssetsLoaded}
+                    onAssetsLoaded={onTeleAssetsLoaded}
+                    onWebGLReady={onTeleWebGLReady}
+                    // cameraPos={
+                    //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
+                    // }
+                    teleContext={teleContext}
+                  />
+                </div>
               </div>
               <div id="work" ref={workRef}>
                 <div id="work-grid">

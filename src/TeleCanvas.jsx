@@ -80,13 +80,20 @@ function WebGLReady({ onWebGLReady }) {
   return null;
 }
 
+function CameraController({ teleContext }) {
+  const { camera } = useThree();
+  if (teleContext === "reel") camera.position.set(0, 0, 28);
+  if (teleContext === "info") camera.position.set(0, 0, 38);
+
+  return null;
+}
+
 export default function TeleCanvas({
   width,
   height,
-  assetsLoaded,
   onAssetsLoaded,
   onWebGLReady,
-  cameraPos,
+  teleContext,
 }) {
   return (
     <Canvas
@@ -101,7 +108,7 @@ export default function TeleCanvas({
       }}
       size={[width, height]}
       // shadows={{ type: "PCFSoftShadowMap" }}
-      camera={{ position: cameraPos, fov: 19 }}
+      camera={{ position: [0, 0, 28], fov: 19 }}
     >
       {/* <CanvasVisibilityController /> */}
       <WebGLWarmup />
@@ -138,7 +145,7 @@ export default function TeleCanvas({
           target={[0, 0, 0]}
         />
       </Environment>
-      <Tele onAssetsLoaded={onAssetsLoaded} />
+      <Tele onAssetsLoaded={onAssetsLoaded} teleContext={teleContext} />
       {/* </Stage> */}
       <directionalLight
         castShadow
@@ -157,6 +164,7 @@ export default function TeleCanvas({
         shadow-camera-top={10}
         shadow-camera-bottom={-10}
       />
+      <CameraController teleContext={teleContext} />
       {/* </Suspense> */}
       <WebGLReady onWebGLReady={onWebGLReady} />
     </Canvas>

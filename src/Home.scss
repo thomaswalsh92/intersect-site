@@ -257,6 +257,10 @@ html {
   z-index: 1000;
 }
 
+#tele-container {
+  display: flex;
+  align-items: center;
+}
 // #reel-image {
 //   position: relative;
 //   top: 0;
