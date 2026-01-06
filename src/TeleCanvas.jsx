@@ -97,6 +97,7 @@ export default function TeleCanvas({
 }) {
   return (
     <Canvas
+      resize={{ scroll: false }}
       //frameloop="demand"
       shadows
       id={"tele-canvas"}

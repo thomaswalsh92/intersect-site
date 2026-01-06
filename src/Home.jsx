@@ -304,18 +304,20 @@ export default function Home() {
         trigger: "#work",
         start: "top top",
         onEnter: () => {
-          gsap.set("#tele-container", { x: translateTeleX });
-          gsap.set("#tele-container", { y: translateTeleY });
+          gsap.set("#tele-container", { left: translateTeleX });
+          gsap.set("#tele-container", { top: translateTeleY });
+          gsap.set("#tele-container", { width: "50%" });
           setTeleContext("info");
         },
-        onLeaveBack: () => {
-          gsap.set("#tele-container", { y: 0 });
-          gsap.set("#tele-container", { x: 0 });
-          setTeleContext("reel");
-        },
+        // onLeaveBack: () => {
+        //   gsap.set("#tele-container", { y: 0 });
+        //   gsap.set("#tele-container", { x: 0 });
+        //   setTeleContext("reel");
+        // },
         onEnterBack: () => {
-          gsap.set("#tele-container", { y: 0 });
-          gsap.set("#tele-container", { x: 0 });
+          gsap.set("#tele-container", { left: 0 });
+          gsap.set("#tele-container", { top: 0 });
+          gsap.set("#tele-container", { width: "100%" });
           setTeleContext("reel");
         },
       });
@@ -337,9 +339,9 @@ export default function Home() {
       wrapper.current = ScrollSmoother.create({
         wrapper: wrapper.current,
         content: content.current,
-        smooth: 1.5,
+        smooth: 1,
         effects: true,
-        //normalizeScroll: true,
+        normalizeScroll: true,
       });
     },
     { scope: wrapper, dependencies: [appReady] }
@@ -430,15 +432,15 @@ export default function Home() {
                   <IntersectLogoCenter />
                   <IntersectLogoRight />
                 </div>
-                <div id="home-bg-logo-container">
+                {/* <div id="home-bg-logo-container" style={{ opacity: "25%" }}>
                   <IntersectLogoLeft />
                   <IntersectLogoCenter />
                   <IntersectLogoRight />
                 </div>
-                {/* <div id="home-bg-logo-container">
-                  <IntersectLogoLeft />
+                <div id="home-bg-logo-container" style={{ opacity: "25%" }}>
                   <IntersectLogoCenter />
-                  <IntersectLogoRight />
+                  <IntersectLogoCenter />
+                  <IntersectLogoCenter />
                 </div> */}
               </div>
               {/* <video
@@ -509,7 +511,11 @@ export default function Home() {
                   id="tele-container"
                   style={{
                     height: "100%",
-                    width: teleContext === "reel" ? "100%" : "50%",
+                    width: "100%",
+                    position: "absolute",
+                    left: 0,
+                    top: 0,
+                    // width: teleContext === "reel" ? "100%" : "50%",
                   }}
                 >
                   <TeleCanvas
@@ -525,11 +531,11 @@ export default function Home() {
                   />
                 </div>
               </div>
-
               <div id="work" ref={workRef}>
                 <WorkGrid />
               </div>
               <div id="info" ref={infoRef}>
+                <div id="info-color-margin"></div>
                 <div id="info-text">
                   <p className="text-2 info-heading">
                     WE ARE <span className="text-1">INTERSECT</span>
