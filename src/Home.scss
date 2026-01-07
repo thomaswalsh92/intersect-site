@@ -311,12 +311,15 @@ html {
 #work {
   width: 100vw;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: $Black;
   // font-family: JetBrainsMono;
   // font-weight: light;
+}
+
+#work-outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #work-container {
@@ -337,6 +340,25 @@ html {
   grid-column: 1 / 5;
   height: 100%;
   width: 100%;
+}
+
+#work-margin-top {
+  background-color: $Black;
+  position: relative;
+  top: -7.5%;
+  width: 100vw;
+  height: 15%;
+  z-index: 10;
+}
+
+#work-margin-bottom {
+  position: relative;
+  background-color: $Black;
+  position: relative;
+  bottom: -5%;
+  width: 100vw;
+  height: 15%;
+  z-index: 10;
 }
 
 //*INFO

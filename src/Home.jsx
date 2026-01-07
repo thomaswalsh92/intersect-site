@@ -155,7 +155,6 @@ export default function Home() {
         pin: "#blend-stage",
         pinSpacing: false, // critical
         anticipatePin: 1,
-        markers: true,
       });
 
       gsap.from("#reel", {
@@ -246,39 +245,6 @@ export default function Home() {
         });
       });
 
-      // gsap.to("#landing-title", {
-      //   opacity: 0,
-      //   scrollTrigger: {
-      //     trigger: "#reel",
-      //     start: "bottom top",
-      //     end: "+=600",
-      //     scrub: true,
-      //     markers: true,
-      //   },
-      // });
-
-      // gsap.to("#landing-flavour", {
-      //   opacity: 0,
-      //   scrollTrigger: {
-      //     trigger: "#reel",
-      //     start: "top top",
-      //     end: "+=600",
-      //     scrub: true,
-      //     markers: true,
-      //   },
-      // });
-
-      // gsap.to("#landing-capabilities", {
-      //   opacity: 0,
-      //   scrollTrigger: {
-      //     trigger: "#home-bg",
-      //     start: "center top",
-      //     end: "+=600",
-      //     scrub: true,
-      //     markers: true,
-      //   },
-      // });
-
       //*Hide Scroll call to action
       let scrollCTATl = gsap.timeline({
         scrollTrigger: {
@@ -286,7 +252,6 @@ export default function Home() {
           start: "top top",
           end: "+=128",
           scrub: true,
-          markers: true,
         },
       });
 
@@ -514,7 +479,11 @@ export default function Home() {
                 </div>
               </div>
               <div id="work" ref={workRef}>
-                <WorkGrid />
+                <div aria-hidden="true" id="work-margin-top"></div>
+                <div id="work-outer">
+                  <WorkGrid />
+                </div>
+                <div aria-hidden="true" id="work-margin-bottom"></div>
               </div>
               <div id="info" ref={infoRef}>
                 <div id="info-color-margin"></div>
