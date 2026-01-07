@@ -40,7 +40,7 @@ export default function WorkGrid() {
   const getGridTemplateRows = (length) => {
     let string = "";
     for (let i = 0; i < length; i++) {
-      string = string.concat("48px");
+      string = string.concat("90px");
       if (i < length - 1) string = string.concat(" ");
     }
     return string;
@@ -74,7 +74,13 @@ export default function WorkGrid() {
       >
         {projectDetails.map((project, index) => {
           return (
-            <div className="grid-test-row" style={{ gridRow: index + 1 }}>
+            <div
+              className="grid-test-row"
+              style={{
+                gridRow: index + 1,
+                backgroundColor: index % 2 === 0 ? "blue" : "red",
+              }}
+            >
               {project.name}
             </div>
           );

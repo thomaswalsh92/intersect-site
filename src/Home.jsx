@@ -210,7 +210,7 @@ export default function Home() {
           scrambleText: {
             text: text,
             revealDelay: duration,
-            speed: 0.8,
+            speed: 1,
           },
         });
       });
