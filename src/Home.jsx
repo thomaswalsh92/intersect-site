@@ -93,7 +93,7 @@ export default function Home() {
     console.log("assets loaded: REEL");
   }
 
-  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(false);
+  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(true);
   // const [infoAssetsLoaded, setInfoAssetsLoaded] = useState(true);
 
   function onTeleWebGLReady() {
@@ -101,7 +101,7 @@ export default function Home() {
     console.log("web GL ready: REEL");
   }
 
-  const [teleWebGLReady, setTeleWebGLReady] = useState(false);
+  const [teleWebGLReady, setTeleWebGLReady] = useState(true);
   // const [infoWebGLReady, setInfoWebGLReady] = useState(true);
 
   const [appReady, setAppReady] = useState(false);
@@ -171,7 +171,7 @@ export default function Home() {
         scrollTrigger: {
           trigger: "#work",
           start: "top top",
-          end: pinSectionVal,
+          end: "+=2400",
           scrub: true,
           pin: true,
         },
