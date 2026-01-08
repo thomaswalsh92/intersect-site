@@ -93,16 +93,14 @@ export default function Home() {
     console.log("assets loaded: REEL");
   }
 
-  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(true);
-  // const [infoAssetsLoaded, setInfoAssetsLoaded] = useState(true);
+  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(false);
 
   function onTeleWebGLReady() {
     setTeleWebGLReady(true);
     console.log("web GL ready: REEL");
   }
 
-  const [teleWebGLReady, setTeleWebGLReady] = useState(true);
-  // const [infoWebGLReady, setInfoWebGLReady] = useState(true);
+  const [teleWebGLReady, setTeleWebGLReady] = useState(false);
 
   const [appReady, setAppReady] = useState(false);
 
@@ -284,6 +282,39 @@ export default function Home() {
           gsap.set("#tele-container", { top: 0 });
           gsap.set("#tele-container", { width: "100%" });
           setTeleContext("reel");
+        },
+      });
+
+      gsap.to("#intersect-logo-left", {
+        y: -100,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#home",
+          start: "top top",
+          end: "+=5000",
+          scrub: true,
+        },
+      });
+
+      gsap.to("#intersect-logo-center", {
+        y: -160,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#home",
+          start: "top top",
+          end: "+=5000",
+          scrub: true,
+        },
+      });
+
+      gsap.to("#intersect-logo-right", {
+        y: -220,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#home",
+          start: "top top",
+          end: "+=5000",
+          scrub: true,
         },
       });
     },

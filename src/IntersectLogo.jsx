@@ -4,7 +4,7 @@ export function IntersectLogoLeft() {
   return (
     <svg
       className="svg-logo"
-      id="Layer_1"
+      id="intersect-logo-left"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 375 1500"
@@ -27,7 +27,7 @@ export function IntersectLogoCenter() {
   return (
     <svg
       className="svg-logo"
-      id="Layer_1"
+      id="intersect-logo-center"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 375 1500"
@@ -52,7 +52,7 @@ export function IntersectLogoRight() {
   return (
     <svg
       className="svg-logo"
-      id="Layer_1"
+      id="intersect-logo-right"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 375 1500"
