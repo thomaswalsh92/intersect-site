@@ -5,8 +5,9 @@ import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
 export default function WorkGrid() {
   //! STUBBED DATA to be removed
@@ -50,12 +51,16 @@ export default function WorkGrid() {
   const rowRefs = useRef([]);
   const imageRowRef = useRef();
   const expandedHeightRef = useRef();
+  const [totalScrollAmount, setTotalScrollAmount] = useState(0);
 
   useEffect(() => {
     const containerHeight = gridContainer.current.offsetHeight;
     const expandedHeight =
       containerHeight - collapsedHeight * (projectDetails.length - 1);
     setExpandedHeight(expandedHeight);
+    setTotalScrollAmount(
+      gridContainer.current.offsetHeight * projectDetails.length
+    );
   }, [gridContainer, window.innerHeight]);
 
   useLayoutEffect(() => {
@@ -73,7 +78,6 @@ export default function WorkGrid() {
   }, []);
 
   useEffect(() => {
-    console.log("hello");
     gsap.to(rowRefs.current, {
       height: collapsedHeight,
       duration: 0.25,
@@ -91,30 +95,45 @@ export default function WorkGrid() {
   useGSAP(
     () => {
       if (!gridContainer.current) return;
+      console.log(totalScrollAmount);
       ScrollTrigger.create({
         trigger: "#work",
         start: "top top",
-        end: `+=2400`,
+        end: `+=${totalScrollAmount}`,
         onUpdate: ({ progress }) => {
           const quantizedScrollPos = Math.min(
             projectDetails.length - 1,
             Math.floor(progress * projectDetails.length)
           );
-          console.log(quantizedScrollPos);
           setExpandedRow(quantizedScrollPos);
         },
       });
     },
-    { dependencies: [gridContainer] }
+    { dependencies: [gridContainer, totalScrollAmount] }
   );
-
-  useEffect(() => {
-    console.log(expandedRow);
-  }, [expandedRow]);
 
   useLayoutEffect(() => {
     gsap.set(rowRefs.current[0], { height: expandedHeight });
   }, [expandedHeight]);
+
+  // const scrollTo = (targetRow) => {
+  //   const scrollSpan = targetRow - expandedRow;
+  //   if (scrollSpan === 0) return;
+  //   const resetScrollId = "#work-grid-row-" + expandedRow;
+  //   gsap.to(window, {
+  //     scrollTo: resetScrollId,
+  //     onComplete: () => {
+  //       gsap.to(window, {
+  //         duration: 0.02 * Math.abs(scrollSpan),
+  //         scrollTo: {
+  //           y: `${scrollSpan > 0 ? "+" : "-"}=${
+  //             (totalScrollAmount / projectDetails.length) * Math.abs(scrollSpan)
+  //           }`,
+  //         },
+  //       });
+  //     },
+  //   });
+  // };
 
   return (
     <div id="work-container" ref={gridContainer}>
@@ -124,10 +143,12 @@ export default function WorkGrid() {
             <div
               key={proj.project}
               ref={(el) => (rowRefs.current[index] = el)}
+              id={`work-grid-row-${index}`}
               className="work-grid-row"
               style={{
                 position: "relative",
                 "--hide-border": index === projectDetails.length - 1 ? 1 : 0,
+                cursor: expandedRow !== index && "pointer",
               }}
             >
               <div className="work-grid-row-main">

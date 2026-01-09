@@ -384,6 +384,7 @@ html {
   align-items: center;
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
+  background: $Black;
 }
 
 .work-grid-row-images {
@@ -391,6 +392,7 @@ html {
   overflow: hidden;
   display: flex;
   padding-left: 12px;
+  background: $Black;
 }
 
 .work-grid-image-placeholder {
