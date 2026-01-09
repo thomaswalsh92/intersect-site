@@ -72,11 +72,52 @@ html {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+
   svg {
     opacity: 60%;
     width: 30vw;
     // z-index: 1000;
     overflow-y: hidden;
+  }
+
+  @include down($bp-lg) {
+    left: -40vw;
+    max-width: none;
+    width: 180vw;
+    top: -240px;
+
+    svg {
+      max-width: none;
+      width: 60vw;
+      overflow: hidden;
+    }
+  }
+
+  @include down($bp-md) {
+    left: -25vw;
+    max-width: none;
+    width: 150vw;
+    align-items: center;
+
+    svg {
+      max-width: none;
+      width: 50vw;
+      overflow: hidden;
+    }
+  }
+
+  @include down($bp-sm) {
+    left: -62.5vw;
+    max-width: none;
+    width: 225vw;
+    align-items: center;
+    top: 0;
+
+    svg {
+      max-width: none;
+      width: 75vw;
+      overflow: hidden;
+    }
   }
 }
 
@@ -102,6 +143,15 @@ html {
   mix-blend-mode: difference;
   opacity: 100%;
   z-index: -10;
+
+  @include down($bp-sm) {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgb(33, 33, 33) 25%,
+      rgb(74, 74, 74) 75%
+    );
+  }
   // filter: blur(16px);
 }
 
@@ -169,8 +219,10 @@ html {
 #landing {
   width: 100vw;
   height: 100vh;
-  // font-family: JetBrainsMono;
-  // font-weight: light;
+  @include down($bp-sm) {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 #landing-title-container {
@@ -178,13 +230,13 @@ html {
   top: 0;
   left: 0;
   width: 100%;
-  height: 30vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   mix-blend-mode: difference;
   @include down($bp-sm) {
-    height: 50vh;
+    height: 40vh;
     // text-overflow: clip;
     // overflow: hidden;
     white-space: nowrap;
@@ -230,6 +282,18 @@ html {
   .indent-2 {
     padding-left: 0.8vw;
   }
+
+  @include down($bp-xl) {
+    p {
+      font-size: 1.2vw;
+    }
+  }
+
+  @include down($bp-md) {
+    p {
+      font-size: 1.6vw;
+    }
+  }
 }
 
 #landing-flavour {
@@ -244,6 +308,32 @@ html {
     font-size: 0.8vw;
     color: $Black;
   }
+
+  @include down($bp-xl) {
+    p {
+      font-size: 1.2vw;
+    }
+  }
+
+  @include down($bp-md) {
+    p {
+      font-size: 1.6vw;
+    }
+  }
+
+  @include down($bp-sm) {
+    position: block;
+    top: 80vh;
+    left: 0;
+    width: 100%;
+    padding-left: 32px;
+    padding-right: 32px;
+    p {
+      font-size: 3vw;
+      color: $White;
+      mix-blend-mode: difference;
+    }
+  }
 }
 
 #landing-scroll-cta-container {
@@ -251,7 +341,9 @@ html {
   display: flex;
   width: 100vw;
   justify-content: center;
-  // z-index: 100;
+  @include down($bp-sm) {
+    visibility: hidden;
+  }
 }
 
 #landing-scroll-cta {

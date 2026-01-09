@@ -32,6 +32,7 @@ import useWindowDimensions from "./utils/useWindowDimensions";
 import TeleCanvas from "./TeleCanvas";
 import WorkGrid from "./WorkGrid";
 import { useBreakpoint } from "./utils/useBreakpoint";
+import { BREAKPOINTS } from "./scss/breakpoints";
 
 THREE.Cache.enabled = true;
 
@@ -75,8 +76,6 @@ function LoadingScreen() {
 
 export default function Home() {
   const { height, width } = useWindowDimensions();
-
-  console.log(useBreakpoint("md", "down"));
   //*BG
   //checkpoint
 
@@ -371,6 +370,47 @@ export default function Home() {
     return window.innerHeight - 48 - 86;
   };
 
+  //! test/dev utility - so we can track in console what BP we're at
+  useEffect(() => {
+    let lastBreakpoint = null;
+
+    function getBreakpoint(width) {
+      switch (true) {
+        case width < BREAKPOINTS.sm:
+          return "xs (<576px)";
+        case width < BREAKPOINTS.md:
+          return "sm (mobile)";
+        case width < BREAKPOINTS.lg:
+          return "md (tablet)";
+        case width < BREAKPOINTS.xl:
+          return "lg (small laptop)";
+        case width < BREAKPOINTS["2xl"]:
+          return "xl (large laptop)";
+        case width < BREAKPOINTS["4k"]:
+          return "2xl (desktop)";
+        default:
+          return "4k+";
+      }
+    }
+
+    function handleResize() {
+      const width = window.innerWidth;
+      const currentBreakpoint = getBreakpoint(width);
+
+      if (currentBreakpoint !== lastBreakpoint) {
+        lastBreakpoint = currentBreakpoint;
+        console.log(`[Breakpoint] ${currentBreakpoint} — ${width}px`);
+      }
+    }
+
+    handleResize(); // initial log
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <>
       {/* <LoadingScreen /> */}
@@ -444,18 +484,47 @@ export default function Home() {
           <div id="home">
             <div id="home-content">
               <div id="landing" ref={landingRef}>
-                <div id="landing-capabilities" className="text-2">
-                  <p className="landing-capability-text">
-                    DESIGN & DEVELOPMENT
-                  </p>
-                  <p className="indent-1 landing-capability-text">{"{"}</p>
-                  {landingCapabilties.map((item) => {
-                    return (
-                      <p className="indent-2 landing-capability-text">{`<${item} />`}</p>
-                    );
-                  })}
-                  <p className="indent-1 landing-capability-text">{"}"}</p>
-                </div>
+                {!useBreakpoint("sm", "down") && (
+                  <div id="landing-capabilities" className="text-2">
+                    <p className="landing-capability-text">
+                      DESIGN & DEVELOPMENT
+                    </p>
+                    <p className="indent-1 landing-capability-text">{"{"}</p>
+                    {landingCapabilties.map((item) => {
+                      return (
+                        <p className="indent-2 landing-capability-text">{`<${item} />`}</p>
+                      );
+                    })}
+                    <p className="indent-1 landing-capability-text">{"}"}</p>
+                  </div>
+                )}
+                {useBreakpoint("sm", "down") && (
+                  <div
+                    id="tele-container"
+                    style={{
+                      height: "42vh",
+                      width: "100%",
+                      position: "absolute",
+                      display: "flex",
+                      justifyContent: "center",
+                      left: 0,
+                      top: "35vh",
+                      // width: teleContext === "reel" ? "100%" : "50%",
+                    }}
+                  >
+                    <TeleCanvas
+                      height={height}
+                      width={width}
+                      assetsLoaded={teleAssetsLoaded}
+                      onAssetsLoaded={onTeleAssetsLoaded}
+                      onWebGLReady={onTeleWebGLReady}
+                      // cameraPos={
+                      //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
+                      // }
+                      teleContext={teleContext}
+                    />
+                  </div>
+                )}
                 <div id="landing-flavour">
                   <p className="text-2">
                     <span className="text-1 landing-flavour-text">
@@ -487,29 +556,31 @@ export default function Home() {
                 </div>
               </div>
               <div id="reel" ref={reelRef}>
-                <div
-                  id="tele-container"
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                    position: "absolute",
-                    left: 0,
-                    top: 0,
-                    // width: teleContext === "reel" ? "100%" : "50%",
-                  }}
-                >
-                  <TeleCanvas
-                    height={height}
-                    width={width}
-                    assetsLoaded={teleAssetsLoaded}
-                    onAssetsLoaded={onTeleAssetsLoaded}
-                    onWebGLReady={onTeleWebGLReady}
-                    // cameraPos={
-                    //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
-                    // }
-                    teleContext={teleContext}
-                  />
-                </div>
+                {!useBreakpoint("sm", "down") && (
+                  <div
+                    id="tele-container"
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      position: "absolute",
+                      left: 0,
+                      top: 0,
+                      // width: teleContext === "reel" ? "100%" : "50%",
+                    }}
+                  >
+                    <TeleCanvas
+                      height={height}
+                      width={width}
+                      assetsLoaded={teleAssetsLoaded}
+                      onAssetsLoaded={onTeleAssetsLoaded}
+                      onWebGLReady={onTeleWebGLReady}
+                      // cameraPos={
+                      //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
+                      // }
+                      teleContext={teleContext}
+                    />
+                  </div>
+                )}
               </div>
               <div id="work" ref={workRef}>
                 <div aria-hidden="true" id="work-margin-top"></div>
