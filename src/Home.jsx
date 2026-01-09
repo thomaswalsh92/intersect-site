@@ -1,5 +1,5 @@
 //styling
-import "./Home.scss";
+import "./scss/Home.scss";
 
 //react
 import { useRef, useState, useEffect, Suspense } from "react";
@@ -31,6 +31,7 @@ import loadingGIF from "./assets/images/loading.gif";
 import useWindowDimensions from "./utils/useWindowDimensions";
 import TeleCanvas from "./TeleCanvas";
 import WorkGrid from "./WorkGrid";
+import { useBreakpoint } from "./utils/useBreakpoint";
 
 THREE.Cache.enabled = true;
 
@@ -75,6 +76,7 @@ function LoadingScreen() {
 export default function Home() {
   const { height, width } = useWindowDimensions();
 
+  console.log(useBreakpoint("md", "down"));
   //*BG
   //checkpoint
 

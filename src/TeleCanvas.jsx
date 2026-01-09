@@ -1,5 +1,5 @@
 //styling
-import "./Home.scss";
+import "./scss/Home.scss";
 
 //react
 import { useState, useEffect, useRef, Suspense } from "react";

@@ -1,0 +1,18 @@
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+$bp-2xl: 1536px;
+$bp-4k: 2560px;
+
+@mixin down($size) {
+  @media (max-width: ($size - 1)) {
+    @content;
+  }
+}
+
+@mixin up($size) {
+  @media (min-width: $size) {
+    @content;
+  }
+}

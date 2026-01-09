@@ -1,4 +1,4 @@
-import "./Home.scss";
+import "./scss/Home.scss";
 
 export function IntersectLogoLeft() {
   return (
