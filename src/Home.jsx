@@ -80,6 +80,7 @@ export default function Home() {
 
   //*LANDING
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
+  const landingTitleScrollInner = useRef();
 
   //*REEL
   const [teleContext, setTeleContext] = useState("reel"); //reel or info
@@ -240,6 +241,18 @@ export default function Home() {
         });
       });
 
+      if (landingTitleScrollInner.current) {
+        const scrollWidth = landingTitleScrollInner.current.scrollWidth / 2;
+        gsap.to("#landing-title-scroll-inner", {
+          x: -scrollWidth,
+          repeat: -1,
+          ease: "none",
+          duration: 10,
+          modifiers: {
+            x: gsap.utils.unitize((x) => (parseFloat(x) % scrollWidth) / 2),
+          },
+        });
+      }
       //*Hide Scroll call to action
       let scrollCTATl = gsap.timeline({
         scrollTrigger: {
@@ -331,7 +344,7 @@ export default function Home() {
         },
       });
     },
-    { dependencies: [appReady] }
+    { dependencies: [appReady, landingTitleScrollInner] }
   );
 
   // //test
@@ -490,9 +503,29 @@ export default function Home() {
             <div id="home-bg-invert-layer" />
           </div>
           <div id="landing-title-container">
-            <span id="landing-title" className="text-1">
-              INTERSECT
-            </span>
+            {useBreakpoint("sm", "down") ? (
+              <div
+                id="landing-title-scroll-inner"
+                ref={landingTitleScrollInner}
+              >
+                <span id="landing-title-scroll" className="text-1">
+                  INTERSECT
+                </span>
+                <span id="landing-title-scroll" className="text-1">
+                  INTERSECT
+                </span>
+                <span id="landing-title-scroll" className="text-1">
+                  INTERSECT
+                </span>
+                <span id="landing-title-scroll" className="text-1">
+                  INTERSECT
+                </span>
+              </div>
+            ) : (
+              <span id="landing-title" className="text-1">
+                INTERSECT
+              </span>
+            )}
           </div>
           <div id="home">
             <div id="home-content">
@@ -641,7 +674,7 @@ export default function Home() {
                         _{"\u200B"}
                       </span>
                       <span className="text-1 info-underlined">TOUCH</span>
-                      <span className="text-2 info-non-underlined">{`->`}</span>
+                      <span className="text-2 info-non-underlined">{`→`}</span>
                     </p>
                   </a>
                   {/*Change mail to when domain registered*/}

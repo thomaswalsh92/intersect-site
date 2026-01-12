@@ -236,6 +236,7 @@ html {
   justify-content: center;
   mix-blend-mode: difference;
   @include down($bp-sm) {
+    display: flex;
     height: 40vh;
     // text-overflow: clip;
     // overflow: hidden;
@@ -250,12 +251,30 @@ html {
   mix-blend-mode: difference;
   // z-index: --;
   @include down($bp-sm) {
-    font-size: 30vh;
+    position: static;
+    top: 16px; //reset to 16px
+    font-size: 30vh; //Rest to 30vh
     // text-overflow: clip;
     // overflow: hidden;
     white-space: nowrap;
   }
 }
+
+#landing-title-scroll-inner {
+  padding-top: 32px;
+}
+
+#landing-title-scroll {
+  color: $White;
+  font-size: 30vh;
+  mix-blend-mode: difference;
+}
+
+// #landing-title-r {
+//   color: $White;
+//   font-size: 5vh;
+//   mix-blend-mode: difference;
+// }
 
 #landing-title-placeholder {
   position: absolute;
@@ -591,6 +610,10 @@ html {
   font-size: 64px;
   a {
     all: unset;
+  }
+
+  @include down($bp-sm) {
+    font-size: 86px;
   }
 
   // text-decoration: underline;
