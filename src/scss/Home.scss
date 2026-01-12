@@ -540,17 +540,51 @@ html {
 
 .info-heading {
   font-size: 26px;
+  @include down($bp-md) {
+    display: none;
+  }
 }
 
 .info-text {
   font-size: 18px;
 }
 
-#info-text {
+#info-capabilities {
+  @include down($bp-md) {
+    display: none;
+  }
+}
+
+#info-text-container {
   padding: 22vh 0 22vh 10vh;
   width: 50vw;
   display: flex;
   flex-direction: column;
+  @include down($bp-sm) {
+    position: relative;
+    top: 15vh;
+    width: 100%;
+    padding: 0 5vh 0 5vh;
+    p {
+      text-align: center;
+    }
+    span {
+      white-space: normal;
+      overflow-wrap: normal;
+      word-break: normal;
+      text-align: center;
+    }
+  }
+}
+
+#info-text {
+  // padding: 22vh 0 22vh 10vh;
+  // width: 50vw;
+  // display: flex;
+  // flex-direction: column;
+  @include down($bp-sm) {
+    display: none;
+  }
 }
 
 #info-contact {
@@ -558,6 +592,7 @@ html {
   a {
     all: unset;
   }
+
   // text-decoration: underline;
 }
 
@@ -572,6 +607,9 @@ html {
 #info-tele-container {
   width: 50vw;
   height: 100vh;
+  @include down($bp-sm) {
+    display: none;
+  }
 }
 
 //*FOOTER
