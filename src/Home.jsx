@@ -77,18 +77,14 @@ function LoadingScreen() {
 export default function Home() {
   const { height, width } = useWindowDimensions();
   //*BG
-  //checkpoint
 
   //*LANDING
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
 
   //*REEL
-  // const [teleDialogOpen, setTeleDialogOpen] = useState(false);
-  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [teleContext, setTeleContext] = useState("reel"); //reel or info
-
+  const [currentBreakpoint, setCurrentBreakpoint] = useState();
   //*LOADING
-
   function onTeleAssetsLoaded() {
     setTeleAssetsLoaded(true);
     console.log("assets loaded: REEL");
@@ -258,33 +254,49 @@ export default function Home() {
         .to("#landing-scroll-cta", { y: 256, duration: 99, ease: "none" })
         .to("#landing-scroll-cta", { opacity: 0, duration: 1, ease: "none" });
 
+      // if (!useBreakpoint("sm", "down")) {
       //* slightly hacky way of getting the canvas in two spots in the site
+      const landingY = landingRef.current.getBoundingClientRect().top;
       const reelY = reelRef.current.getBoundingClientRect().top;
       const infoY = infoRef.current.getBoundingClientRect().top;
-      const translateTeleY = infoY - reelY - 1200;
-      const translateTeleX = window.innerWidth / 2;
+      if (currentBreakpoint !== "xs") {
+        const translateTeleY = infoY - reelY - 1200;
+        const translateTeleX = window.innerWidth / 2;
 
-      ScrollTrigger.create({
-        trigger: "#work",
-        start: "top top",
-        onEnter: () => {
-          gsap.set("#tele-container", { left: translateTeleX });
-          gsap.set("#tele-container", { top: translateTeleY });
-          gsap.set("#tele-container", { width: "50%" });
-          setTeleContext("info");
-        },
-        // onLeaveBack: () => {
-        //   gsap.set("#tele-container", { y: 0 });
-        //   gsap.set("#tele-container", { x: 0 });
-        //   setTeleContext("reel");
-        // },
-        onEnterBack: () => {
-          gsap.set("#tele-container", { left: 0 });
-          gsap.set("#tele-container", { top: 0 });
-          gsap.set("#tele-container", { width: "100%" });
-          setTeleContext("reel");
-        },
-      });
+        ScrollTrigger.create({
+          trigger: "#work",
+          start: "top top",
+          onEnter: () => {
+            gsap.set("#tele-container", { left: translateTeleX });
+            gsap.set("#tele-container", { top: translateTeleY });
+            gsap.set("#tele-container", { width: "50%" });
+            setTeleContext("info");
+          },
+          onEnterBack: () => {
+            gsap.set("#tele-container", { left: 0 });
+            gsap.set("#tele-container", { top: 0 });
+            gsap.set("#tele-container", { width: "100%" });
+            setTeleContext("reel");
+          },
+        });
+      } else {
+        const translateTeleY = infoY + window.innerHeight * 0.2;
+        const resetTeleY = window.innerHeight * 0.35;
+        ScrollTrigger.create({
+          trigger: "#work",
+          start: "top top",
+          onEnter: () => {
+            gsap.set("#tele-container", { top: translateTeleY });
+            gsap.set("#tele-container", { width: "100%" });
+            setTeleContext("info");
+          },
+          onEnterBack: () => {
+            gsap.set("#tele-container", { top: resetTeleY });
+            gsap.set("#tele-container", { width: "100%" });
+            setTeleContext("reel");
+          },
+        });
+      }
 
       gsap.to("#intersect-logo-left", {
         y: -100,
@@ -377,17 +389,17 @@ export default function Home() {
     function getBreakpoint(width) {
       switch (true) {
         case width < BREAKPOINTS.sm:
-          return "xs (<576px)";
+          return "xs";
         case width < BREAKPOINTS.md:
-          return "sm (mobile)";
+          return "sm";
         case width < BREAKPOINTS.lg:
-          return "md (tablet)";
+          return "md";
         case width < BREAKPOINTS.xl:
-          return "lg (small laptop)";
+          return "lg";
         case width < BREAKPOINTS["2xl"]:
-          return "xl (large laptop)";
+          return "xl";
         case width < BREAKPOINTS["4k"]:
-          return "2xl (desktop)";
+          return "2xl";
         default:
           return "4k+";
       }
@@ -396,6 +408,7 @@ export default function Home() {
     function handleResize() {
       const width = window.innerWidth;
       const currentBreakpoint = getBreakpoint(width);
+      setCurrentBreakpoint(currentBreakpoint);
 
       if (currentBreakpoint !== lastBreakpoint) {
         lastBreakpoint = currentBreakpoint;

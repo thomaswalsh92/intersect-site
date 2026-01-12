@@ -19,6 +19,7 @@ import { Environment, Lightformer, SoftShadows } from "@react-three/drei";
 
 //app
 import { Tele } from "./Tele";
+import { useBreakpoint } from "./utils/useBreakpoint";
 
 // function CanvasVisibilityController() {
 //   const { gl, invalidate, setFrameloop } = useThree();
@@ -81,9 +82,16 @@ function WebGLReady({ onWebGLReady }) {
 }
 
 function CameraController({ teleContext }) {
+  const lgDown = useBreakpoint("lg", "down");
+  const mdDown = useBreakpoint("md", "down");
+  const smDown = useBreakpoint("sm", "down");
   const { camera } = useThree();
   if (teleContext === "reel") camera.position.set(0, 0, 28);
+  if (teleContext === "reel" && lgDown) camera.position.set(0, 0, 38);
   if (teleContext === "info") camera.position.set(0, 0, 38);
+  if (teleContext === "info" && lgDown) camera.position.set(0, 0, 70);
+  if (teleContext === "info" && mdDown) camera.position.set(0, 0, 100);
+  if (teleContext === "info" && smDown) camera.position.set(0, 0, 28);
 
   return null;
 }

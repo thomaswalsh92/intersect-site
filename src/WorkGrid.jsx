@@ -116,24 +116,24 @@ export default function WorkGrid() {
     gsap.set(rowRefs.current[0], { height: expandedHeight });
   }, [expandedHeight]);
 
-  // const scrollTo = (targetRow) => {
-  //   const scrollSpan = targetRow - expandedRow;
-  //   if (scrollSpan === 0) return;
-  //   const resetScrollId = "#work-grid-row-" + expandedRow;
-  //   gsap.to(window, {
-  //     scrollTo: resetScrollId,
-  //     onComplete: () => {
-  //       gsap.to(window, {
-  //         duration: 0.02 * Math.abs(scrollSpan),
-  //         scrollTo: {
-  //           y: `${scrollSpan > 0 ? "+" : "-"}=${
-  //             (totalScrollAmount / projectDetails.length) * Math.abs(scrollSpan)
-  //           }`,
-  //         },
-  //       });
-  //     },
-  //   });
-  // };
+  const scrollTo = (targetRow) => {
+    const scrollSpan = targetRow - expandedRow;
+    if (scrollSpan === 0) return;
+    const resetScrollId = "#work-grid-row-" + expandedRow;
+    gsap.to(window, {
+      scrollTo: resetScrollId,
+      onComplete: () => {
+        gsap.to(window, {
+          duration: 0.02 * Math.abs(scrollSpan),
+          scrollTo: {
+            y: `${scrollSpan > 0 ? "+" : "-"}=${
+              (totalScrollAmount / projectDetails.length) * Math.abs(scrollSpan)
+            }`,
+          },
+        });
+      },
+    });
+  };
 
   return (
     <div id="work-container" ref={gridContainer}>
@@ -150,21 +150,22 @@ export default function WorkGrid() {
                 "--hide-border": index === projectDetails.length - 1 ? 1 : 0,
                 cursor: expandedRow !== index && "pointer",
               }}
+              onClick={() => scrollTo(index)}
             >
               <div className="work-grid-row-main">
                 <p id="work-grid-project" className="text-1">
                   {proj.project}
                 </p>
-                <p id="work-grid-client" className="text-1">
+                <p id="work-grid-client" className="text-2">
                   {proj.client}
                 </p>
-                <p id="work-grid-disciplines" className="text-1">
+                <p id="work-grid-disciplines" className="text-2">
                   {proj.disciplines.map((val, i) => {
                     if (i === proj.disciplines.length - 1) return val;
                     else return val + " / ";
                   })}
                 </p>
-                <p id="work-grid-published" className="text-1">
+                <p id="work-grid-published" className="text-2">
                   {proj.published}
                 </p>
               </div>
