@@ -88,23 +88,25 @@ export default function Home() {
   //*LOADING
   function onTeleAssetsLoaded() {
     setTeleAssetsLoaded(true);
-    console.log("assets loaded: REEL");
+    // console.log("assets loaded: REEL");
   }
 
-  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(false);
+  //! debug
+  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(true);
 
   function onTeleWebGLReady() {
     setTeleWebGLReady(true);
-    console.log("web GL ready: REEL");
+    // console.log("web GL ready: REEL");
   }
 
-  const [teleWebGLReady, setTeleWebGLReady] = useState(false);
+  //! debug
+  const [teleWebGLReady, setTeleWebGLReady] = useState(true);
 
   const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
     if (teleAssetsLoaded && teleWebGLReady) {
-      console.log("all checks done");
+      // console.log("all checks done");
       if ("scrollRestoration" in window.history) {
         window.history.scrollRestoration = "manual";
       }
@@ -346,11 +348,6 @@ export default function Home() {
     },
     { dependencies: [appReady, landingTitleScrollInner] }
   );
-
-  // //test
-  // useEffect(() => {
-  //   console.log(teleContext);
-  // }, [teleContext]);
 
   //* GSAP smooth scroll init
   const wrapper = useRef();
@@ -629,11 +626,9 @@ export default function Home() {
                 )}
               </div>
               <div id="work" ref={workRef}>
-                <div aria-hidden="true" id="work-margin-top"></div>
                 <div id="work-outer">
                   <WorkGrid />
                 </div>
-                <div aria-hidden="true" id="work-margin-bottom"></div>
               </div>
               <div id="info" ref={infoRef}>
                 <div id="info-color-margin"></div>

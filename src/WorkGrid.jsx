@@ -42,160 +42,237 @@ export default function WorkGrid() {
     },
   ];
 
-  const gridContainer = useRef(null);
-
-  const collapsedHeight = 90;
-  const [expandedHeight, setExpandedHeight] = useState(0);
-  const [expandedRow, setExpandedRow] = useState(0);
-
-  const rowRefs = useRef([]);
-  const imageRowRef = useRef();
-  const expandedHeightRef = useRef();
-  const [totalScrollAmount, setTotalScrollAmount] = useState(0);
+  //* refactor opp -> change to useReducer
+  const [width, setWidth] = useState();
+  const [height, setHeight] = useState();
+  // \/
+  const [imageHeight, setImageHeight] = useState();
+  const [imageWidth, setImageWidth] = useState();
+  const [imageIsMaxVertical, setImageIsMaxVertical] = useState();
+  // \/
+  const [cols, setCols] = useState();
+  const workGrid = useRef(null);
 
   useEffect(() => {
-    const containerHeight = gridContainer.current.offsetHeight;
-    const expandedHeight =
-      containerHeight - collapsedHeight * (projectDetails.length - 1);
-    setExpandedHeight(expandedHeight);
-    setTotalScrollAmount(
-      gridContainer.current.offsetHeight * projectDetails.length
-    );
-  }, [gridContainer, window.innerHeight]);
+    function handleResize() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      setWidth(width);
+      setHeight(height);
+    }
 
-  useLayoutEffect(() => {
-    if (!gridContainer.current || rowRefs.current.length === 0) return;
+    handleResize(); // initial log
+    window.addEventListener("resize", handleResize);
 
-    const containerHeight = gridContainer.current.offsetHeight;
-    const expandedHeightCalc =
-      containerHeight - collapsedHeight * (projectDetails.length - 1);
-
-    // set initial height of first row
-    gsap.set(rowRefs.current[0], { height: expandedHeightCalc });
-
-    // store in a ref for later scroll animation
-    expandedHeightRef.current = expandedHeightCalc;
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
+  //chain of effect hooks computes grid sizes for responsive 4 / 5 image container
   useEffect(() => {
-    gsap.to(rowRefs.current, {
-      height: collapsedHeight,
-      duration: 0.25,
-      ease: "power2.inOut",
-    });
+    if (!workGrid.current) return;
+    const gridWidth = workGrid.current.offsetWidth;
+    let widthUnit = gridWidth / 19;
+    const gridHeight = workGrid.current.offsetHeight;
+    const minimumTopBottomSize = 112;
+    const maxVerticalSize = gridHeight - minimumTopBottomSize * 2;
+    //in this case the imageHeight is fixed as maxVerticalSize, width derived from that
+    if (widthUnit * 10 > maxVerticalSize) {
+      setImageHeight(maxVerticalSize);
+      setImageWidth((maxVerticalSize / 5) * 4);
+      setImageIsMaxVertical(true);
+    }
 
-    gsap.to(rowRefs.current[expandedRow], {
-      height: expandedHeightRef.current,
-      duration: 0.25,
-      ease: "power2.inOut",
-    });
-  }, [expandedRow]);
+    //in this case the image size is computed as 4 / 5 from widthUnits
+    if (widthUnit * 10 <= maxVerticalSize) {
+      setImageHeight(widthUnit * 10);
+      setImageWidth(widthUnit * 8);
+      setImageIsMaxVertical(false);
+    }
+  }, [width, height, workGrid]);
 
-  //gsap
-  useGSAP(
-    () => {
-      if (!gridContainer.current) return;
-      console.log(totalScrollAmount);
-      ScrollTrigger.create({
-        trigger: "#work",
-        start: "top top",
-        end: `+=${totalScrollAmount}`,
-        onUpdate: ({ progress }) => {
-          const quantizedScrollPos = Math.min(
-            projectDetails.length - 1,
-            Math.floor(progress * projectDetails.length)
-          );
-          setExpandedRow(quantizedScrollPos);
-        },
-      });
-    },
-    { dependencies: [gridContainer, totalScrollAmount] }
-  );
+  useEffect(() => {
+    if (imageIsMaxVertical) {
+      setCols(`repeat(10, 1fr) repeat(8, ${imageWidth / 8}px) 1fr`);
+    }
 
-  useLayoutEffect(() => {
-    gsap.set(rowRefs.current[0], { height: expandedHeight });
-  }, [expandedHeight]);
-
-  const scrollTo = (targetRow) => {
-    const scrollSpan = targetRow - expandedRow;
-    if (scrollSpan === 0) return;
-    const resetScrollId = "#work-grid-row-" + expandedRow;
-    gsap.to(window, {
-      scrollTo: resetScrollId,
-      onComplete: () => {
-        gsap.to(window, {
-          duration: 0.02 * Math.abs(scrollSpan),
-          scrollTo: {
-            y: `${scrollSpan > 0 ? "+" : "-"}=${
-              (totalScrollAmount / projectDetails.length) * Math.abs(scrollSpan)
-            }`,
-          },
-        });
-      },
-    });
-  };
+    if (!imageIsMaxVertical) {
+      setCols("repeat(19, 1fr)");
+    }
+  }, [imageHeight, imageWidth, imageIsMaxVertical]);
 
   return (
-    <div id="work-container" ref={gridContainer}>
-      <div id="work-gallery">
-        {projectDetails.map((proj, index) => {
-          return (
-            <div
-              key={proj.project}
-              ref={(el) => (rowRefs.current[index] = el)}
-              id={`work-grid-row-${index}`}
-              className="work-grid-row"
-              style={{
-                position: "relative",
-                "--hide-border": index === projectDetails.length - 1 ? 1 : 0,
-                cursor: expandedRow !== index && "pointer",
-              }}
-              onClick={() => scrollTo(index)}
-            >
-              <div className="work-grid-row-main">
-                <p id="work-grid-project" className="text-1">
-                  {proj.project}
-                </p>
-                <p id="work-grid-client" className="text-2">
-                  {proj.client}
-                </p>
-                <p id="work-grid-disciplines" className="text-2">
-                  {proj.disciplines.map((val, i) => {
-                    if (i === proj.disciplines.length - 1) return val;
-                    else return val + " / ";
-                  })}
-                </p>
-                <p id="work-grid-published" className="text-2">
-                  {proj.published}
-                </p>
-              </div>
-              <div
-                ref={imageRowRef}
-                style={{ height: expandedHeight - collapsedHeight * 2 }}
-                className="work-grid-row-images"
-              >
-                <div
-                  style={{
-                    height: expandedHeight - collapsedHeight * 2,
-                    aspectRatio: "16 / 9",
-                  }}
-                  className="work-grid-image-placeholder image-sixteen-nine"
-                ></div>
-                <div
-                  style={{
-                    height: expandedHeight - collapsedHeight * 2,
-                    aspectRatio: "4 / 5",
-                  }}
-                  className="work-grid-image-placeholder image-four-five"
-                ></div>
-              </div>
-              <div className="work-grid-row-secondary">
-                <p className="text-2">{proj.description}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+    <div
+      id="work-grid"
+      ref={workGrid}
+      style={{
+        height: "100%",
+        width: "100%",
+        display: "grid",
+        gridTemplateColumns: cols,
+        gridTemplateRows: `1fr ${imageHeight}px 1fr`,
+        background: "red",
+      }}
+    >
+      {/* ROW ONE */}
+      <div
+        className="work-grid-block"
+        id="work-grid-title"
+        style={{
+          background: "blue",
+          gridColumn: "span 4",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 2",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 3",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 1",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 8",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 1",
+          gridRow: "span 1",
+        }}
+      ></div>
+      {/* ROW TWO */}
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 2",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        id="work-grid-project-list"
+        style={{
+          background: "blue",
+          gridColumn: "span 8",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        id="work-grid-project-image"
+        style={{
+          background: "orange",
+          gridColumn: "span 8",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 1",
+          gridRow: "span 1",
+        }}
+      ></div>
+      {/* ROW THREE */}
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 2",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 2",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 2",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 3",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 1",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "blue",
+          gridColumn: "span 4",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "blue",
+          gridColumn: "span 2",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "blue",
+          gridColumn: "span 2",
+          gridRow: "span 1",
+        }}
+      ></div>
+      <div
+        className="work-grid-block"
+        style={{
+          background: "gray",
+          gridColumn: "span 1",
+          gridRow: "span 1",
+        }}
+      ></div>
     </div>
   );
 }
