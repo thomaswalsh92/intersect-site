@@ -439,6 +439,7 @@ html {
 // }
 
 //*WORK
+//all grid styles live in JSX
 #work {
   width: 100vw;
   height: 100vh;
@@ -455,12 +456,54 @@ html {
 }
 
 .work-grid-block {
-  border-right: yellow 1px solid;
-  border-bottom: yellow 1px solid;
+  border-right: $GrayMid 1px solid;
+  border-bottom: $GrayMid 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    color: $White;
+    font-size: 48px;
+  }
 }
 
-// #work-container {
-// }
+.work-grid-project-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    color: $White;
+    font-size: 10px;
+    text-align: center;
+    mix-blend-mode: difference;
+  }
+}
+
+#work-grid-project-short-description {
+  padding: 0 24px 0 24px;
+  p {
+    color: $White;
+    font-size: 10px;
+    text-align: center;
+    mix-blend-mode: difference;
+  }
+}
+
+.work-grid-action-block {
+  p {
+    color: $White;
+    font-size: 14px;
+    text-align: center;
+    mix-blend-mode: difference;
+    text-decoration: underline;
+  }
+}
+
+#work-grid-project-action-two {
+  p {
+    color: $Accent;
+  }
+}
 
 //*INFO
 #info {

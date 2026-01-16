@@ -6,6 +6,12 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import cropCover from "../src/assets/images/work-crop-cover.jpg";
+import darskCover from "../src/assets/images/work-darsk-cover.jpg";
+import johnPeelCover from "../src/assets/images/work-john-peel-cover.jpg";
+import rainydayCover from "../src/assets/images/work-rainyday-cover.jpg";
+import shimmerCover from "../src/assets/images/work-shimmer-cover.jpg";
+import synEightCover from "../src/assets/images/work-syneight-cover.jpg";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
@@ -17,28 +23,67 @@ export default function WorkGrid() {
       client: "RAINYDAY STUDIO",
       disciplines: ["WEB DESIGN", "WEB DEVELOPMENT"],
       published: 2025,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      shortDescription:
+        "RAINYDAY Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      actions: [
+        { type: "explore", title: "EXPLORE" },
+        {
+          type: "site-link",
+          title: "LIVE SITE",
+          url: "https://www.rainydaystudio.co.uk/",
+        },
+      ],
+      coverImage: rainydayCover,
     },
     {
       project: "JOHN PEEL COLLECTION",
       client: "OMEGA AUCTIONS",
       disciplines: ["GRAPHIC DESIGN"],
       published: 2025,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      shortDescription:
+        "JOHN PEEL Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      actions: { type: "explore", title: "EXPLORE" },
+      coverImage: johnPeelCover,
     },
     {
       project: "CROP MAGAZINE LAUNCH",
       client: "CROP RADIO",
       disciplines: ["MOTION DESIGN"],
       published: 2025,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      shortDescription:
+        "CROP MAGAZINE Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      actions: { type: "explore", title: "EXPLORE" },
+      coverImage: cropCover,
     },
     {
       project: "DARSK VISUAL IDENTITY",
       client: "DARSK",
       disciplines: ["GRAPHIC DESIGN", "MOTION DESIGN"],
       published: 2025,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      shortDescription:
+        "DARSK Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      actions: { type: "explore", title: "EXPLORE" },
+      coverImage: darskCover,
+    },
+    {
+      project: "SHIMMER VISUAL INDENTITY",
+      client: "SHIMMER",
+      disciplines: ["GRAPHIC DESIGN", "MOTION DESIGN"],
+      published: 2025,
+      shortDescription:
+        "SHIMMER Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      actions: { type: "explore", title: "EXPLORE" },
+      coverImage: shimmerCover,
+    },
+    {
+      project: "SYN-EIGHT",
+      client: "INTERSECT",
+      disciplines: ["3D DESIGN", "MOTION DESIGN"],
+      published: 2025,
+      shortDescription:
+        "SYNEIGHT Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      actions: { type: "explore", title: "EXPLORE" },
+      coverImage: synEightCover,
     },
   ];
 
@@ -52,6 +97,8 @@ export default function WorkGrid() {
   // \/
   const [cols, setCols] = useState();
   const workGrid = useRef(null);
+
+  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
     function handleResize() {
@@ -102,6 +149,10 @@ export default function WorkGrid() {
     }
   }, [imageHeight, imageWidth, imageIsMaxVertical]);
 
+  const projectsSelectedColor = "#f4f4f3";
+  const projectsExtraDarkColor = "#1d1e1e";
+  const bgColor = "#2f3031";
+
   return (
     <div
       id="work-grid"
@@ -112,7 +163,7 @@ export default function WorkGrid() {
         display: "grid",
         gridTemplateColumns: cols,
         gridTemplateRows: `1fr ${imageHeight}px 1fr`,
-        background: "red",
+        borderTop: "#818182 1px solid",
       }}
     >
       {/* ROW ONE */}
@@ -120,15 +171,16 @@ export default function WorkGrid() {
         className="work-grid-block"
         id="work-grid-title"
         style={{
-          background: "blue",
+          background: projectsExtraDarkColor,
           gridColumn: "span 4",
           gridRow: "span 1",
         }}
-      ></div>
+      >
+        <p className="text-1">WORKS</p>
+      </div>
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 2",
           gridRow: "span 1",
         }}
@@ -136,7 +188,6 @@ export default function WorkGrid() {
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 3",
           gridRow: "span 1",
         }}
@@ -144,7 +195,6 @@ export default function WorkGrid() {
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 1",
           gridRow: "span 1",
         }}
@@ -152,7 +202,6 @@ export default function WorkGrid() {
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 8",
           gridRow: "span 1",
         }}
@@ -160,7 +209,6 @@ export default function WorkGrid() {
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 1",
           gridRow: "span 1",
         }}
@@ -169,33 +217,144 @@ export default function WorkGrid() {
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 2",
           gridRow: "span 1",
         }}
       ></div>
       <div
-        className="work-grid-block"
+        // className="work-grid-block"
         id="work-grid-project-list"
         style={{
-          background: "blue",
           gridColumn: "span 8",
           gridRow: "span 1",
+          display: "grid",
+          gridTemplateColumns: "repeat(8, 1fr)",
+          gridTemplateRows: `1fr repeat(${projectDetails.length}, 64px) 1fr`,
         }}
-      ></div>
+      >
+        <div
+          className="work-grid-block"
+          style={{
+            gridColumn: "span 2",
+            gridRow: "span 1",
+          }}
+        ></div>
+        <div
+          className="work-grid-block"
+          style={{
+            gridColumn: "span 2",
+            gridRow: "span 1",
+          }}
+        ></div>
+        <div
+          className="work-grid-block"
+          style={{
+            gridColumn: "span 3",
+            gridRow: "span 1",
+          }}
+        ></div>
+        <div
+          className="work-grid-block"
+          style={{
+            gridColumn: "span 1",
+            gridRow: "span 1",
+          }}
+        ></div>
+        {projectDetails.map((proj, index) => {
+          return (
+            <div
+              className="work-grid-project-row"
+              style={{
+                gridColumn: "span 8",
+                gridRow: "span 1",
+                display: "grid",
+                gridTemplateColumns: "repeat(8, 1fr)",
+                gridTemplateRows: "1fr",
+                cursor: "pointer",
+                background:
+                  selected === index
+                    ? projectsSelectedColor
+                    : projectsExtraDarkColor,
+              }}
+              onClick={() => setSelected(index)}
+            >
+              <div
+                style={{ gridColumn: "span 2", gridRow: "span 1" }}
+                className="work-grid-block work-grid-project-block"
+              >
+                <p className="text-1">{proj.project}</p>
+              </div>
+              <div
+                style={{ gridColumn: "span 2", gridRow: "span 1" }}
+                className="work-grid-block work-grid-project-block"
+              >
+                <p className="text-2">{proj.client}</p>
+              </div>
+              <div
+                style={{ gridColumn: "span 3", gridRow: "span 1" }}
+                className="work-grid-block work-grid-project-block"
+              >
+                <p className="text-2">
+                  {proj.disciplines.map((el, i) => {
+                    let string = el;
+                    if (i < proj.disciplines.length - 1) {
+                      string = string + " / ";
+                    }
+                    return string;
+                  })}
+                </p>
+              </div>
+              <div
+                style={{ gridColumn: "span 1", gridRow: "span 1" }}
+                className="work-grid-block work-grid-project-block"
+              >
+                <p className="text-2">{proj.published}</p>
+              </div>
+            </div>
+          );
+        })}
+        <div
+          className="work-grid-block"
+          style={{
+            gridColumn: "span 2",
+            gridRow: "span 1",
+          }}
+        ></div>
+        <div
+          className="work-grid-block"
+          style={{
+            gridColumn: "span 2",
+            gridRow: "span 1",
+          }}
+        ></div>
+        <div
+          className="work-grid-block"
+          style={{
+            gridColumn: "span 3",
+            gridRow: "span 1",
+          }}
+        ></div>
+        <div
+          className="work-grid-block"
+          style={{
+            gridColumn: "span 1",
+            gridRow: "span 1",
+          }}
+        ></div>
+      </div>
       <div
         className="work-grid-block"
         id="work-grid-project-image"
         style={{
-          background: "orange",
           gridColumn: "span 8",
           gridRow: "span 1",
         }}
-      ></div>
+      >
+        <img src={projectDetails[selected].coverImage} />
+      </div>
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 1",
           gridRow: "span 1",
         }}
@@ -204,7 +363,6 @@ export default function WorkGrid() {
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 2",
           gridRow: "span 1",
         }}
@@ -212,7 +370,6 @@ export default function WorkGrid() {
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 2",
           gridRow: "span 1",
         }}
@@ -220,7 +377,6 @@ export default function WorkGrid() {
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 2",
           gridRow: "span 1",
         }}
@@ -228,7 +384,6 @@ export default function WorkGrid() {
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 3",
           gridRow: "span 1",
         }}
@@ -236,39 +391,73 @@ export default function WorkGrid() {
       <div
         className="work-grid-block"
         style={{
-          background: "gray",
           gridColumn: "span 1",
           gridRow: "span 1",
         }}
       ></div>
       <div
         className="work-grid-block"
+        id="work-grid-project-short-description"
         style={{
-          background: "blue",
           gridColumn: "span 4",
           gridRow: "span 1",
+          background: projectsExtraDarkColor,
         }}
-      ></div>
+      >
+        <p className="text-2">{projectDetails[selected].shortDescription}</p>
+      </div>
+      {Array.isArray(projectDetails[selected].actions) ? (
+        <>
+          <div
+            className="work-grid-block work-grid-action-block"
+            id="work-grid-project-action-one"
+            style={{
+              gridColumn: "span 2",
+              gridRow: "span 1",
+              background: projectsExtraDarkColor,
+            }}
+          >
+            <p className="text-2">
+              {projectDetails[selected].actions[0] &&
+                `${projectDetails[selected].actions[0].title}→`}
+            </p>
+          </div>
+          <div
+            className="work-grid-block work-grid-action-block"
+            id="work-grid-project-action-two"
+            style={{
+              gridColumn: "span 2",
+              gridRow: "span 1",
+              background: projectsExtraDarkColor,
+            }}
+          >
+            <p className="text-2">
+              {projectDetails[selected].actions[1] &&
+                `${projectDetails[selected].actions[1].title}→`}
+            </p>
+          </div>
+        </>
+      ) : (
+        <>
+          <div
+            className="work-grid-block work-grid-action-block"
+            id="work-grid-project-action-one"
+            style={{
+              gridColumn: "span 4",
+              gridRow: "span 1",
+              background: projectsExtraDarkColor,
+            }}
+          >
+            <p className="text-2">
+              {`${projectDetails[selected].actions.title}→`}
+            </p>
+          </div>
+        </>
+      )}
+
       <div
         className="work-grid-block"
         style={{
-          background: "blue",
-          gridColumn: "span 2",
-          gridRow: "span 1",
-        }}
-      ></div>
-      <div
-        className="work-grid-block"
-        style={{
-          background: "blue",
-          gridColumn: "span 2",
-          gridRow: "span 1",
-        }}
-      ></div>
-      <div
-        className="work-grid-block"
-        style={{
-          background: "gray",
           gridColumn: "span 1",
           gridRow: "span 1",
         }}
