@@ -92,7 +92,7 @@ export default function Home() {
   }
 
   //! debug
-  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(true);
+  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(false);
 
   function onTeleWebGLReady() {
     setTeleWebGLReady(true);
@@ -100,7 +100,7 @@ export default function Home() {
   }
 
   //! debug
-  const [teleWebGLReady, setTeleWebGLReady] = useState(true);
+  const [teleWebGLReady, setTeleWebGLReady] = useState(false);
 
   const [appReady, setAppReady] = useState(false);
 

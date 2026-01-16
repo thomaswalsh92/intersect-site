@@ -17,6 +17,12 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
 export default function WorkGrid() {
   //! STUBBED DATA to be removed
+  // supports 2 length array of actions e.g. live site and explore e.g.
+  // actions: {type: string, title: string, url: string}
+  // OR
+  // actions: [{type: string, title: string, url: string}, {type: string, title: string, url: string}]
+
+  //types: "live-site", "explore"
   const projectDetails = [
     {
       project: "RAINYDAY WEBSITE",
@@ -25,14 +31,12 @@ export default function WorkGrid() {
       published: 2025,
       shortDescription:
         "RAINYDAY Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: [
-        { type: "explore", title: "EXPLORE" },
-        {
-          type: "site-link",
-          title: "LIVE SITE",
-          url: "https://www.rainydaystudio.co.uk/",
-        },
-      ],
+      actions: {
+        type: "live-site",
+        title: "LIVE SITE",
+        url: "https://www.rainydaystudio.co.uk/",
+      },
+
       coverImage: rainydayCover,
     },
     {
@@ -42,7 +46,7 @@ export default function WorkGrid() {
       published: 2025,
       shortDescription:
         "JOHN PEEL Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: { type: "explore", title: "EXPLORE" },
+      actions: undefined,
       coverImage: johnPeelCover,
     },
     {
@@ -52,7 +56,7 @@ export default function WorkGrid() {
       published: 2025,
       shortDescription:
         "CROP MAGAZINE Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: { type: "explore", title: "EXPLORE" },
+      actions: undefined,
       coverImage: cropCover,
     },
     {
@@ -62,7 +66,7 @@ export default function WorkGrid() {
       published: 2025,
       shortDescription:
         "DARSK Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: { type: "explore", title: "EXPLORE" },
+      actions: undefined,
       coverImage: darskCover,
     },
     {
@@ -72,7 +76,7 @@ export default function WorkGrid() {
       published: 2025,
       shortDescription:
         "SHIMMER Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: { type: "explore", title: "EXPLORE" },
+      actions: undefined,
       coverImage: shimmerCover,
     },
     {
@@ -82,7 +86,7 @@ export default function WorkGrid() {
       published: 2025,
       shortDescription:
         "SYNEIGHT Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: { type: "explore", title: "EXPLORE" },
+      actions: undefined,
       coverImage: synEightCover,
     },
   ];
@@ -151,7 +155,7 @@ export default function WorkGrid() {
 
   const projectsSelectedColor = "#f4f4f3";
   const projectsExtraDarkColor = "#1d1e1e";
-  const bgColor = "#2f3031";
+  // const bgColor = "#2f3031";
 
   return (
     <div
@@ -163,7 +167,6 @@ export default function WorkGrid() {
         display: "grid",
         gridTemplateColumns: cols,
         gridTemplateRows: `1fr ${imageHeight}px 1fr`,
-        borderTop: "#818182 1px solid",
       }}
     >
       {/* ROW ONE */}
@@ -406,52 +409,82 @@ export default function WorkGrid() {
       >
         <p className="text-2">{projectDetails[selected].shortDescription}</p>
       </div>
-      {Array.isArray(projectDetails[selected].actions) ? (
-        <>
-          <div
-            className="work-grid-block work-grid-action-block"
-            id="work-grid-project-action-one"
-            style={{
-              gridColumn: "span 2",
-              gridRow: "span 1",
-              background: projectsExtraDarkColor,
-            }}
-          >
-            <p className="text-2">
-              {projectDetails[selected].actions[0] &&
-                `${projectDetails[selected].actions[0].title}→`}
-            </p>
-          </div>
-          <div
-            className="work-grid-block work-grid-action-block"
-            id="work-grid-project-action-two"
-            style={{
-              gridColumn: "span 2",
-              gridRow: "span 1",
-              background: projectsExtraDarkColor,
-            }}
-          >
-            <p className="text-2">
-              {projectDetails[selected].actions[1] &&
-                `${projectDetails[selected].actions[1].title}→`}
-            </p>
-          </div>
-        </>
+      {projectDetails[selected].actions ? (
+        Array.isArray(projectDetails[selected].actions) ? (
+          <>
+            <div
+              className="work-grid-block work-grid-action-block"
+              id="work-grid-project-action-one"
+              style={{
+                gridColumn: "span 2",
+                gridRow: "span 1",
+              }}
+            >
+              <p
+                style={{
+                  color:
+                    projectDetails[selected].actions[0].type === "live-site" &&
+                    "#e9ffa8",
+                }}
+                className="text-2"
+              >
+                {projectDetails[selected].actions[0] &&
+                  `${projectDetails[selected].actions[0].title}→`}
+              </p>
+            </div>
+            <div
+              className="work-grid-block work-grid-action-block"
+              id="work-grid-project-action-two"
+              style={{
+                gridColumn: "span 2",
+                gridRow: "span 1",
+              }}
+            >
+              <p
+                style={{
+                  color:
+                    projectDetails[selected].actions[0].type === "live-site" &&
+                    "#e9ffa8",
+                }}
+                className="text-2"
+              >
+                {projectDetails[selected].actions[1] &&
+                  `${projectDetails[selected].actions[1].title}→`}
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <div
+              className="work-grid-block work-grid-action-block"
+              id="work-grid-project-action-one"
+              style={{
+                gridColumn: "span 4",
+                gridRow: "span 1",
+              }}
+            >
+              <p
+                style={{
+                  color:
+                    projectDetails[selected].actions.type === "live-site" &&
+                    "#e9ffa8",
+                }}
+                className="text-2"
+              >
+                {`${projectDetails[selected].actions.title}→`}
+              </p>
+            </div>
+          </>
+        )
       ) : (
         <>
           <div
-            className="work-grid-block work-grid-action-block"
-            id="work-grid-project-action-one"
+            className="work-grid-block"
             style={{
               gridColumn: "span 4",
               gridRow: "span 1",
-              background: projectsExtraDarkColor,
             }}
-          >
-            <p className="text-2">
-              {`${projectDetails[selected].actions.title}→`}
-            </p>
-          </div>
+          ></div>
         </>
       )}
 

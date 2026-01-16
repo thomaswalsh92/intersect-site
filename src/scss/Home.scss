@@ -396,9 +396,9 @@ html {
   z-index: 1000;
   background: linear-gradient(
     to bottom,
-    rgba(22, 23, 23, 0) 0%,
-    rgba(22, 23, 23, 1) 80%,
-    rgba(22, 23, 23, 1) 100%
+    rgba(47, 48, 49, 0) 0%,
+    rgba(47, 48, 49, 1) 80%,
+    rgba(47, 48, 49, 1) 100%
   );
 
   @include down($bp-sm) {
@@ -441,6 +441,8 @@ html {
 //*WORK
 //all grid styles live in JSX
 #work {
+  // border-top: $GrayMid 1px solid;
+  // border-bottom: $GrayMid 1px solid;
   width: 100vw;
   height: 100vh;
   background-color: $Black;
@@ -455,9 +457,13 @@ html {
   padding: 48px 0 48px 0;
 }
 
+#work-grid {
+  border-top: rgb(129, 129, 130, 0.5) 1px solid;
+}
+
 .work-grid-block {
-  border-right: $GrayMid 1px solid;
-  border-bottom: $GrayMid 1px solid;
+  border-right: rgb(129, 129, 130, 0.5) 1px solid;
+  border-bottom: rgb(129, 129, 130, 0.5) 1px solid;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -490,18 +496,13 @@ html {
 }
 
 .work-grid-action-block {
+  background-color: $BlackDark;
   p {
     color: $White;
     font-size: 14px;
     text-align: center;
     mix-blend-mode: difference;
     text-decoration: underline;
-  }
-}
-
-#work-grid-project-action-two {
-  p {
-    color: $Accent;
   }
 }
 
@@ -515,9 +516,9 @@ html {
   // background: $Black;
   background: linear-gradient(
     to bottom,
-    rgba(22, 23, 23, 1) 0%,
-    rgba(22, 23, 23, 1) 5%,
-    rgba(22, 23, 23, 0) 100%
+    rgba(47, 48, 49, 1) 0%,
+    rgba(47, 48, 49, 1) 5%,
+    rgba(47, 48, 49, 0) 100%
   );
   // font-family: JetBrainsMono;
   // font-weight: light;
