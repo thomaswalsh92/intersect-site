@@ -325,7 +325,8 @@ html {
   width: 20vw;
   p {
     font-size: 0.8vw;
-    color: $Black;
+    color: #ffffff;
+    mix-blend-mode: difference;
   }
 
   @include down($bp-xl) {
@@ -546,7 +547,7 @@ html {
 }
 
 #info-text-container {
-  padding: 22vh 0 22vh 10vh;
+  padding: 22vh 10vh 22vh 10vh;
   width: 50vw;
   display: flex;
   flex-direction: column;
@@ -584,7 +585,7 @@ html {
   }
 
   @include down($bp-sm) {
-    font-size: 86px;
+    font-size: 72px;
   }
 
   // text-decoration: underline;

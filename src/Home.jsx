@@ -91,7 +91,6 @@ export default function Home() {
     // console.log("assets loaded: REEL");
   }
 
-  //! debug
   const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(false);
 
   function onTeleWebGLReady() {
@@ -99,7 +98,6 @@ export default function Home() {
     // console.log("web GL ready: REEL");
   }
 
-  //! debug
   const [teleWebGLReady, setTeleWebGLReady] = useState(false);
 
   const [appReady, setAppReady] = useState(false);
@@ -295,8 +293,8 @@ export default function Home() {
           },
         });
       } else {
-        const translateTeleY = infoY + window.innerHeight * 0.15;
-        const resetTeleY = window.innerHeight * 0.35;
+        const translateTeleY = infoY + window.innerHeight * 0.15 - 60;
+        const resetTeleY = window.innerHeight * 0.375;
         ScrollTrigger.create({
           trigger: "#work",
           start: "top top",
@@ -551,7 +549,7 @@ export default function Home() {
                       display: "flex",
                       justifyContent: "center",
                       left: 0,
-                      top: "35vh",
+                      top: "37.5vh",
                       // width: teleContext === "reel" ? "100%" : "50%",
                     }}
                   >

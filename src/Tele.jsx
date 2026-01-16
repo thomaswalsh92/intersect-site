@@ -17,6 +17,7 @@ import {
 } from "@react-three/drei";
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
+import { useBreakpoint } from "./utils/useBreakpoint";
 
 export function Tele({ onAssetsLoaded, teleContext }) {
   useEffect(() => {
@@ -122,6 +123,7 @@ export function Tele({ onAssetsLoaded, teleContext }) {
 
   const maxY = Math.PI / 10; // ±18°
   const maxX = Math.PI / 100; // ±1.8°
+  const smallScreen = useBreakpoint("sm", "down");
 
   useFrame((state, delta) => {
     if (!ref.current) return;
@@ -148,6 +150,10 @@ export function Tele({ onAssetsLoaded, teleContext }) {
 
     if (teleContext === "info" && ref.current.rotation.y !== -0.19) {
       ref.current.rotation.y = -0.19;
+    }
+
+    if (teleContext === "info" && smallScreen) {
+      ref.current.rotation.y = 0;
     }
     // //console.log(ref.current.rotation.x);
     // console.log(ref.current.rotation.y);
