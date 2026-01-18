@@ -94,17 +94,22 @@ export default function Home() {
     window.innerHeight - headerHeight - footerHeight;
 
   const smallScreenPinVal = 400;
+
+  //horrible
+  const smallScreenWorkHeight =
+    (smallScreenProjectHeight + smallScreenPinVal) *
+      smallScreenProjects.length +
+    headerHeight * 3;
+
   //*LOADING
   function onTeleAssetsLoaded() {
     setTeleAssetsLoaded(true);
-    // console.log("assets loaded: REEL");
   }
 
   const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(false);
 
   function onTeleWebGLReady() {
     setTeleWebGLReady(true);
-    // console.log("web GL ready: REEL");
   }
 
   const [teleWebGLReady, setTeleWebGLReady] = useState(false);
@@ -643,8 +648,7 @@ export default function Home() {
               <div
                 style={{
                   height: useBreakpoint("lg", "down")
-                    ? (smallScreenProjectHeight + smallScreenPinVal) *
-                      smallScreenProjects.length
+                    ? smallScreenWorkHeight
                     : "100vh",
                 }}
                 id="work"
@@ -660,6 +664,7 @@ export default function Home() {
                       smallScreenProjectHeight={smallScreenProjectHeight}
                       headerHeight={headerHeight}
                       smallScreenPinVal={smallScreenPinVal}
+                      // smallScreenWorkHeight={smallScreenWorkHeight}
                     />
                   )}
                 </div>

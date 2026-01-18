@@ -19,9 +19,6 @@ export default function WorkGridSmallScreen({
     <div
       id="work-grid"
       style={{
-        height:
-          (smallScreenProjectHeight + smallScreenPinVal) *
-          projectDetails.length,
         width: "100%",
         borderTop: "none",
       }}
@@ -52,18 +49,14 @@ function WorkGridSmallScreenItem({
 
   useGSAP(
     () => {
-      console.log("s1");
-      console.log("s");
       gsap.from(itemRef.current, {
         scrollTrigger: {
           trigger: itemRef.current,
-          start: "top top",
+          start: `top top+=${headerHeight}`,
           end: `"+=${smallScreenPinVal}`,
           scrub: true,
           pin: true,
-          onUpdate: () => {
-            console.log("hello");
-          },
+          pinSpacing: true,
         },
       });
     },
@@ -78,7 +71,6 @@ function WorkGridSmallScreenItem({
         display: "grid",
         gridTemplateRows: "64vh 1fr 1fr 1fr",
         gridTemplateColumns: "1fr 1fr 1fr 1fr",
-        marginTop: index === 0 && headerHeight,
       }}
     >
       <div
