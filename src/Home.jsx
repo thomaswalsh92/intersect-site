@@ -13,10 +13,6 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrambleTextPlugin } from "gsap/all";
 import { SplitText } from "gsap/all";
 
-//r3f/drei
-import { useFrame } from "@react-three/fiber";
-import { useProgress } from "@react-three/drei";
-
 //three
 import * as THREE from "three";
 
@@ -26,13 +22,14 @@ import {
   IntersectLogoCenter,
   IntersectLogoRight,
 } from "./IntersectLogo";
-import rainydayImage from "./assets/images/rainyday-image.png";
 import loadingGIF from "./assets/images/loading.gif";
 import useWindowDimensions from "./utils/useWindowDimensions";
 import TeleCanvas from "./TeleCanvas";
-import WorkGrid from "./WorkGrid";
+import WorkGridDesktop from "./WorkGridDesktop";
+import WorkGridSmallScreen from "./WorkGridSmallScreen";
 import { useBreakpoint } from "./utils/useBreakpoint";
 import { BREAKPOINTS } from "./scss/breakpoints";
+import { projectDetails } from "./data/projectDetails";
 
 THREE.Cache.enabled = true;
 
@@ -85,6 +82,17 @@ export default function Home() {
   //*REEL
   const [teleContext, setTeleContext] = useState("reel"); //reel or info
   const [currentBreakpoint, setCurrentBreakpoint] = useState();
+
+  //*WORK
+  const headerHeight = 48;
+  const footerHeight = 48;
+  const smallScreenProjects = projectDetails.filter(
+    (proj) => proj.showSmallScreen
+  );
+
+  const smallScreenProjectHeight =
+    window.innerHeight - headerHeight - footerHeight;
+
   //*LOADING
   function onTeleAssetsLoaded() {
     setTeleAssetsLoaded(true);
@@ -132,6 +140,11 @@ export default function Home() {
 
   useGSAP(
     () => {
+      const mm = gsap.matchMedia();
+
+      // mm.add("(max-width: 1023px)", () => {
+      //   gsap.to(".box", { x: 120 });
+      // });
       if (!appReady) return;
       //*SCROLL PINNING
       // gsap.from("#landing", {
@@ -163,14 +176,16 @@ export default function Home() {
         },
       });
 
-      gsap.from("#work", {
-        scrollTrigger: {
-          trigger: "#work",
-          start: "top top",
-          end: "+=2400",
-          scrub: true,
-          pin: true,
-        },
+      mm.add(`(min-width: ${BREAKPOINTS.lg}px)`, () => {
+        gsap.from("#work", {
+          scrollTrigger: {
+            trigger: "#work",
+            start: "top top",
+            end: "+=2400",
+            scrub: true,
+            pin: true,
+          },
+        });
       });
 
       // gsap.from("#info", {
@@ -575,7 +590,7 @@ export default function Home() {
                       (verb): the integration technology, art, design, life.
                     </span>
                   </p>
-                  <p className="text-2" style={{ "margin-top": 8 }}>
+                  <p className="text-2" style={{ marginTop: 8 }}>
                     {" "}
                     <span className="text-2 landing-flavour-text">
                       In pursuit of
@@ -623,9 +638,26 @@ export default function Home() {
                   </div>
                 )}
               </div>
-              <div id="work" ref={workRef}>
+              <div
+                style={{
+                  height: useBreakpoint("lg", "down")
+                    ? smallScreenProjectHeight * smallScreenProjects.length
+                    : "100vh",
+                }}
+                id="work"
+                ref={workRef}
+              >
                 <div id="work-outer">
-                  <WorkGrid />
+                  {!useBreakpoint("lg", "down") && (
+                    <WorkGridDesktop projectDetails={projectDetails} />
+                  )}
+                  {useBreakpoint("lg", "down") && (
+                    <WorkGridSmallScreen
+                      projectDetails={smallScreenProjects}
+                      smallScreenProjectHeight={smallScreenProjectHeight}
+                      headerHeight={headerHeight}
+                    />
+                  )}
                 </div>
               </div>
               <div id="info" ref={infoRef}>

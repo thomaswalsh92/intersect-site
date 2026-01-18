@@ -6,90 +6,15 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import cropCover from "../src/assets/images/work-crop-cover.jpg";
-import darskCover from "../src/assets/images/work-darsk-cover.jpg";
-import johnPeelCover from "../src/assets/images/work-john-peel-cover.jpg";
-import rainydayCover from "../src/assets/images/work-rainyday-cover.jpg";
-import shimmerCover from "../src/assets/images/work-shimmer-cover.jpg";
-import synEightCover from "../src/assets/images/work-syneight-cover.jpg";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
-export default function WorkGrid() {
+export default function WorkGridDesktop({ projectDetails }) {
   //! STUBBED DATA to be removed
   // supports 2 length array of actions e.g. live site and explore e.g.
-  // actions: {type: string, title: string, url: string}
-  // OR
   // actions: [{type: string, title: string, url: string}, {type: string, title: string, url: string}]
 
   //types: "live-site", "explore"
-  const projectDetails = [
-    {
-      project: "RAINYDAY WEBSITE",
-      client: "RAINYDAY STUDIO",
-      disciplines: ["WEB DESIGN", "WEB DEVELOPMENT"],
-      published: 2025,
-      shortDescription:
-        "RAINYDAY Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: {
-        type: "live-site",
-        title: "LIVE SITE",
-        url: "https://www.rainydaystudio.co.uk/",
-      },
-
-      coverImage: rainydayCover,
-    },
-    {
-      project: "JOHN PEEL COLLECTION",
-      client: "OMEGA AUCTIONS",
-      disciplines: ["GRAPHIC DESIGN"],
-      published: 2025,
-      shortDescription:
-        "JOHN PEEL Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: undefined,
-      coverImage: johnPeelCover,
-    },
-    {
-      project: "CROP MAGAZINE LAUNCH",
-      client: "CROP RADIO",
-      disciplines: ["MOTION DESIGN"],
-      published: 2025,
-      shortDescription:
-        "CROP MAGAZINE Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: undefined,
-      coverImage: cropCover,
-    },
-    {
-      project: "DARSK VISUAL IDENTITY",
-      client: "DARSK",
-      disciplines: ["GRAPHIC DESIGN", "MOTION DESIGN"],
-      published: 2025,
-      shortDescription:
-        "DARSK Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: undefined,
-      coverImage: darskCover,
-    },
-    {
-      project: "SHIMMER VISUAL INDENTITY",
-      client: "SHIMMER",
-      disciplines: ["GRAPHIC DESIGN", "MOTION DESIGN"],
-      published: 2025,
-      shortDescription:
-        "SHIMMER Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: undefined,
-      coverImage: shimmerCover,
-    },
-    {
-      project: "SYN-EIGHT",
-      client: "INTERSECT",
-      disciplines: ["3D DESIGN", "MOTION DESIGN"],
-      published: 2025,
-      shortDescription:
-        "SYNEIGHT Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      actions: undefined,
-      coverImage: synEightCover,
-    },
-  ];
 
   //* refactor opp -> change to useReducer
   const [width, setWidth] = useState();
@@ -100,6 +25,7 @@ export default function WorkGrid() {
   const [imageIsMaxVertical, setImageIsMaxVertical] = useState();
   // \/
   const [cols, setCols] = useState();
+  const [rows, setRows] = useState();
   const workGrid = useRef(null);
 
   const [selected, setSelected] = useState(0);
@@ -151,6 +77,8 @@ export default function WorkGrid() {
     if (!imageIsMaxVertical) {
       setCols("repeat(19, 1fr)");
     }
+
+    setRows(`1fr ${imageHeight}px 1fr`);
   }, [imageHeight, imageWidth, imageIsMaxVertical]);
 
   const projectsSelectedColor = "#f4f4f3";
@@ -166,10 +94,9 @@ export default function WorkGrid() {
         width: "100%",
         display: "grid",
         gridTemplateColumns: cols,
-        gridTemplateRows: `1fr ${imageHeight}px 1fr`,
+        gridTemplateRows: rows,
       }}
     >
-      {/* ROW ONE */}
       <div
         className="work-grid-block"
         id="work-grid-title"
@@ -443,7 +370,8 @@ export default function WorkGrid() {
               <p
                 style={{
                   color:
-                    projectDetails[selected].actions[0].type === "live-site" &&
+                    projectDetails[selected].actions[1] &&
+                    projectDetails[selected].actions[1].type === "live-site" &&
                     "#e9ffa8",
                 }}
                 className="text-2"
@@ -466,7 +394,7 @@ export default function WorkGrid() {
               <p
                 style={{
                   color:
-                    projectDetails[selected].actions.type === "live-site" &&
+                    projectDetails[selected].actions[0].type === "live-site" &&
                     "#e9ffa8",
                 }}
                 className="text-2"
@@ -487,7 +415,6 @@ export default function WorkGrid() {
           ></div>
         </>
       )}
-
       <div
         className="work-grid-block"
         style={{
