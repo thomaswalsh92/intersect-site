@@ -93,6 +93,7 @@ export default function Home() {
   const smallScreenProjectHeight =
     window.innerHeight - headerHeight - footerHeight;
 
+  const smallScreenPinVal = 400;
   //*LOADING
   function onTeleAssetsLoaded() {
     setTeleAssetsLoaded(true);
@@ -176,6 +177,7 @@ export default function Home() {
         },
       });
 
+      //for smaller screens, scroll pinning in WorkGridSmallScreen
       mm.add(`(min-width: ${BREAKPOINTS.lg}px)`, () => {
         gsap.from("#work", {
           scrollTrigger: {
@@ -641,7 +643,8 @@ export default function Home() {
               <div
                 style={{
                   height: useBreakpoint("lg", "down")
-                    ? smallScreenProjectHeight * smallScreenProjects.length
+                    ? (smallScreenProjectHeight + smallScreenPinVal) *
+                      smallScreenProjects.length
                     : "100vh",
                 }}
                 id="work"
@@ -656,6 +659,7 @@ export default function Home() {
                       projectDetails={smallScreenProjects}
                       smallScreenProjectHeight={smallScreenProjectHeight}
                       headerHeight={headerHeight}
+                      smallScreenPinVal={smallScreenPinVal}
                     />
                   )}
                 </div>
