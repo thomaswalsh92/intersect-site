@@ -159,9 +159,6 @@ export function Tele({ onAssetsLoaded, teleContext }) {
     // console.log(ref.current.rotation.y);
   });
 
-  if (ref.current && teleContext === "info") {
-  }
-
   const { camera } = useThree();
   // useEffect(() => {
   camera.lookAt(0, -0.7, 0);

@@ -390,6 +390,16 @@ html {
   transform: rotate(90deg);
 }
 
+//*TELE
+.tele-target {
+  height: 96px;
+  width: 96px;
+  background-color: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 //*REEL
 #reel {
   width: 100vw;
@@ -407,13 +417,11 @@ html {
   }
 }
 
-#tele-container {
-  display: flex;
-  align-items: center;
-  // @include down($bp-lg) {
-  //   width: 10%;
-  // }
-}
+// #tele-container {
+//   // @include down($bp-lg) {
+//   //   width: 10%;
+//   // }
+// }
 // #reel-image {
 //   position: relative;
 //   top: 0;
@@ -539,10 +547,7 @@ html {
 #info {
   width: 100vw;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  // background: $Black;
+  position: relative;
   background: linear-gradient(
     to bottom,
     rgba(47, 48, 49, 1) 0%,
@@ -555,6 +560,13 @@ html {
   span {
     color: $White;
   }
+}
+
+#info-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background: $Black;
 }
 
 .info-heading {
@@ -627,13 +639,13 @@ html {
 //   text-decoration: none;
 // }
 
-#info-tele-container {
-  width: 50vw;
-  height: 100vh;
-  @include down($bp-sm) {
-    display: none;
-  }
-}
+// #info-tele-container {
+//   width: 50vw;
+//   height: 100vh;
+//   @include down($bp-sm) {
+//     display: none;
+//   }
+// }
 
 //*FOOTER
 #footer {

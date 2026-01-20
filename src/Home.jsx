@@ -79,6 +79,11 @@ export default function Home() {
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
   const landingTitleScrollInner = useRef();
 
+  //*TELE
+  const teleTargetLanding = useRef();
+  const teleTargetReel = useRef();
+  const teleTargetInfo = useRef();
+
   //*REEL
   const [teleContext, setTeleContext] = useState("reel"); //reel or info
   const [currentBreakpoint, setCurrentBreakpoint] = useState();
@@ -291,47 +296,47 @@ export default function Home() {
 
       // if (!useBreakpoint("sm", "down")) {
       //* slightly hacky way of getting the canvas in two spots in the site
-      const landingY = landingRef.current.getBoundingClientRect().top;
-      const reelY = reelRef.current.getBoundingClientRect().top;
-      const infoY = infoRef.current.getBoundingClientRect().top;
-      if (currentBreakpoint !== "xs") {
-        const translateTeleY = infoY - reelY - 1200;
-        const translateTeleX = window.innerWidth / 2;
+      // const landingY = landingRef.current.getBoundingClientRect().top;
+      // const reelY = reelRef.current.getBoundingClientRect().top;
+      // const infoY = infoRef.current.getBoundingClientRect().top;
+      // if (currentBreakpoint !== "xs") {
+      //   const translateTeleY = infoY - reelY - 1200;
+      //   const translateTeleX = window.innerWidth / 2;
 
-        ScrollTrigger.create({
-          trigger: "#work",
-          start: "top top",
-          onEnter: () => {
-            gsap.set("#tele-container", { left: translateTeleX });
-            gsap.set("#tele-container", { top: translateTeleY });
-            gsap.set("#tele-container", { width: "50%" });
-            setTeleContext("info");
-          },
-          onEnterBack: () => {
-            gsap.set("#tele-container", { left: 0 });
-            gsap.set("#tele-container", { top: 0 });
-            gsap.set("#tele-container", { width: "100%" });
-            setTeleContext("reel");
-          },
-        });
-      } else {
-        const translateTeleY = infoY + window.innerHeight * 0.15 - 60;
-        const resetTeleY = window.innerHeight * 0.375;
-        ScrollTrigger.create({
-          trigger: "#work",
-          start: "top top",
-          onEnter: () => {
-            gsap.set("#tele-container", { top: translateTeleY });
-            gsap.set("#tele-container", { width: "100%" });
-            setTeleContext("info");
-          },
-          onEnterBack: () => {
-            gsap.set("#tele-container", { top: resetTeleY });
-            gsap.set("#tele-container", { width: "100%" });
-            setTeleContext("reel");
-          },
-        });
-      }
+      //   ScrollTrigger.create({
+      //     trigger: "#work",
+      //     start: "top top",
+      //     onEnter: () => {
+      //       gsap.set("#tele-container", { left: translateTeleX });
+      //       gsap.set("#tele-container", { top: translateTeleY });
+      //       gsap.set("#tele-container", { width: "50%" });
+      //       setTeleContext("info");
+      //     },
+      //     onEnterBack: () => {
+      //       gsap.set("#tele-container", { left: 0 });
+      //       gsap.set("#tele-container", { top: 0 });
+      //       gsap.set("#tele-container", { width: "100%" });
+      //       setTeleContext("reel");
+      //     },
+      //   });
+      // } else {
+      //   const translateTeleY = infoY + window.innerHeight * 0.15 - 60;
+      //   const resetTeleY = window.innerHeight * 0.375;
+      //   ScrollTrigger.create({
+      //     trigger: "#work",
+      //     start: "top top",
+      //     onEnter: () => {
+      //       gsap.set("#tele-container", { top: translateTeleY });
+      //       gsap.set("#tele-container", { width: "100%" });
+      //       setTeleContext("info");
+      //     },
+      //     onEnterBack: () => {
+      //       gsap.set("#tele-container", { top: resetTeleY });
+      //       gsap.set("#tele-container", { width: "100%" });
+      //       setTeleContext("reel");
+      //     },
+      //   });
+      // }
 
       gsap.to("#intersect-logo-left", {
         y: -100,
@@ -390,7 +395,6 @@ export default function Home() {
   const workRef = useRef();
   const reelRef = useRef();
   const infoRef = useRef();
-  const infoTeleTarget = useRef();
 
   const handleNavScroll = (ref) => {
     // ScrollTrigger.getAll().forEach((st) => {
@@ -547,6 +551,11 @@ export default function Home() {
           <div id="home">
             <div id="home-content">
               <div id="landing" ref={landingRef}>
+                <div
+                  ref={teleTargetLanding}
+                  className="tele-target"
+                  id="tele-target-landing"
+                ></div>
                 {!useBreakpoint("sm", "down") && (
                   <div id="landing-capabilities" className="text-2">
                     <p className="landing-capability-text">
@@ -561,7 +570,7 @@ export default function Home() {
                     <p className="indent-1 landing-capability-text">{"}"}</p>
                   </div>
                 )}
-                {useBreakpoint("sm", "down") && (
+                {/* {useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"
                     style={{
@@ -574,20 +583,9 @@ export default function Home() {
                       top: "37.5vh",
                       // width: teleContext === "reel" ? "100%" : "50%",
                     }}
-                  >
-                    <TeleCanvas
-                      height={height}
-                      width={width}
-                      assetsLoaded={teleAssetsLoaded}
-                      onAssetsLoaded={onTeleAssetsLoaded}
-                      onWebGLReady={onTeleWebGLReady}
-                      // cameraPos={
-                      //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
-                      // }
-                      teleContext={teleContext}
-                    />
-                  </div>
-                )}
+                  > */}
+                {/* </div>
+                )} */}
                 <div id="landing-flavour">
                   <p className="text-2">
                     <span className="text-1 landing-flavour-text">
@@ -619,7 +617,27 @@ export default function Home() {
                 </div>
               </div>
               <div id="reel" ref={reelRef}>
-                {!useBreakpoint("sm", "down") && (
+                <div
+                  ref={teleTargetReel}
+                  className="tele-target"
+                  id="tele-target-reel"
+                ></div>
+                <TeleCanvas
+                  height={height}
+                  width={width}
+                  assetsLoaded={teleAssetsLoaded}
+                  onAssetsLoaded={onTeleAssetsLoaded}
+                  onWebGLReady={onTeleWebGLReady}
+                  appReady={appReady}
+                  teleTargetLanding={teleTargetLanding}
+                  teleTargetReel={teleTargetReel}
+                  teleTargetInfo={teleTargetInfo}
+                  // cameraPos={
+                  //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
+                  // }
+                  teleContext={teleContext}
+                />
+                {/* {!useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"
                     style={{
@@ -643,7 +661,7 @@ export default function Home() {
                       teleContext={teleContext}
                     />
                   </div>
-                )}
+                )} */}
               </div>
               <div
                 style={{
@@ -670,50 +688,56 @@ export default function Home() {
                 </div>
               </div>
               <div id="info" ref={infoRef}>
-                <div id="info-color-margin"></div>
-                <div id="info-text-container">
-                  <div id="info-text">
-                    <p className="text-2 info-heading">
-                      WE ARE <span className="text-1">INTERSECT</span>
-                    </p>
-                    <p className="text-3 info-text" style={{ marginTop: 8 }}>
-                      A design studio focusing on the delivery of ideas across
-                      digital mediums, pushing creative boundaries and
-                      exploration of the fertile space between creativity and
-                      technology.
-                    </p>
-                    <p
-                      className="text-1 info-heading"
-                      style={{ marginTop: 16 }}
-                    >
-                      CAPABILITIES
-                    </p>
-                    <div id="info-capabilities" style={{ marginTop: 8 }}>
-                      {infoCapabilities.map((x) => {
-                        return <p className="text-3 info-text">{`> ${x}`}</p>;
-                      })}
+                <div
+                  ref={teleTargetInfo}
+                  className="tele-target"
+                  id="tele-target-info"
+                ></div>
+                <div id="info-inner">
+                  <div id="info-color-margin"></div>
+                  <div id="info-text-container">
+                    <div id="info-text">
+                      <p className="text-2 info-heading">
+                        WE ARE <span className="text-1">INTERSECT</span>
+                      </p>
+                      <p className="text-3 info-text" style={{ marginTop: 8 }}>
+                        A design studio focusing on the delivery of ideas across
+                        digital mediums, pushing creative boundaries and
+                        exploration of the fertile space between creativity and
+                        technology.
+                      </p>
+                      <p
+                        className="text-1 info-heading"
+                        style={{ marginTop: 16 }}
+                      >
+                        CAPABILITIES
+                      </p>
+                      <div id="info-capabilities" style={{ marginTop: 8 }}>
+                        {infoCapabilities.map((x) => {
+                          return <p className="text-3 info-text">{`> ${x}`}</p>;
+                        })}
+                      </div>
                     </div>
+                    <a
+                      href="mailto:test@test.com"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <p id="info-contact" style={{ marginTop: 32 }}>
+                        <span className="text-1 info-underlined">GET</span>
+                        <span className="text-3 info-non-underlined">
+                          _{"\u200B"}
+                        </span>
+                        <span className="text-1 info-underlined">IN</span>
+                        <span className="text-3 info-non-underlined">
+                          _{"\u200B"}
+                        </span>
+                        <span className="text-1 info-underlined">TOUCH</span>
+                        <span className="text-2 info-non-underlined">{`→`}</span>
+                      </p>
+                    </a>
+                    {/*Change mail to when domain registered*/}
                   </div>
-                  <a
-                    href="mailto:test@test.com"
-                    style={{ textDecoration: "none" }}
-                  >
-                    <p id="info-contact" style={{ marginTop: 32 }}>
-                      <span className="text-1 info-underlined">GET</span>
-                      <span className="text-3 info-non-underlined">
-                        _{"\u200B"}
-                      </span>
-                      <span className="text-1 info-underlined">IN</span>
-                      <span className="text-3 info-non-underlined">
-                        _{"\u200B"}
-                      </span>
-                      <span className="text-1 info-underlined">TOUCH</span>
-                      <span className="text-2 info-non-underlined">{`→`}</span>
-                    </p>
-                  </a>
-                  {/*Change mail to when domain registered*/}
                 </div>
-                <div id="info-tele-container" ref={infoTeleTarget}></div>
               </div>
             </div>
           </div>
