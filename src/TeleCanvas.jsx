@@ -85,17 +85,19 @@ export default function TeleCanvas({
         target: "landing",
         targetOffset: 0,
         width: "100%",
-        height: "100%",
+        height: "50vh",
         cameraPos: [0, 0, 28],
-        backgroundDebug: "green",
+        styleOverride: { marginTop: "32vh" },
+        rotationFixed: undefined,
       },
       pos2: {
         target: "info",
         targetOffset: 0,
         width: "100%",
-        height: "100%",
+        height: "50vh",
         cameraPos: [0, 0, 28],
-        backgroundDebug: "green",
+        styleOverride: { marginTop: "40vh" },
+        rotationFixed: 0,
       },
     },
     sm: {
@@ -104,16 +106,18 @@ export default function TeleCanvas({
         targetOffset: 0,
         width: "100%",
         height: "100%",
-        cameraPos: [0, 0, 60],
-        backgroundDebug: "blue",
+        styleOverride: { marginTop: 0 },
+        cameraPos: [0, 0, 42],
+        rotationFixed: undefined,
       },
       pos2: {
         target: "info",
         targetOffset: 0,
         width: "100%",
-        height: "100%",
+        height: "50vh",
         cameraPos: [0, 0, 28],
-        backgroundDebug: "blue",
+        styleOverride: { marginTop: "40vh" },
+        rotationFixed: 0,
       },
     },
     md: {
@@ -122,16 +126,18 @@ export default function TeleCanvas({
         targetOffset: 0,
         width: "100%",
         height: "100%",
-        cameraPos: [0, 0, 28],
-        backgroundDebug: "red",
+        styleOverride: { marginLeft: 0 },
+        cameraPos: [0, 0, 36],
+        rotationFixed: undefined,
       },
       pos2: {
         target: "info",
         targetOffset: 0,
-        width: "50%",
+        width: "50vw",
         height: "100%",
-        cameraPos: [0, 0, 28],
-        backgroundDebug: "red",
+        styleOverride: { marginLeft: "50vw" },
+        cameraPos: [0, 0, 64],
+        rotationFixed: -15,
       },
     },
     lgUp: {
@@ -140,16 +146,19 @@ export default function TeleCanvas({
         targetOffset: 0,
         width: "100%",
         height: "100%",
+        styleOverride: { marginLeft: 0 },
         cameraPos: [0, 0, 28],
-        backgroundDebug: "red",
+        rotationFixed: undefined,
       },
       pos2: {
         target: "info",
+        //* workaround for scroll pin travel
         targetOffset: 2400,
-        width: "50%",
+        width: "50vw",
         height: "100%",
-        cameraPos: [0, 0, 28],
-        backgroundDebug: "red",
+        styleOverride: { marginLeft: "50vw" },
+        cameraPos: [0, 0, 48],
+        rotationFixed: -15,
       },
     },
   };
@@ -174,14 +183,22 @@ export default function TeleCanvas({
   // function targetToTop() {}
 
   function cacheDomHeights() {
-    domHeightsRef.current.landing = -landingRef.current.offsetHeight;
-    domHeightsRef.current.reel = reelRef.current.offsetHeight;
-    domHeightsRef.current.info = infoRef.current.offsetHeight;
-    domHeightsRef.current.work = workRef.current.offsetHeight;
+    if (view === "xs") {
+      domHeightsRef.current.landing = 0;
+      domHeightsRef.current.reel = landingRef.current.offsetHeight;
+      domHeightsRef.current.work = reelRef.current.offsetHeight;
+      domHeightsRef.current.info = workRef.current.offsetHeight;
+    }
+
+    if (view !== "xs") {
+      domHeightsRef.current.landing = -landingRef.current.offsetHeight;
+      domHeightsRef.current.reel = reelRef.current.offsetHeight;
+      domHeightsRef.current.work = workRef.current.offsetHeight;
+      domHeightsRef.current.info = infoRef.current.offsetHeight;
+    }
   }
 
   function getTargetToTop(target, offset = 0) {
-    console.log(domHeightsRef.current);
     if (target === "landing") {
       return domHeightsRef.current.landing + offset;
     }
@@ -212,8 +229,15 @@ export default function TeleCanvas({
     }
   }
   function applyTeleData(pos) {
-    const { target, targetOffset, width, height, cameraPos } =
-      getTeleData()[pos];
+    const {
+      target,
+      targetOffset,
+      width,
+      height,
+      cameraPos,
+      styleOverride,
+      rotationFixed,
+    } = getTeleData()[pos];
 
     const top = getTargetToTop(target, targetOffset);
     console.log(top);
@@ -222,13 +246,18 @@ export default function TeleCanvas({
       width: width,
       height: height,
       position: "absolute",
+      ...styleOverride,
     });
     setTeleCamPos(cameraPos);
+    // setStyleOverride(styleOverride);
+    setRotationFixed(rotationFixed);
   }
 
   const teleContainerRef = useRef(null);
   const domHeightsRef = useRef({ landing: 0, reel: 0, work: 0, info: 0 });
   const [teleCamPos, setTeleCamPos] = useState([0, 0, 0]);
+  const [styleOverride, setStyleOverride] = useState({});
+  const [rotationFixed, setRotationFixed] = useState(undefined);
 
   const isXs = useBreakpoint("sm", "down");
   const isSm = useBreakpoint("md", "down") && !isXs;
@@ -300,6 +329,8 @@ export default function TeleCanvas({
       style={{
         display: "flex",
         alignItems: "center",
+        zIndex: 10,
+        ...styleOverride,
         // height: getTeleData().pos1.height,
         // width: getTeleData().pos1.width,
         // background: getTeleData().pos1.backgroundDebug,
@@ -355,7 +386,7 @@ export default function TeleCanvas({
             target={[0, 0, 0]}
           />
         </Environment>
-        <Tele onAssetsLoaded={onAssetsLoaded} />
+        <Tele onAssetsLoaded={onAssetsLoaded} rotationFixed={rotationFixed} />
         {/* </Stage> */}
         <directionalLight
           castShadow

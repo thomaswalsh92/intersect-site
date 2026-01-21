@@ -17,15 +17,14 @@ import {
 } from "@react-three/drei";
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
-import { useBreakpoint } from "./utils/useBreakpoint";
 
-export function Tele({ onAssetsLoaded, teleContext = "reel" }) {
+export function Tele({ onAssetsLoaded, rotationFixed }) {
   useEffect(() => {
     onAssetsLoaded();
   }, []);
   const { scene, nodes } = useGLTF("/models/tele.glb");
   // //access panel tex
-  const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
+  // const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
   const glitchVideoTexture = useVideoTexture(
     "/textures/intersect-logo-glitch-1x1.mp4"
   );
@@ -111,25 +110,16 @@ export function Tele({ onAssetsLoaded, teleContext = "reel" }) {
   }, [scene]);
 
   const ref = useRef(null);
-  const startY = Math.PI / 10;
-  const endY = -Math.PI / 10;
-  const startX = Math.PI / 100;
-  const endX = -Math.PI / 100;
   const { pointer } = useThree();
-  // useFrame(() => {
-  //   ref.current.rotation.y = -(startY + (endY - startY)) * pointer.x;
-  //   ref.current.rotation.x = (startX + (endX - startX)) * pointer.y;
-  // });
 
   const maxY = Math.PI / 10; // ±18°
   const maxX = Math.PI / 100; // ±1.8°
-  const smallScreen = useBreakpoint("sm", "down");
 
   useFrame((state, delta) => {
     if (!ref.current) return;
     // if (teleContext !== "reel") return;
 
-    if (teleContext === "reel") {
+    if (!rotationFixed) {
       const targetY = pointer.x * maxY;
       const targetX = -pointer.y * maxX;
 
@@ -148,13 +138,13 @@ export function Tele({ onAssetsLoaded, teleContext = "reel" }) {
       );
     }
 
-    if (teleContext === "info" && ref.current.rotation.y !== -0.19) {
-      ref.current.rotation.y = -0.19;
+    if (rotationFixed !== undefined && typeof rotationFixed === "number") {
+      ref.current.rotation.y = degToRad(rotationFixed);
     }
 
-    if (teleContext === "info" && smallScreen) {
-      ref.current.rotation.y = 0;
-    }
+    // if (teleContext === "info" && smallScreen) {
+    //   ref.current.rotation.y = 0;
+    // }
     // //console.log(ref.current.rotation.x);
     // console.log(ref.current.rotation.y);
   });
@@ -168,39 +158,12 @@ export function Tele({ onAssetsLoaded, teleContext = "reel" }) {
 
   const envMapIntensity = 0.2;
 
-  // const { gl } = useThree();
-  // const fired = useRef(false);
-
-  // useEffect(() => {
-  //   gl.compile(scene, camera);
-  // }, []);
-
-  // useFrame(() => {
-  //   if (!fired.current) {
-  //     fired.current = true;
-  //   }
-  //   if (fired.current) {
-  //     console.log("webGLready");
-  //   }
-  // });
   return (
     <>
       <group
         ref={ref}
-        // onPointerOver={(e) => {
-        //   e.stopPropagation();
-        //   setTVDialogOpen(true);
-        // }}
-        // onPointerOut={(e) => {
-        //   e.stopPropagation();
-        //   setTVDialogOpen(false);
-        // }}
-        // ref={ref}
         position={[0, -3, 0]}
         rotation={[0, -Math.PI * 0.07, 0]}
-        // {...props}
-        // position={[0, -4, -2]}
-        // rotation={[0, Math.PI * 1.8, 0]}
         dispose={null}
       >
         <mesh

@@ -569,6 +569,23 @@ export default function Home() {
                     <p className="indent-1 landing-capability-text">{"}"}</p>
                   </div>
                 )}
+                {useBreakpoint("sm", "down") && (
+                  <TeleCanvas
+                    height={height}
+                    width={width}
+                    assetsLoaded={teleAssetsLoaded}
+                    onAssetsLoaded={onTeleAssetsLoaded}
+                    onWebGLReady={onTeleWebGLReady}
+                    appReady={appReady}
+                    landingRef={landingRef}
+                    reelRef={reelRef}
+                    workRef={workRef}
+                    infoRef={infoRef}
+                    // cameraPos={
+                    //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
+                    // }
+                  />
+                )}
                 {/* {useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"
@@ -616,21 +633,23 @@ export default function Home() {
                 </div>
               </div>
               <div id="reel" ref={reelRef}>
-                <TeleCanvas
-                  height={height}
-                  width={width}
-                  assetsLoaded={teleAssetsLoaded}
-                  onAssetsLoaded={onTeleAssetsLoaded}
-                  onWebGLReady={onTeleWebGLReady}
-                  appReady={appReady}
-                  landingRef={landingRef}
-                  reelRef={reelRef}
-                  workRef={workRef}
-                  infoRef={infoRef}
-                  // cameraPos={
-                  //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
-                  // }
-                />
+                {!useBreakpoint("sm", "down") && (
+                  <TeleCanvas
+                    height={height}
+                    width={width}
+                    assetsLoaded={teleAssetsLoaded}
+                    onAssetsLoaded={onTeleAssetsLoaded}
+                    onWebGLReady={onTeleWebGLReady}
+                    appReady={appReady}
+                    landingRef={landingRef}
+                    reelRef={reelRef}
+                    workRef={workRef}
+                    infoRef={infoRef}
+                    // cameraPos={
+                    //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
+                    // }
+                  />
+                )}
                 {/* {!useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"

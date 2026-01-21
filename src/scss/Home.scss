@@ -413,7 +413,8 @@ html {
   );
 
   @include down($bp-sm) {
-    visibility: none;
+    display: none;
+    height: 0;
   }
 }
 
@@ -563,9 +564,13 @@ html {
 }
 
 #info-inner {
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  @include down($bp-md) {
+    justify-content: center;
+  }
   // background: $Black;
 }
 
@@ -591,11 +596,16 @@ html {
   width: 50vw;
   display: flex;
   flex-direction: column;
-  @include down($bp-sm) {
-    position: relative;
-    top: 15vh;
-    width: 100%;
-    padding: 0 5vh 0 5vh;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  @include down($bp-lg) {
+    padding: 12vh 5vh 12vh 5vh;
+  }
+  @include down($bp-md) {
+    width: 100vw;
+    margin-top: 48px;
+    padding: 9vh 5vh 0 5vh;
     p {
       text-align: center;
     }
@@ -605,6 +615,12 @@ html {
       word-break: normal;
       text-align: center;
     }
+  }
+
+  @include down($bp-sm) {
+    margin-top: 0;
+    padding: 15vh 5vh 0 5vh;
+    position: relative;
   }
 }
 
