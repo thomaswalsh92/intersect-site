@@ -73,15 +73,18 @@ export default function TeleCanvas({
   onAssetsLoaded,
   onWebGLReady,
   appReady,
-  teleContext,
-  teleTargetLanding,
-  teleTargetInfo,
-  teleTargetReel,
+  landingRef,
+  reelRef,
+  workRef,
+  infoRef,
 }) {
+  //* Build out API here for all relevant values for the Tele in realtion to responsive design
+  //* AND
+  //* Scroll based repositioning of the canvas
   let teleData = {
     xs: {
       pos1: {
-        target: teleTargetLanding,
+        target: "landing",
         targetOffset: null,
         width: "100%",
         height: "100%",
@@ -89,7 +92,7 @@ export default function TeleCanvas({
         backgroundDebug: "green",
       },
       pos2: {
-        target: teleTargetInfo,
+        target: "info",
         targetOffset: null,
         width: "100%",
         height: "100%",
@@ -99,7 +102,7 @@ export default function TeleCanvas({
     },
     sm: {
       pos1: {
-        target: teleTargetReel,
+        target: "reel",
         targetOffset: null,
         width: "100%",
         height: "100%",
@@ -107,7 +110,7 @@ export default function TeleCanvas({
         backgroundDebug: "blue",
       },
       pos2: {
-        target: teleTargetInfo,
+        target: "info",
         targetOffset: null,
         width: "100%",
         height: "100%",
@@ -117,7 +120,7 @@ export default function TeleCanvas({
     },
     mdUp: {
       pos1: {
-        target: teleTargetReel,
+        target: "reel",
         targetOffset: null,
         width: "100%",
         height: "100%",
@@ -125,7 +128,7 @@ export default function TeleCanvas({
         backgroundDebug: "red",
       },
       pos2: {
-        target: teleTargetReel,
+        target: "info",
         targetOffset: null,
         width: "50%",
         height: "100%",
@@ -149,50 +152,64 @@ export default function TeleCanvas({
     if (view === "md-up") return teleData.mdUp;
   }
 
+  // function targetToTop() {}
+
+  function cacheDomHeights() {
+    domHeightsRef.current.landing = -landingRef.current.offsetHeight;
+    domHeightsRef.current.reel = reelRef.current.offsetHeight;
+    domHeightsRef.current.info = infoRef.current.offsetHeight;
+    domHeightsRef.current.work = workRef.current.offsetHeight;
+  }
+
+  function getTargetToTop(target, offset = 0) {
+    console.log(domHeightsRef.current);
+    if (target === "landing") {
+      return domHeightsRef.current.landing + offset;
+    }
+
+    if (target === "reel") {
+      return (
+        domHeightsRef.current.landing + domHeightsRef.current.reel + offset
+      );
+    }
+
+    if (target === "work") {
+      return (
+        domHeightsRef.current.landing +
+        domHeightsRef.current.reel +
+        domHeightsRef.current.work +
+        offset
+      );
+    }
+
+    if (target === "info") {
+      return (
+        domHeightsRef.current.landing +
+        domHeightsRef.current.reel +
+        domHeightsRef.current.work +
+        domHeightsRef.current.info +
+        offset
+      );
+    }
+  }
   function applyTeleData(pos) {
     const teleData = getTeleData();
     if (view === "xs") {
-      telePositionRef.current.top =
-        teleData[pos].target.current.getBoundingClientRect().top +
-        window.scrollY -
-        window.innerHeight;
-      telePositionRef.current.left =
-        teleData[pos].target.current.getBoundingClientRect().left +
-        window.scrollX;
     }
 
     if (view === "sm" || view === "md-up") {
-      telePositionRef.current.top =
-        teleData[pos].target.current.getBoundingClientRect().top +
-        window.scrollY -
-        window.innerHeight;
-      telePositionRef.current.left =
-        teleData[pos].target.current.getBoundingClientRect().left +
-        window.scrollX;
+      gsap.set(teleContainerRef.current, {
+        top: getTargetToTop(teleData[pos].target),
+        width: teleData[pos].width,
+        height: teleData[pos].height,
+        position: "absolute",
+      });
+      setTeleCamPos(teleData[pos].cameraPos);
     }
-
-    console.log(
-      teleData[pos].target.current.getBoundingClientRect().top + window.scrollY
-    );
-
-    teleSizeRef.current.width = teleData[pos].width;
-    teleSizeRef.current.height = teleData[pos].height;
-    const cameraPos = teleData[pos].cameraPos;
-    setTeleCamPos(cameraPos);
-
-    //and set initial top and left values for the container based on the ref
-    gsap.set(teleContainerRef.current, {
-      top: telePositionRef.current.top,
-      left: telePositionRef.current.left,
-      width: teleSizeRef.current.width,
-      height: teleSizeRef.current.height,
-      position: "absolute",
-    });
   }
 
   const teleContainerRef = useRef(null);
-  const telePositionRef = useRef({ top: 0, left: 0 });
-  const teleSizeRef = useRef({ width: "", height: "" });
+  const domHeightsRef = useRef({ landing: 0, reel: 0, work: 0, info: 0 });
   const [teleCamPos, setTeleCamPos] = useState([0, 0, 0]);
 
   const isXs = useBreakpoint("sm", "down");
@@ -207,15 +224,17 @@ export default function TeleCanvas({
 
   useEffect(() => {
     if (
-      !teleTargetLanding.current ||
-      !teleTargetReel.current ||
-      !teleTargetInfo.current ||
+      !landingRef.current ||
+      !reelRef.current ||
+      !workRef.current ||
+      !infoRef.current ||
       !teleContainerRef.current ||
       !appReady
     ) {
       return;
     }
 
+    cacheDomHeights();
     //here we get initial position for tele from refs and cache
     applyTeleData("pos1");
   }, [view, appReady]);
@@ -223,9 +242,10 @@ export default function TeleCanvas({
   useGSAP(() => {
     if (
       !appReady ||
-      !teleTargetLanding.current ||
-      !teleTargetReel.current ||
-      !teleTargetInfo.current ||
+      !landingRef.current ||
+      !reelRef.current ||
+      !workRef.current ||
+      !infoRef.current ||
       !teleContainerRef.current
     )
       return;
@@ -315,7 +335,7 @@ export default function TeleCanvas({
             target={[0, 0, 0]}
           />
         </Environment>
-        <Tele onAssetsLoaded={onAssetsLoaded} teleContext={teleContext} />
+        <Tele onAssetsLoaded={onAssetsLoaded} />
         {/* </Stage> */}
         <directionalLight
           castShadow

@@ -19,7 +19,7 @@ import { degToRad } from "three/src/math/MathUtils.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 import { useBreakpoint } from "./utils/useBreakpoint";
 
-export function Tele({ onAssetsLoaded, teleContext }) {
+export function Tele({ onAssetsLoaded, teleContext = "reel" }) {
   useEffect(() => {
     onAssetsLoaded();
   }, []);

@@ -80,9 +80,9 @@ export default function Home() {
   const landingTitleScrollInner = useRef();
 
   //*TELE
-  const teleTargetLanding = useRef();
-  const teleTargetReel = useRef();
-  const teleTargetInfo = useRef();
+  // const teleTargetLanding = useRef();
+  // const teleTargetReel = useRef();
+  // const teleTargetInfo = useRef();
 
   //*REEL
   const [teleContext, setTeleContext] = useState("reel"); //reel or info
@@ -147,6 +147,10 @@ export default function Home() {
   ];
 
   //*GSAP
+  // const pinVal = {
+  //   reelPin: 1200,
+
+  // }
   let pinSectionVal = "+=1200";
 
   useGSAP(
@@ -187,7 +191,7 @@ export default function Home() {
         },
       });
 
-      //for smaller screens, scroll pinning in WorkGridSmallScreen
+      //larger screen scroll pinning
       mm.add(`(min-width: ${BREAKPOINTS.lg}px)`, () => {
         gsap.from("#work", {
           scrollTrigger: {
@@ -551,11 +555,6 @@ export default function Home() {
           <div id="home">
             <div id="home-content">
               <div id="landing" ref={landingRef}>
-                <div
-                  ref={teleTargetLanding}
-                  className="tele-target"
-                  id="tele-target-landing"
-                ></div>
                 {!useBreakpoint("sm", "down") && (
                   <div id="landing-capabilities" className="text-2">
                     <p className="landing-capability-text">
@@ -617,11 +616,6 @@ export default function Home() {
                 </div>
               </div>
               <div id="reel" ref={reelRef}>
-                <div
-                  ref={teleTargetReel}
-                  className="tele-target"
-                  id="tele-target-reel"
-                ></div>
                 <TeleCanvas
                   height={height}
                   width={width}
@@ -629,13 +623,13 @@ export default function Home() {
                   onAssetsLoaded={onTeleAssetsLoaded}
                   onWebGLReady={onTeleWebGLReady}
                   appReady={appReady}
-                  teleTargetLanding={teleTargetLanding}
-                  teleTargetReel={teleTargetReel}
-                  teleTargetInfo={teleTargetInfo}
+                  landingRef={landingRef}
+                  reelRef={reelRef}
+                  workRef={workRef}
+                  infoRef={infoRef}
                   // cameraPos={
                   //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
                   // }
-                  teleContext={teleContext}
                 />
                 {/* {!useBreakpoint("sm", "down") && (
                   <div
@@ -688,11 +682,6 @@ export default function Home() {
                 </div>
               </div>
               <div id="info" ref={infoRef}>
-                <div
-                  ref={teleTargetInfo}
-                  className="tele-target"
-                  id="tele-target-info"
-                ></div>
                 <div id="info-inner">
                   <div id="info-color-margin"></div>
                   <div id="info-text-container">
