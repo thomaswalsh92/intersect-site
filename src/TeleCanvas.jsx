@@ -13,13 +13,14 @@ import { Environment, Lightformer, SoftShadows } from "@react-three/drei";
 
 //gsap
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 //app
 import { Tele } from "./Tele";
 import { useBreakpoint } from "./utils/useBreakpoint";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 function WebGLWarmup({ assetsLoaded }) {
   const { gl, scene, camera } = useThree();
@@ -120,13 +121,13 @@ export default function TeleCanvas({
         targetOffset: null,
         width: "100%",
         height: "100%",
-        cameraPos: [0, 0, 100],
+        cameraPos: [0, 0, 28],
         backgroundDebug: "red",
       },
       pos2: {
-        target: teleTargetInfo,
+        target: teleTargetReel,
         targetOffset: null,
-        width: "100%",
+        width: "50%",
         height: "100%",
         cameraPos: [0, 0, 28],
         backgroundDebug: "red",
@@ -135,6 +136,7 @@ export default function TeleCanvas({
   };
 
   const [view, setView] = useState();
+  // const [telePos, setTelePos] = useState();
 
   function getTeleData() {
     //case XS screens only
@@ -145,6 +147,47 @@ export default function TeleCanvas({
 
     //case all larger screen
     if (view === "md-up") return teleData.mdUp;
+  }
+
+  function applyTeleData(pos) {
+    const teleData = getTeleData();
+    if (view === "xs") {
+      telePositionRef.current.top =
+        teleData[pos].target.current.getBoundingClientRect().top +
+        window.scrollY -
+        window.innerHeight;
+      telePositionRef.current.left =
+        teleData[pos].target.current.getBoundingClientRect().left +
+        window.scrollX;
+    }
+
+    if (view === "sm" || view === "md-up") {
+      telePositionRef.current.top =
+        teleData[pos].target.current.getBoundingClientRect().top +
+        window.scrollY -
+        window.innerHeight;
+      telePositionRef.current.left =
+        teleData[pos].target.current.getBoundingClientRect().left +
+        window.scrollX;
+    }
+
+    console.log(
+      teleData[pos].target.current.getBoundingClientRect().top + window.scrollY
+    );
+
+    teleSizeRef.current.width = teleData[pos].width;
+    teleSizeRef.current.height = teleData[pos].height;
+    const cameraPos = teleData[pos].cameraPos;
+    setTeleCamPos(cameraPos);
+
+    //and set initial top and left values for the container based on the ref
+    gsap.set(teleContainerRef.current, {
+      top: telePositionRef.current.top,
+      left: telePositionRef.current.left,
+      width: teleSizeRef.current.width,
+      height: teleSizeRef.current.height,
+      position: "absolute",
+    });
   }
 
   const teleContainerRef = useRef(null);
@@ -174,56 +217,42 @@ export default function TeleCanvas({
     }
 
     //here we get initial position for tele from refs and cache
-    if (view === "xs") {
-      telePositionRef.current.top =
-        getTeleData().pos1.target.current.getBoundingClientRect().top +
-        window.scrollY -
-        window.innerHeight;
-      telePositionRef.current.left =
-        getTeleData().pos1.target.current.getBoundingClientRect().left +
-        window.scrollX;
-    }
-
-    if (view === "sm" || view === "md-up") {
-      telePositionRef.current.top =
-        getTeleData().pos1.target.current.getBoundingClientRect().top +
-        window.scrollY -
-        window.innerHeight;
-      telePositionRef.current.left =
-        getTeleData().pos1.target.current.getBoundingClientRect().left +
-        window.scrollX;
-    }
-
-    teleSizeRef.current.width = getTeleData().pos1.width;
-    teleSizeRef.current.height = getTeleData().pos1.height;
-    const cameraPos = getTeleData().pos1.cameraPos;
-    console.log(cameraPos);
-    setTeleCamPos(cameraPos);
-
-    //and set initial top and left values for the container based on the ref
-    gsap.set(teleContainerRef.current, {
-      top: telePositionRef.current.top,
-      left: telePositionRef.current.left,
-      width: teleSizeRef.current.width,
-      height: teleSizeRef.current.height,
-      position: "absolute",
-    });
+    applyTeleData("pos1");
   }, [view, appReady]);
 
-  // useEffect(() => {
-  //   if (!teleTargetLanding.current) return;
-  //   if (!teleTargetReel.current) return;
-  //   if (!teleTargetInfo.current) return;
+  useGSAP(() => {
+    if (
+      !appReady ||
+      !teleTargetLanding.current ||
+      !teleTargetReel.current ||
+      !teleTargetInfo.current ||
+      !teleContainerRef.current
+    )
+      return;
 
-  //   //define default positions for tele
-  //   if (useBreakpoint("sm", "down")) {
-  //     setTop(teleTargetLanding.current.getBoundingClientRect().top);
-  //     setLeft(teleTargetLanding.current.getBoundingClientRect().left);
-  //   }
-  // }, [teleTargetLanding, teleTargetReel, teleTargetInfo]);
+    //be
+    ScrollTrigger.create({
+      trigger: "#work",
+      start: "center-=10 top",
+      end: "+=1",
+      markers: true,
+      onEnter: () => applyTeleData("pos2"),
+      onEnterBack: () => applyTeleData("pos1"),
+    });
 
-  // console.log(top, left);
-  // console.log(getTeleData().pos1.width);
+    // ScrollTrigger.create({
+    //   trigger: "#work",
+    //   start: "center+=10 top",
+    //   end: "+=1",
+    //   markers: true,
+    //   onEnter: () => {
+    //     console.log("BOTTOM trigger on enter");
+    //   },
+    //   onEnterBack: () => {
+    //     console.log("BOTTOM trigger on enter back");
+    //   },
+    // });
+  }, [appReady]);
   return (
     <div
       id="tele-container"
