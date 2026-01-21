@@ -49,12 +49,22 @@ function WebGLReady({ onWebGLReady }) {
   return null;
 }
 
-function CameraController({ teleCamRef }) {
-  // const { camera } = useThree();
-  // teleCamRef.current && camera.position.set(teleCamRef.current.cameraPos);
+//component nested inside canvas so we can access camera object
+function CameraController({ appReady, view, teleCamPos }) {
+  const { camera } = useThree();
+
+  useEffect(() => {
+    if (!appReady) return;
+
+    camera.position.set(teleCamPos[0], teleCamPos[1], teleCamPos[2]);
+
+    camera.updateProjectionMatrix();
+  }, [appReady, view, teleCamPos]);
 
   return null;
 }
+
+// teleCamRef.current && camera.position.set(teleCamRef.current.cameraPos);
 
 export default function TeleCanvas({
   width,
@@ -92,7 +102,7 @@ export default function TeleCanvas({
         targetOffset: null,
         width: "100%",
         height: "100%",
-        cameraPos: [0, 0, 28],
+        cameraPos: [0, 0, 60],
         backgroundDebug: "blue",
       },
       pos2: {
@@ -110,7 +120,7 @@ export default function TeleCanvas({
         targetOffset: null,
         width: "100%",
         height: "100%",
-        cameraPos: [0, 0, 28],
+        cameraPos: [0, 0, 100],
         backgroundDebug: "red",
       },
       pos2: {
@@ -140,7 +150,7 @@ export default function TeleCanvas({
   const teleContainerRef = useRef(null);
   const telePositionRef = useRef({ top: 0, left: 0 });
   const teleSizeRef = useRef({ width: "", height: "" });
-  const teleCamRef = useRef({ cameraPos: [] });
+  const [teleCamPos, setTeleCamPos] = useState([0, 0, 0]);
 
   const isXs = useBreakpoint("sm", "down");
   const isSm = useBreakpoint("md", "down") && !isXs;
@@ -186,7 +196,9 @@ export default function TeleCanvas({
 
     teleSizeRef.current.width = getTeleData().pos1.width;
     teleSizeRef.current.height = getTeleData().pos1.height;
-    teleCamRef.current.cameraPos = getTeleData().pos1.cameraPos;
+    const cameraPos = getTeleData().pos1.cameraPos;
+    console.log(cameraPos);
+    setTeleCamPos(cameraPos);
 
     //and set initial top and left values for the container based on the ref
     gsap.set(teleContainerRef.current, {
@@ -237,7 +249,7 @@ export default function TeleCanvas({
         }}
         size={[width, height]}
         // shadows={{ type: "PCFSoftShadowMap" }}
-        camera={{ position: [0, 0, 28], fov: 19 }}
+        camera={{ position: teleCamPos, fov: 19 }}
       >
         {/* <CanvasVisibilityController /> */}
         <WebGLWarmup />
@@ -293,7 +305,12 @@ export default function TeleCanvas({
           shadow-camera-top={10}
           shadow-camera-bottom={-10}
         />
-        <CameraController teleCamRef={teleCamRef} />
+
+        <CameraController
+          view={view}
+          teleCamPos={teleCamPos}
+          appReady={appReady}
+        />
         {/* </Suspense> */}
         <WebGLReady onWebGLReady={onWebGLReady} />
       </Canvas>

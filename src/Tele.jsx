@@ -160,6 +160,7 @@ export function Tele({ onAssetsLoaded, teleContext }) {
   });
 
   const { camera } = useThree();
+  console.log("in TELE: ", camera);
   // useEffect(() => {
   camera.lookAt(0, -0.7, 0);
   // }, [camera]);
