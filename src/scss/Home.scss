@@ -413,7 +413,7 @@ html {
   );
 
   @include down($bp-sm) {
-    display: none;
+    visibility: none;
   }
 }
 

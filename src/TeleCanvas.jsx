@@ -65,8 +65,6 @@ function CameraController({ appReady, view, teleCamPos }) {
   return null;
 }
 
-// teleCamRef.current && camera.position.set(teleCamRef.current.cameraPos);
-
 export default function TeleCanvas({
   width,
   height,
@@ -85,7 +83,7 @@ export default function TeleCanvas({
     xs: {
       pos1: {
         target: "landing",
-        targetOffset: null,
+        targetOffset: 0,
         width: "100%",
         height: "100%",
         cameraPos: [0, 0, 28],
@@ -93,7 +91,7 @@ export default function TeleCanvas({
       },
       pos2: {
         target: "info",
-        targetOffset: null,
+        targetOffset: 0,
         width: "100%",
         height: "100%",
         cameraPos: [0, 0, 28],
@@ -103,7 +101,7 @@ export default function TeleCanvas({
     sm: {
       pos1: {
         target: "reel",
-        targetOffset: null,
+        targetOffset: 0,
         width: "100%",
         height: "100%",
         cameraPos: [0, 0, 60],
@@ -111,17 +109,17 @@ export default function TeleCanvas({
       },
       pos2: {
         target: "info",
-        targetOffset: null,
+        targetOffset: 0,
         width: "100%",
         height: "100%",
         cameraPos: [0, 0, 28],
         backgroundDebug: "blue",
       },
     },
-    mdUp: {
+    md: {
       pos1: {
         target: "reel",
-        targetOffset: null,
+        targetOffset: 0,
         width: "100%",
         height: "100%",
         cameraPos: [0, 0, 28],
@@ -129,7 +127,25 @@ export default function TeleCanvas({
       },
       pos2: {
         target: "info",
-        targetOffset: null,
+        targetOffset: 0,
+        width: "50%",
+        height: "100%",
+        cameraPos: [0, 0, 28],
+        backgroundDebug: "red",
+      },
+    },
+    lgUp: {
+      pos1: {
+        target: "reel",
+        targetOffset: 0,
+        width: "100%",
+        height: "100%",
+        cameraPos: [0, 0, 28],
+        backgroundDebug: "red",
+      },
+      pos2: {
+        target: "info",
+        targetOffset: 2400,
         width: "50%",
         height: "100%",
         cameraPos: [0, 0, 28],
@@ -148,8 +164,11 @@ export default function TeleCanvas({
     //case SM screens only
     if (view === "sm") return teleData.sm;
 
-    //case all larger screen
-    if (view === "md-up") return teleData.mdUp;
+    //case MD screens only
+    if (view === "md") return teleData.md;
+
+    //case LG screens up
+    if (view === "lgUp") return teleData.lgUp;
   }
 
   // function targetToTop() {}
@@ -193,19 +212,18 @@ export default function TeleCanvas({
     }
   }
   function applyTeleData(pos) {
-    const teleData = getTeleData();
-    if (view === "xs") {
-    }
+    const { target, targetOffset, width, height, cameraPos } =
+      getTeleData()[pos];
 
-    if (view === "sm" || view === "md-up") {
-      gsap.set(teleContainerRef.current, {
-        top: getTargetToTop(teleData[pos].target),
-        width: teleData[pos].width,
-        height: teleData[pos].height,
-        position: "absolute",
-      });
-      setTeleCamPos(teleData[pos].cameraPos);
-    }
+    const top = getTargetToTop(target, targetOffset);
+    console.log(top);
+    gsap.set(teleContainerRef.current, {
+      top: top,
+      width: width,
+      height: height,
+      position: "absolute",
+    });
+    setTeleCamPos(cameraPos);
   }
 
   const teleContainerRef = useRef(null);
@@ -214,13 +232,15 @@ export default function TeleCanvas({
 
   const isXs = useBreakpoint("sm", "down");
   const isSm = useBreakpoint("md", "down") && !isXs;
-  const isMdUp = useBreakpoint("md", "up");
+  const isMd = useBreakpoint("lg", "down") && !isSm;
+  const isLgUp = useBreakpoint("lg", "up");
 
   useEffect(() => {
     if (isXs) setView("xs");
     else if (isSm) setView("sm");
-    else if (isMdUp) setView("md-up");
-  }, [isXs, isSm, isMdUp]);
+    else if (isMd) setView("md");
+    else if (isLgUp) setView("lgUp");
+  }, [isXs, isSm, isMd, isLgUp]);
 
   useEffect(() => {
     if (
