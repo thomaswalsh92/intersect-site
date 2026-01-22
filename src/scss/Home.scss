@@ -492,6 +492,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 10% 0 10%;
   p {
     color: $White;
     font-size: 10px;
@@ -525,6 +526,7 @@ html {
 
 .work-grid-action-block {
   background-color: $BlackDark;
+  padding: 0 10% 0 10%;
   p {
     color: $White;
     font-size: 14px;

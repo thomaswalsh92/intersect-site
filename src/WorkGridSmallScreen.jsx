@@ -178,7 +178,15 @@ function WorkGridSmallScreenItem({
         className="work-grid-block work-grid-project-block"
         // id="work-grid-title"
       >
-        <p className="text-1">{proj.disciplines}</p>
+        <p className="text-1">
+          {proj.disciplines.map((el, i) => {
+            let string = el;
+            if (i < proj.disciplines.length - 1) {
+              string = string + " / ";
+            }
+            return string;
+          })}
+        </p>
       </div>
     </div>
   );
