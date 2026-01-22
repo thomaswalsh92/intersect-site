@@ -240,7 +240,6 @@ export default function TeleCanvas({
     } = getTeleData()[pos];
 
     const top = getTargetToTop(target, targetOffset);
-    console.log(top);
     gsap.set(teleContainerRef.current, {
       top: top,
       width: width,
@@ -304,7 +303,6 @@ export default function TeleCanvas({
       trigger: "#work",
       start: "center-=10 top",
       end: "+=1",
-      markers: true,
       onEnter: () => applyTeleData("pos2"),
       onEnterBack: () => applyTeleData("pos1"),
     });
@@ -313,7 +311,6 @@ export default function TeleCanvas({
     //   trigger: "#work",
     //   start: "center+=10 top",
     //   end: "+=1",
-    //   markers: true,
     //   onEnter: () => {
     //     console.log("BOTTOM trigger on enter");
     //   },
