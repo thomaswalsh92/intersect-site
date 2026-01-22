@@ -467,6 +467,9 @@ html {
   @include down($bp-lg) {
     padding: 0;
   }
+  @include down($bp-sm) {
+    padding-bottom: 64px;
+  }
 }
 
 #work-grid {
@@ -690,6 +693,15 @@ html {
 
   // padding-left: 16px;
   padding-right: 32px;
+
+  @include down($bp-sm) {
+    height: 64px;
+    padding-right: 16px;
+    justify-content: space-between;
+    p {
+      font-size: 12px;
+    }
+  }
 }
 
 #footer-bg {
@@ -699,10 +711,20 @@ html {
   z-index: -100;
   background-color: $Black;
   // bottom: -48px;
+  @include down($bp-sm) {
+    height: 64px;
+  }
 }
 
 #footer-contact {
   padding-left: 16px;
+  @include down($bp-sm) {
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
 }
 
 .footer-link {
@@ -710,6 +732,16 @@ html {
   text-decoration: underline;
   font-size: 10px;
   cursor: pointer;
+  @include down($bp-sm) {
+    font-size: 12px;
+  }
+}
+
+#footer-instagram-link {
+  margin-left: 16px;
+  @include down($bp-sm) {
+    margin-left: 0;
+  }
 }
 
 #footer-credits {
@@ -720,5 +752,20 @@ html {
   p,
   a {
     mix-blend-mode: difference;
+  }
+  @include down($bp-sm) {
+    height: 48px;
+    flex-direction: column;
+    text-align: right;
+    justify-content: center;
+    gap: 6px;
+  }
+}
+
+#footer-credits-credit {
+  margin-right: 32px;
+  @include down($bp-sm) {
+    flex-direction: column;
+    margin-right: 0px;
   }
 }

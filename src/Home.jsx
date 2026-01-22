@@ -90,7 +90,8 @@ export default function Home() {
 
   //*WORK
   const headerHeight = 48;
-  const footerHeight = 48;
+  let footerHeight = 48;
+  if (useBreakpoint("sm", "down")) footerHeight = 64;
   const smallScreenProjects = projectDetails.filter(
     (proj) => proj.showSmallScreen
   );
@@ -104,7 +105,7 @@ export default function Home() {
   const smallScreenWorkHeight =
     (smallScreenProjectHeight + smallScreenPinVal) *
       smallScreenProjects.length +
-    headerHeight * 3;
+    headerHeight * smallScreenProjects.length;
 
   //*LOADING
   function onTeleAssetsLoaded() {
@@ -498,16 +499,23 @@ export default function Home() {
       <div id="footer">
         <div id="footer-bg"></div>
         <div id="footer-contact">
-          <a className="text-2 footer-link">{"CONTACT->"}</a>
-          <a className="text-2 footer-link" style={{ marginLeft: 16 }}>
+          <a id="footer-contact-link" className="text-2 footer-link">
+            {"CONTACT->"}
+          </a>
+          <a id="footer-instagram-link" className="text-2 footer-link">
             {"INSTAGRAM->"}
           </a>
         </div>
         <div id="footer-credits">
-          <p className="text-2" style={{ marginRight: 32 }}>
-            DESIGNED & DEVELOPED BY <span className="text-1">INTERSECT</span>
+          <p id="footer-credits-credit" className="text-2">
+            DESIGNED & DEVELOPED BY{" "}
+            <span id="footer-credits-credit-intersect" className="text-1">
+              INTERSECT
+            </span>
           </p>
-          <p className="text-1">© INTERSECT 2025</p>
+          <p id="footer-credits-copyright" className="text-1">
+            © INTERSECT 2025
+          </p>
         </div>
       </div>
       {/* <div id="home-bg-logo-container">
