@@ -502,6 +502,12 @@ html {
       font-size: 12px;
     }
   }
+
+  @include up($bp-4k) {
+    p {
+      font-size: 14px;
+    }
+  }
 }
 
 #work-grid-project-short-description {
@@ -583,6 +589,9 @@ html {
 
 .info-text {
   font-size: 18px;
+  @include up($bp-4k) {
+    font-size: 24px;
+  }
 }
 
 #info-capabilities {
@@ -641,6 +650,10 @@ html {
   }
 
   @include down($bp-sm) {
+    font-size: 72px;
+  }
+
+  @include up($bp-4k) {
     font-size: 72px;
   }
 

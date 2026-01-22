@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { useBreakpoint } from "./utils/useBreakpoint";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
@@ -159,7 +160,9 @@ export default function WorkGridDesktop({ projectDetails }) {
           gridRow: "span 1",
           display: "grid",
           gridTemplateColumns: "repeat(8, 1fr)",
-          gridTemplateRows: `1fr repeat(${projectDetails.length}, 64px) 1fr`,
+          gridTemplateRows: `1fr repeat(${projectDetails.length}, ${
+            useBreakpoint("4k", "up") ? "86px" : "64px"
+          }) 1fr`,
         }}
       >
         <div
