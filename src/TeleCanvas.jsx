@@ -301,7 +301,7 @@ export default function TeleCanvas({
     //be
     ScrollTrigger.create({
       trigger: "#work",
-      start: "center-=10 top",
+      start: "center-=10 center",
       end: "+=1",
       onEnter: () => applyTeleData("pos2"),
       onEnterBack: () => applyTeleData("pos1"),
