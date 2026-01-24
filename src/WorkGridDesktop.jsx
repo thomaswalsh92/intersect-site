@@ -1,6 +1,9 @@
 //react
 import { useRef, useState, useEffect, useLayoutEffect } from "react";
 
+//react-router
+import { useNavigate } from "react-router";
+
 //gsap
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -85,6 +88,15 @@ export default function WorkGridDesktop({ projectDetails }) {
   const projectsSelectedColor = "#f4f4f3";
   const projectsExtraDarkColor = "#1d1e1e";
   // const bgColor = "#2f3031";
+
+  const navigate = useNavigate();
+
+  function handleActionClick(actionNum) {
+    const selectedProject = projectDetails[selected];
+    if (selectedProject.actions[actionNum].type === "explore") {
+      navigate(selectedProject.slug);
+    }
+  }
 
   return (
     <div
@@ -349,6 +361,7 @@ export default function WorkGridDesktop({ projectDetails }) {
                 gridColumn: "span 2",
                 gridRow: "span 1",
               }}
+              onClick={() => handleActionClick(0)}
             >
               <p
                 style={{
@@ -369,6 +382,7 @@ export default function WorkGridDesktop({ projectDetails }) {
                 gridColumn: "span 2",
                 gridRow: "span 1",
               }}
+              onClick={() => handleActionClick(1)}
             >
               <p
                 style={{
@@ -393,6 +407,7 @@ export default function WorkGridDesktop({ projectDetails }) {
                 gridColumn: "span 4",
                 gridRow: "span 1",
               }}
+              onClick={() => handleActionClick(0)}
             >
               <p
                 style={{

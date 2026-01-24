@@ -550,8 +550,9 @@ html {
 }
 
 .work-grid-action-block {
-  background-color: $Black;
+  background-color: #1d1e1e;
   padding: 0 10% 0 10%;
+  cursor: pointer;
   p {
     color: $White;
     font-size: 14px;

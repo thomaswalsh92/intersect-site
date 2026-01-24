@@ -7,6 +7,7 @@ import synEightCover from "../assets/images/work-syneight-cover.jpg";
 
 export const projectDetails = [
   {
+    slug: "rainyday",
     project: "RAINYDAY WEBSITE",
     client: "RAINYDAY STUDIO",
     disciplines: ["WEB DESIGN", "WEB DEVELOPMENT"],
@@ -28,6 +29,7 @@ export const projectDetails = [
     coverImage: rainydayCover,
   },
   {
+    slug: "john-peel",
     project: "JOHN PEEL COLLECTION",
     client: "OMEGA AUCTIONS",
     disciplines: ["GRAPHIC DESIGN"],
@@ -46,6 +48,7 @@ export const projectDetails = [
     ],
   },
   {
+    slug: "crop-radio",
     project: "CROP MAGAZINE LAUNCH",
     client: "CROP RADIO",
     disciplines: ["MOTION DESIGN"],
@@ -64,6 +67,7 @@ export const projectDetails = [
     ],
   },
   {
+    slug: "darsk",
     project: "DARSK VISUAL IDENTITY",
     client: "DARSK",
     disciplines: ["GRAPHIC DESIGN", "MOTION DESIGN"],
@@ -82,6 +86,7 @@ export const projectDetails = [
     ],
   },
   {
+    slug: "shimmer",
     project: "SHIMMER VISUAL INDENTITY",
     client: "SHIMMER",
     disciplines: ["GRAPHIC DESIGN", "MOTION DESIGN"],
@@ -100,6 +105,7 @@ export const projectDetails = [
     ],
   },
   {
+    slug: "syn-eight",
     project: "SYN-EIGHT",
     client: "INTERSECT",
     disciplines: ["3D DESIGN", "MOTION DESIGN"],
