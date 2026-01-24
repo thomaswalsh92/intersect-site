@@ -157,7 +157,11 @@ export default function TeleCanvas({
         width: "50vw",
         height: "100%",
         styleOverride: { marginLeft: "50vw" },
-        cameraPos: [0, 0, 48],
+        cameraPos: [
+          0,
+          0,
+          mapInverseLog(window.innerWidth, 1281, 2560, 36, 45, 1),
+        ],
         rotationFixed: -15,
       },
     },
@@ -180,7 +184,13 @@ export default function TeleCanvas({
     if (view === "lgUp") return teleData.lgUp;
   }
 
-  // function targetToTop() {}
+  function mapInverseLog(value, inMin, inMax, outMin, outMax, factor = 5) {
+    let t = (value - inMin) / (inMax - inMin);
+    t = Math.min(Math.max(t, 0), 1);
+    const logT = Math.log(1 + factor * t) / Math.log(1 + factor);
+    const invertedT = 1 - logT;
+    return outMin + invertedT * (outMax - outMin);
+  }
 
   function cacheDomHeights() {
     if (view === "xs") {
