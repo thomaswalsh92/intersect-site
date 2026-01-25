@@ -1,5 +1,5 @@
 //styling
-import "./scss/Home.scss";
+import "../scss/Home.scss";
 
 //react
 import { useState, useEffect, useRef, Suspense, useLayoutEffect } from "react";
@@ -19,9 +19,9 @@ import { useGSAP } from "@gsap/react";
 
 //app
 import { Tele } from "./Tele";
-import { useBreakpoint } from "./utils/useBreakpoint";
+import { useBreakpoint } from "../utils/useBreakpoint";
 
-import { useTele } from "./tele/TeleContext";
+import { useTele } from "./TeleContext";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -286,6 +286,10 @@ export default function TeleCanvas({
     else if (isLgUp) setView("lgUp");
   }, [isXs, isSm, isMd, isLgUp]);
 
+  useEffect(() => {
+    console.log("🟢 TeleCanvas mounted");
+    return () => console.log("🔴 TeleCanvas unmounted");
+  }, []);
   // useEffect(() => {
   //   if (
   //     !landingRef.current ||
@@ -336,8 +340,12 @@ export default function TeleCanvas({
     // });
   }, [appReady]);
   if (!canvasTarget) return null;
+
   return createPortal(
-    <div id="tele-canvas-container" style={{ width: "100%", height: "100%" }}>
+    <div
+      id="tele-canvas-container"
+      style={{ width: "100%", height: "100%", position: "fixed" }}
+    >
       <Canvas
         camera={{ position: [0, 0, 28], fov: 19 }}
         style={{ width: "100%", height: "100%" }}
@@ -360,7 +368,46 @@ export default function TeleCanvas({
           shadow-camera-top={10}
           shadow-camera-bottom={-10}
         />
-        {/* Any other Drei / Lights / Environment */}
+        {/* <WebGLWarmup /> */}
+        <SoftShadows frames={1} size={25} samples={64} focus={0.5} />
+        <Environment
+          preset="studio"
+          //env intensity controlled in tele.jsx
+          environmentIntensity={0}
+          resolution={256}
+          blur={1}
+        >
+          <Lightformer
+            form="ring"
+            intensity={2}
+            // rotation-x={Math.PI / 2}
+            position={[0, 0, 3]}
+            scale={[4, 4, 1]}
+            target={[0, 0, 0]}
+          />
+          <Lightformer
+            form="rect"
+            intensity={1}
+            // rotation-x={Math.PI / 2}
+            position={[0, 2, 0]}
+            scale={[1, 1, 1]}
+            target={[0, 0, 0]}
+          />
+          <Lightformer
+            form="rect"
+            intensity={1}
+            // rotation-x={Math.PI / 2}
+            position={[2, 25, 0]}
+            scale={[10, 10, 1]}
+            target={[0, 0, 0]}
+          />
+        </Environment>
+        {/* <CameraController
+          view={view}
+          teleCamPos={teleCamPos}
+          appReady={appReady}
+        /> */}
+        {/* <WebGLReady onWebGLReady={onWebGLReady} /> */}
       </Canvas>
     </div>,
     canvasTarget

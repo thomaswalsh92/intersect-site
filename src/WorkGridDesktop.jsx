@@ -1,9 +1,6 @@
 //react
 import { useRef, useState, useEffect, useLayoutEffect } from "react";
 
-//react-router
-import { useNavigate } from "react-router";
-
 //gsap
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -89,14 +86,11 @@ export default function WorkGridDesktop({ projectDetails }) {
   const projectsExtraDarkColor = "#1d1e1e";
   // const bgColor = "#2f3031";
 
-  const navigate = useNavigate();
-
-  function handleActionClick(actionNum) {
-    const selectedProject = projectDetails[selected];
-    if (selectedProject.actions[actionNum].type === "explore") {
-      navigate(selectedProject.slug);
-    }
-  }
+  // function handleActionClick(actionNum) {
+  //   const selectedProject = projectDetails[selected];
+  //   if (selectedProject.actions[actionNum].type === "explore") {
+  //   }
+  // }
 
   return (
     <div

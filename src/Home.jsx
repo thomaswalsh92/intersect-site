@@ -72,16 +72,10 @@ function LoadingScreen() {
 }
 
 export default function Home() {
-  const { height, width } = useWindowDimensions();
-  //*TELECANVAS-HARNESS
-  const blendStageRef = useRef(null);
-  const { setCanvasTarget } = useTele();
-
-  useEffect(() => {
-    if (blendStageRef.current) {
-      setCanvasTarget(blendStageRef.current);
-    }
-  }, [blendStageRef, setCanvasTarget]);
+  const landingRef = useRef();
+  const workRef = useRef();
+  const reelRef = useRef();
+  const infoRef = useRef();
 
   //*LANDING
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
@@ -93,7 +87,6 @@ export default function Home() {
   // const teleTargetInfo = useRef();
 
   //*REEL
-  const [teleContext, setTeleContext] = useState("reel"); //reel or info
   const [currentBreakpoint, setCurrentBreakpoint] = useState();
 
   //*WORK
@@ -155,11 +148,15 @@ export default function Home() {
     "BRANDING",
   ];
 
-  //*GSAP
-  // const pinVal = {
-  //   reelPin: 1200,
+  //*TELE
+  // const { setCanvasTarget } = useTele();
 
-  // }
+  // useEffect(() => {
+  //   if (reelRef.current) {
+  //     setCanvasTarget(reelRef.current);
+  //   }
+  // }, [reelRef, setCanvasTarget]);
+
   let pinSectionVal = "+=1200";
 
   useGSAP(
@@ -404,11 +401,6 @@ export default function Home() {
     { scope: wrapper, dependencies: [appReady] }
   );
 
-  const landingRef = useRef();
-  const workRef = useRef();
-  const reelRef = useRef();
-  const infoRef = useRef();
-
   const handleNavScroll = (ref) => {
     // ScrollTrigger.getAll().forEach((st) => {
     //   if (st.pin) st.enabled = false;
@@ -535,7 +527,7 @@ export default function Home() {
       {/* <div id="home-bg-invert-layer"></div> */}
       <div id="smooth-wrapper" ref={wrapper}>
         <div id="smooth-content" ref={content}>
-          <div id="blend-stage" ref={blendStageRef}>
+          <div id="blend-stage">
             <div id="home-bg-logo-container">
               <IntersectLogoLeft />
               <IntersectLogoCenter />

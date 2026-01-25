@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import { useTele } from "./TeleContext";
-import TeleCanvas from "./TeleCanvas";
 
 export default function TeleStage() {
   const stageRef = useRef(null);
