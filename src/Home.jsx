@@ -24,12 +24,12 @@ import {
 } from "./IntersectLogo";
 import loadingGIF from "./assets/images/loading.gif";
 import useWindowDimensions from "./utils/useWindowDimensions";
+import TeleCanvas from "./TeleCanvas";
 import WorkGridDesktop from "./WorkGridDesktop";
 import WorkGridSmallScreen from "./WorkGridSmallScreen";
 import { useBreakpoint } from "./utils/useBreakpoint";
 import { BREAKPOINTS } from "./scss/breakpoints";
 import { projectDetails } from "./data/projectDetails";
-import { useTele } from "./tele/TeleContext";
 
 THREE.Cache.enabled = true;
 
@@ -73,15 +73,7 @@ function LoadingScreen() {
 
 export default function Home() {
   const { height, width } = useWindowDimensions();
-  //*TELECANVAS-HARNESS
-  const blendStageRef = useRef(null);
-  const { setCanvasTarget } = useTele();
-
-  useEffect(() => {
-    if (blendStageRef.current) {
-      setCanvasTarget(blendStageRef.current);
-    }
-  }, [blendStageRef, setCanvasTarget]);
+  //*BG
 
   //*LANDING
   const landingCapabilties = ["WEB", "UX", "GRAPHICS", "BRAND", "MOTION", "3D"];
@@ -120,13 +112,13 @@ export default function Home() {
     setTeleAssetsLoaded(true);
   }
 
-  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(true);
+  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(false);
 
   function onTeleWebGLReady() {
     setTeleWebGLReady(true);
   }
 
-  const [teleWebGLReady, setTeleWebGLReady] = useState(true);
+  const [teleWebGLReady, setTeleWebGLReady] = useState(false);
 
   const [appReady, setAppReady] = useState(false);
 
@@ -535,7 +527,7 @@ export default function Home() {
       {/* <div id="home-bg-invert-layer"></div> */}
       <div id="smooth-wrapper" ref={wrapper}>
         <div id="smooth-content" ref={content}>
-          <div id="blend-stage" ref={blendStageRef}>
+          <div id="blend-stage">
             <div id="home-bg-logo-container">
               <IntersectLogoLeft />
               <IntersectLogoCenter />
@@ -585,7 +577,7 @@ export default function Home() {
                     <p className="indent-1 landing-capability-text">{"}"}</p>
                   </div>
                 )}
-                {/* {useBreakpoint("sm", "down") && (
+                {useBreakpoint("sm", "down") && (
                   <TeleCanvas
                     height={height}
                     width={width}
@@ -601,7 +593,7 @@ export default function Home() {
                     //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
                     // }
                   />
-                )} */}
+                )}
                 {/* {useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"
@@ -649,7 +641,7 @@ export default function Home() {
                 </div>
               </div>
               <div id="reel" ref={reelRef}>
-                {/* {!useBreakpoint("sm", "down") && (
+                {!useBreakpoint("sm", "down") && (
                   <TeleCanvas
                     height={height}
                     width={width}
@@ -665,7 +657,7 @@ export default function Home() {
                     //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
                     // }
                   />
-                )} */}
+                )}
                 {/* {!useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"

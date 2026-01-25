@@ -3,7 +3,6 @@ import "./scss/Home.scss";
 
 //react
 import { useState, useEffect, useRef, Suspense, useLayoutEffect } from "react";
-import { createPortal } from "react-dom";
 
 //three
 import * as THREE from "three";
@@ -20,8 +19,6 @@ import { useGSAP } from "@gsap/react";
 //app
 import { Tele } from "./Tele";
 import { useBreakpoint } from "./utils/useBreakpoint";
-
-import { useTele } from "./tele/TeleContext";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -74,17 +71,14 @@ export default function TeleCanvas({
   onAssetsLoaded,
   onWebGLReady,
   appReady,
-  // landingRef,
-  // reelRef,
-  // workRef,
-  // infoRef,
+  landingRef,
+  reelRef,
+  workRef,
+  infoRef,
 }) {
   //* Build out API here for all relevant values for the Tele in realtion to responsive design
   //* AND
   //* Scroll based repositioning of the canvas
-
-  const { canvasTarget } = useTele();
-
   let teleData = {
     xs: {
       pos1: {
@@ -286,22 +280,22 @@ export default function TeleCanvas({
     else if (isLgUp) setView("lgUp");
   }, [isXs, isSm, isMd, isLgUp]);
 
-  // useEffect(() => {
-  //   if (
-  //     !landingRef.current ||
-  //     !reelRef.current ||
-  //     !workRef.current ||
-  //     !infoRef.current ||
-  //     !teleContainerRef.current ||
-  //     !appReady
-  //   ) {
-  //     return;
-  //   }
+  useEffect(() => {
+    if (
+      !landingRef.current ||
+      !reelRef.current ||
+      !workRef.current ||
+      !infoRef.current ||
+      !teleContainerRef.current ||
+      !appReady
+    ) {
+      return;
+    }
 
-  //   cacheDomHeights();
-  //   //here we get initial position for tele from refs and cache
-  //   applyTeleData("pos1");
-  // }, [view, appReady]);
+    cacheDomHeights();
+    //here we get initial position for tele from refs and cache
+    applyTeleData("pos1");
+  }, [view, appReady]);
 
   useGSAP(() => {
     if (
@@ -335,14 +329,72 @@ export default function TeleCanvas({
     //   },
     // });
   }, [appReady]);
-  if (!canvasTarget) return null;
-  return createPortal(
-    <div id="tele-canvas-container" style={{ width: "100%", height: "100%" }}>
+  return (
+    <div
+      id="tele-container"
+      ref={teleContainerRef}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        zIndex: 10,
+        ...styleOverride,
+        // height: getTeleData().pos1.height,
+        // width: getTeleData().pos1.width,
+        // background: getTeleData().pos1.backgroundDebug,
+      }}
+    >
       <Canvas
-        camera={{ position: [0, 0, 28], fov: 19 }}
-        style={{ width: "100%", height: "100%" }}
+        resize={{ scroll: false }}
+        //frameloop="demand"
+        shadows
+        id={"tele-canvas"}
+        gl={(gl) => {
+          gl.physicallyCorrectLights = true;
+          gl.useLegacyLights = false;
+          gl.shadowMap = true;
+          gl.shadowMapType = THREE.PCFSoftShadowMap;
+        }}
+        size={[width, height]}
+        // shadows={{ type: "PCFSoftShadowMap" }}
+        camera={{ position: teleCamPos, fov: 19 }}
       >
-        <Tele onAssetsLoaded={onAssetsLoaded} />
+        {/* <CanvasVisibilityController /> */}
+        <WebGLWarmup />
+        <SoftShadows frames={1} size={25} samples={64} focus={0.5} />
+        <Environment
+          preset="studio"
+          //env intensity controlled in tele.jsx
+          environmentIntensity={0}
+          resolution={256}
+          blur={1}
+        >
+          <Lightformer
+            form="ring"
+            intensity={2}
+            // rotation-x={Math.PI / 2}
+            position={[0, 0, 3]}
+            scale={[4, 4, 1]}
+            target={[0, 0, 0]}
+          />
+          <Lightformer
+            form="rect"
+            intensity={1}
+            // rotation-x={Math.PI / 2}
+            position={[0, 2, 0]}
+            scale={[1, 1, 1]}
+            target={[0, 0, 0]}
+          />
+          <Lightformer
+            form="rect"
+            intensity={1}
+            // rotation-x={Math.PI / 2}
+            position={[2, 25, 0]}
+            scale={[10, 10, 1]}
+            target={[0, 0, 0]}
+          />
+        </Environment>
+        <Tele onAssetsLoaded={onAssetsLoaded} rotationFixed={rotationFixed} />
+        {/* </Stage> */}
         <directionalLight
           castShadow
           color={0xffffff}
@@ -360,103 +412,15 @@ export default function TeleCanvas({
           shadow-camera-top={10}
           shadow-camera-bottom={-10}
         />
-        {/* Any other Drei / Lights / Environment */}
-      </Canvas>
-    </div>,
-    canvasTarget
-  );
-  // return (
-  //   <div
-  //     id="tele-container"
-  //     ref={teleContainerRef}
-  //     style={{
-  //       display: "flex",
-  //       alignItems: "center",
-  //       zIndex: 10,
-  //       ...styleOverride,
-  //       // height: getTeleData().pos1.height,
-  //       // width: getTeleData().pos1.width,
-  //       // background: getTeleData().pos1.backgroundDebug,
-  //     }}
-  //   >
-  //     <Canvas
-  //       resize={{ scroll: false }}
-  //       //frameloop="demand"
-  //       shadows
-  //       id={"tele-canvas"}
-  //       gl={(gl) => {
-  //         gl.physicallyCorrectLights = true;
-  //         gl.useLegacyLights = false;
-  //         gl.shadowMap = true;
-  //         gl.shadowMapType = THREE.PCFSoftShadowMap;
-  //       }}
-  //       size={[width, height]}
-  //       // shadows={{ type: "PCFSoftShadowMap" }}
-  //       camera={{ position: teleCamPos, fov: 19 }}
-  //     >
-  //       {/* <CanvasVisibilityController /> */}
-  //       <WebGLWarmup />
-  //       <SoftShadows frames={1} size={25} samples={64} focus={0.5} />
-  //       <Environment
-  //         preset="studio"
-  //         //env intensity controlled in tele.jsx
-  //         environmentIntensity={0}
-  //         resolution={256}
-  //         blur={1}
-  //       >
-  //         <Lightformer
-  //           form="ring"
-  //           intensity={2}
-  //           // rotation-x={Math.PI / 2}
-  //           position={[0, 0, 3]}
-  //           scale={[4, 4, 1]}
-  //           target={[0, 0, 0]}
-  //         />
-  //         <Lightformer
-  //           form="rect"
-  //           intensity={1}
-  //           // rotation-x={Math.PI / 2}
-  //           position={[0, 2, 0]}
-  //           scale={[1, 1, 1]}
-  //           target={[0, 0, 0]}
-  //         />
-  //         <Lightformer
-  //           form="rect"
-  //           intensity={1}
-  //           // rotation-x={Math.PI / 2}
-  //           position={[2, 25, 0]}
-  //           scale={[10, 10, 1]}
-  //           target={[0, 0, 0]}
-  //         />
-  //       </Environment>
-  //       <Tele onAssetsLoaded={onAssetsLoaded} rotationFixed={rotationFixed} />
-  //       {/* </Stage> */}
-  // <directionalLight
-  //   castShadow
-  //   color={0xffffff}
-  //   position={[7, 10, 15]}
-  //   angle={5}
-  //   penumbra={0.2}
-  //   decay={0}
-  //   intensity={0.8}
-  //   shadow-mapSize-width={2048} // higher = sharper shadows
-  //   shadow-mapSize-height={2048}
-  //   shadow-camera-near={0.1}
-  //   shadow-camera-far={20}
-  //   shadow-camera-left={-10}
-  //   shadow-camera-right={10}
-  //   shadow-camera-top={10}
-  //   shadow-camera-bottom={-10}
-  // />
 
-  //       <CameraController
-  //         view={view}
-  //         teleCamPos={teleCamPos}
-  //         appReady={appReady}
-  //       />
-  //       {/* </Suspense> */}
-  //       <WebGLReady onWebGLReady={onWebGLReady} />
-  //     </Canvas>
-  //   </div>
-  // );
+        <CameraController
+          view={view}
+          teleCamPos={teleCamPos}
+          appReady={appReady}
+        />
+        {/* </Suspense> */}
+        <WebGLReady onWebGLReady={onWebGLReady} />
+      </Canvas>
+    </div>
+  );
 }
