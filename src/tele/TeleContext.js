@@ -1,21 +1,15 @@
-import { createContext, useContext, useRef, useMemo } from "react";
+import { createContext, useContext, useState } from "react";
 
 const TeleContext = createContext(null);
 
 export function TeleProvider({ children }) {
-  const canvasTargetRef = useRef(null);
+  const [canvasTarget, setCanvasTarget] = useState(null);
 
-  const value = useMemo(
-    () => ({
-      canvasTargetRef,
-      setCanvasTarget: (el) => {
-        canvasTargetRef.current = el;
-      },
-    }),
-    []
+  return (
+    <TeleContext.Provider value={{ canvasTarget, setCanvasTarget }}>
+      {children}
+    </TeleContext.Provider>
   );
-
-  return <TeleContext.Provider value={value}>{children}</TeleContext.Provider>;
 }
 
 export function useTele() {
