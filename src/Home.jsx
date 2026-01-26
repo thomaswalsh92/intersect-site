@@ -71,7 +71,7 @@ function LoadingScreen() {
   );
 }
 
-export default function Home() {
+export default function Home({ openProject, closeProject, currentProject }) {
   const { height, width } = useWindowDimensions();
   //*BG
 
@@ -83,10 +83,6 @@ export default function Home() {
   // const teleTargetLanding = useRef();
   // const teleTargetReel = useRef();
   // const teleTargetInfo = useRef();
-
-  //*REEL
-  const [teleContext, setTeleContext] = useState("reel"); //reel or info
-  const [currentBreakpoint, setCurrentBreakpoint] = useState();
 
   //*WORK
   const headerHeight = 48;
@@ -447,7 +443,6 @@ export default function Home() {
     function handleResize() {
       const width = window.innerWidth;
       const currentBreakpoint = getBreakpoint(width);
-      setCurrentBreakpoint(currentBreakpoint);
 
       if (currentBreakpoint !== lastBreakpoint) {
         lastBreakpoint = currentBreakpoint;
@@ -693,10 +688,19 @@ export default function Home() {
                 id="work"
                 ref={workRef}
               >
+                {currentProject && (
+                  <div id="work-explore">
+                    <p>{currentProject}</p>
+                  </div>
+                )}
                 <div id="work-outer">
                   {!useBreakpoint("lg", "down") && (
-                    <WorkGridDesktop projectDetails={projectDetails} />
+                    <WorkGridDesktop
+                      projectDetails={projectDetails}
+                      openProject={openProject}
+                    />
                   )}
+                  {/* <div id="explore-test">{currentProject}</div> */}
                   {useBreakpoint("lg", "down") && (
                     <WorkGridSmallScreen
                       projectDetails={smallScreenProjects}

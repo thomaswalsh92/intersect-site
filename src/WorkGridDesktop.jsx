@@ -10,7 +10,7 @@ import { useBreakpoint } from "./utils/useBreakpoint";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
-export default function WorkGridDesktop({ projectDetails }) {
+export default function WorkGridDesktop({ projectDetails, openProject }) {
   //! STUBBED DATA to be removed
   // supports 2 length array of actions e.g. live site and explore e.g.
   // actions: [{type: string, title: string, url: string}, {type: string, title: string, url: string}]
@@ -356,7 +356,7 @@ export default function WorkGridDesktop({ projectDetails }) {
                 gridColumn: "span 2",
                 gridRow: "span 1",
               }}
-              onClick={() => handleActionClick(0)}
+              onClick={() => openProject(projectDetails[selected].slug)}
             >
               <p
                 style={{
@@ -377,7 +377,7 @@ export default function WorkGridDesktop({ projectDetails }) {
                 gridColumn: "span 2",
                 gridRow: "span 1",
               }}
-              onClick={() => handleActionClick(1)}
+              onClick={() => openProject(projectDetails[selected])}
             >
               <p
                 style={{
@@ -402,7 +402,7 @@ export default function WorkGridDesktop({ projectDetails }) {
                 gridColumn: "span 4",
                 gridRow: "span 1",
               }}
-              onClick={() => handleActionClick(0)}
+              onClick={() => openProject(projectDetails[selected].slug)}
             >
               <p
                 style={{

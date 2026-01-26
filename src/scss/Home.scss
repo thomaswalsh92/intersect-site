@@ -470,6 +470,15 @@ html {
   // font-weight: light;
 }
 
+#work-explore {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+}
+
 #work-outer {
   height: 100vh;
   width: 100%;
