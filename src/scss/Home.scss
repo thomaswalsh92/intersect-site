@@ -400,16 +400,6 @@ html {
   left: 0;
 }
 
-#tele-canvas-container {
-  // position: fixed;
-  // top: 0;
-  // left: 0;
-  // width: 100%;
-  // height: 100%;
-  // pointer-events: none;
-  // z-index: 10;
-}
-
 //*REEL
 #reel {
   width: 100vw;
@@ -470,21 +460,6 @@ html {
   // font-weight: light;
 }
 
-#work-explore {
-  position: fixed;
-  inset: 0;
-  z-index: 99;
-  background: $Black;
-  overflow-y: auto;
-  pointer-events: none;
-  margin-top: 48px;
-  margin-bottom: 48px;
-}
-
-#work-explore.active {
-  pointer-events: auto;
-}
-
 #work-outer {
   height: 100vh;
   width: 100%;
@@ -527,6 +502,8 @@ html {
 }
 
 .work-grid-block {
+  // border-right: rgb(129, 129, 130, 0.5) 1px solid;
+  // border-bottom: rgb(129, 129, 130, 0.5) 1px solid;
   border-right: rgb(129, 129, 130, 0.5) 1px solid;
   border-bottom: rgb(129, 129, 130, 0.5) 1px solid;
   display: flex;
@@ -536,6 +513,10 @@ html {
     color: $White;
     font-size: 48px;
   }
+}
+
+.work-grid-end-block {
+  border-right: none;
 }
 
 .work-grid-project-block {
@@ -607,6 +588,36 @@ html {
   }
 }
 
+//*WORK-EXPLORE
+
+#work-explore {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: $Black;
+  overflow-y: auto;
+  pointer-events: none;
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+#work-explore.active {
+  pointer-events: auto;
+}
+
+#work-explore-grid {
+  background: $Black;
+  border-top: rgb(129, 129, 130, 0.5) 1px solid;
+}
+
+.work-explore-dark {
+  background: $BlackProject;
+}
+
+#work-explore-image-rail {
+  display: flex;
+  justify-content: flex-start;
+}
 //*INFO
 #info {
   width: 100vw;
