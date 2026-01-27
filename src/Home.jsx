@@ -398,6 +398,9 @@ export default function Home({ openProject, closeProject, currentProject }) {
   const infoRef = useRef();
 
   const handleNavScroll = (ref) => {
+    if (currentProject) {
+      closeProject();
+    }
     // ScrollTrigger.getAll().forEach((st) => {
     //   if (st.pin) st.enabled = false;
     // });
@@ -407,7 +410,7 @@ export default function Home({ openProject, closeProject, currentProject }) {
       ease: "none",
       // onComplete: () => {
       //   ScrollTrigger.getAll().forEach((st) => {
-      //     if (st.pin) st.enabled = true;
+      //     if (st.pin) st.enabled = true; x
       //   });
       // },
     });
@@ -457,6 +460,20 @@ export default function Home({ openProject, closeProject, currentProject }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const scroller = ScrollSmoother.get();
+  useEffect(() => {
+    if (currentProject) {
+      // scroller?.paused(true);
+      document.documentElement.style.overflow = "hidden";
+      // overlayRef.current?.focus();
+    }
+    if (!currentProject && appReady) {
+      // scroller?.paused(false);
+      document.documentElement.style.overflow = "auto";
+      document.body.style.overflow = "auto";
+    }
+  }, [currentProject]);
 
   return (
     <>
@@ -688,11 +705,6 @@ export default function Home({ openProject, closeProject, currentProject }) {
                 id="work"
                 ref={workRef}
               >
-                {currentProject && (
-                  <div id="work-explore">
-                    <p>{currentProject}</p>
-                  </div>
-                )}
                 <div id="work-outer">
                   {!useBreakpoint("lg", "down") && (
                     <WorkGridDesktop

@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import Home from "./Home";
+import WorkExplore from "./WorkExplore";
 import { projectDetails } from "./data/projectDetails";
 
 export default function App() {
-  const [currentProject, setCurrentProject] = useState(undefined);
+  const [currentProject, setCurrentProject] = useState(null);
 
-  // On first load, check URL for a project slug
   useEffect(() => {
-    const slug = window.location.pathname.slice(1); // remove leading "/"
+    const slug = window.location.pathname.slice(1);
     if (slug && projectDetails.find((p) => p.slug === slug)) {
       setCurrentProject(slug);
     }
   }, []);
 
-  // Handle back/forward browser buttons
   useEffect(() => {
     const handlePopState = (event) => {
       setCurrentProject(event.state?.project || null);
@@ -32,13 +31,18 @@ export default function App() {
     window.history.pushState({}, "", "/");
   };
 
-  console.log(currentProject);
   return (
     <>
       <Home
         openProject={openProject}
         closeProject={closeProject}
         currentProject={currentProject}
+      />
+
+      <WorkExplore
+        active={!!currentProject}
+        currentProject={currentProject}
+        closeProject={closeProject}
       />
     </>
   );

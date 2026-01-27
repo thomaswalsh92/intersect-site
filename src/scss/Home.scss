@@ -471,12 +471,18 @@ html {
 }
 
 #work-explore {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  background-color: red;
-  display: flex;
-  align-items: center;
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: $Black;
+  overflow-y: auto;
+  pointer-events: none;
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+#work-explore.active {
+  pointer-events: auto;
 }
 
 #work-outer {
@@ -537,6 +543,7 @@ html {
   align-items: center;
   justify-content: center;
   padding: 0 10% 0 10%;
+
   p {
     color: $White;
     font-size: 10px;
@@ -545,7 +552,7 @@ html {
   }
 
   @include down($bp-lg) {
-    background: $BlackDark;
+    background-color: $BlackProject;
     p {
       font-size: 12px;
     }
