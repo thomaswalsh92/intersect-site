@@ -504,8 +504,8 @@ html {
 .work-grid-block {
   // border-right: rgb(129, 129, 130, 0.5) 1px solid;
   // border-bottom: rgb(129, 129, 130, 0.5) 1px solid;
-  border-right: rgb(129, 129, 130, 0.5) 1px solid;
-  border-bottom: rgb(129, 129, 130, 0.5) 1px solid;
+  border-right: rgb($GrayMid, 0.5) 1px solid;
+  border-bottom: rgb($GrayMid, 0.5) 1px solid;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -595,7 +595,7 @@ html {
   inset: 0;
   z-index: 99;
   background: $Black;
-  overflow-y: auto;
+  overflow-y: hidden;
   pointer-events: none;
   margin-top: 48px;
   margin-bottom: 48px;
@@ -603,6 +603,13 @@ html {
 
 #work-explore.active {
   pointer-events: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#work-explore:-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 
 #work-explore-grid {
@@ -612,12 +619,92 @@ html {
 
 .work-explore-dark {
   background: $BlackProject;
+  z-index: 20;
 }
 
 #work-explore-image-rail {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  height: 100%;
 }
+
+.work-explore-button {
+  all: unset;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  z-index: 10;
+  height: 106px;
+  width: 60px;
+  background-color: $White;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &.left {
+    left: 0;
+  }
+
+  &.right {
+    right: 0;
+  }
+
+  span {
+    color: $Black;
+    font-size: 12px;
+  }
+}
+
+.work-explore-image-container {
+  position: relative;
+  background-color: #ccc;
+  height: 100%;
+  .sixteen-nine {
+    aspect-ratio: 16 / 9;
+  }
+  .nine-sixteen {
+    aspect-ratio: 9 / 16;
+  }
+
+  .four-five {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+.work-explore-image-container::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 200vh;
+  top: -100vh;
+  bottom: 0;
+  left: 0px;
+  background: $GrayMid;
+  z-index: 19;
+  opacity: 50%;
+}
+
+.work-explore-image-container::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 200vh;
+  top: -100vh;
+  bottom: 0;
+  right: 0;
+  background: $GrayMid;
+  z-index: 19;
+  opacity: 50%;
+}
+
 //*INFO
 #info {
   width: 100vw;
