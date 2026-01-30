@@ -46,16 +46,37 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   //! there is an issue with this on page refresh or direct nav to project page. May have to useContext appReady state from Home
 
   //initial set of the iamge data, and repeat entries until we have enough to cover the whole screen width
+
+  function checkRailWidthAndBisect([array]) {}
   useEffect(() => {
     if (!active || !imageRail.current) return;
 
+    let imagesWidthTotal = 0;
+
+    imagePlaceholders.forEach((placeholder) => {
+      imagesWidthTotal += aspectRatioToWidth(placeholder.aspectRatio);
+    });
+    imagesWidthTotal =
+      imagesWidthTotal + gapWidth * (imagePlaceholders.length - 1);
+    let imagesWidthTotalPlusMargin =
+      imagesWidthTotal +
+      Math.max(
+        aspectRatioToWidth(
+          imagePlaceholders[0].aspectRatio,
+          imagePlaceholders[imagePlaceholders.length - 1].aspectRatio,
+        ),
+      );
     setRailImages([...imagePlaceholders]);
   }, [active, imageRail, imagePlaceholders]);
 
   //"forward", "back" or false;
   const animatingRef = useRef(false);
   const ease = "none";
-  const duration = 0.2;
+  const pixelsPerSecond = 2800;
+
+  function calcConstantDuration(width) {
+    return width / pixelsPerSecond;
+  }
 
   function handleForward() {
     if (animatingRef.current) return;
@@ -78,7 +99,7 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
         })
         .to("#work-explore-rail-container", {
           x: `+=${distance}`,
-          duration: duration,
+          duration: calcConstantDuration(distance),
           ease: ease,
           onComplete: () => (animatingRef.current = false),
         });
@@ -88,13 +109,11 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   function handleBack() {
     if (animatingRef.current) return;
     animatingRef.current = "back";
-    const distance =
-      aspectRatioToWidth(railImages[railImages.length - 1].aspectRatio) +
-      gapWidth;
+    const distance = aspectRatioToWidth(railImages[0].aspectRatio) + gapWidth;
 
     gsap.timeline().to("#work-explore-rail-container", {
       x: `-=${distance}`,
-      duration: duration,
+      duration: calcConstantDuration(distance),
       ease: ease,
       onComplete: () => {
         let newArr = [...railImages];
@@ -108,7 +127,9 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
 
   useEffect(() => {
     if (animatingRef.current === "back") {
-      const distance = aspectRatioToWidth(railImages[0].aspectRatio) + gapWidth;
+      const distance =
+        aspectRatioToWidth(railImages[railImages.length - 1].aspectRatio) +
+        gapWidth;
 
       gsap.timeline().set("#work-explore-rail-container", {
         x: `+=${distance}`,
