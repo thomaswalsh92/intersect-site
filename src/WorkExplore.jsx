@@ -10,7 +10,8 @@ export default function WorkExplore({ active, currentProject, closeProject }) {
   const imagePlaceholders = [
     { aspectRatio: "9 / 16", color: "navy" },
     { aspectRatio: "9 / 16", color: "purple" },
-    { aspectRatio: "16 / 9", color: "red" },
+    { aspectRatio: "9 / 16", color: "red" },
+    { aspectRatio: "9 / 16", color: "orange" },
   ];
   const overlayRef = useRef(null);
 

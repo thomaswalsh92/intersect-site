@@ -9,11 +9,9 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   //so we go through the array of images
   //calculate their widths, and the width of the gaps
   //and before we populate the images we add as many extra elements as neccesary.
-
-  console.log(imagePlaceholders);
   const gapWidth = widthUnit * 2;
   const imageRail = useRef(null);
-  const [railImages, setRailImages] = useState([]);
+  const [railImages, setRailImages] = useState();
 
   //! resize observer might be good here
   const { width, height } = useWindowDimensions();
@@ -49,78 +47,76 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
 
   //initial set of the iamge data, and repeat entries until we have enough to cover the whole screen width
   useEffect(() => {
-    if (!imageRail.current) return;
-    if (!active) return;
-    console.log("UE");
-    let imagesWidth = 0;
-    let index = 0;
-    let failsafe = 50;
-    const imagesArr = imagePlaceholders;
+    if (!active || !imageRail.current) return;
 
-    //this is all very buggy and probably needs a wholesale rewrite
-    while (
-      imagesWidth <
-        width + aspectRatioToWidth(imagePlaceholders[1].aspectRatio) &&
-      index < failsafe
-    ) {
-      const loopedIndex = index % imagePlaceholders.length;
-      const thisWidth = aspectRatioToWidth(
-        imagePlaceholders[loopedIndex].aspectRatio,
-      );
-
-      imagesWidth = imagesWidth + thisWidth + gapWidth;
-
-      if (index >= imagePlaceholders.length) {
-        console.log(imagePlaceholders[loopedIndex]);
-        imagesArr.push(imagePlaceholders[loopedIndex]);
-      }
-    }
-
-    setRailImages(imagesArr);
+    setRailImages([...imagePlaceholders]);
   }, [active, imageRail, imagePlaceholders]);
 
+  //"forward", "back" or false;
   const animatingRef = useRef(false);
-  const duration = 0.25;
-  const distance = 100;
+  const ease = "none";
+  const duration = 0.2;
 
   function handleForward() {
     if (animatingRef.current) return;
-    animatingRef.current = true;
-    gsap.to("#work-explore-rail-container", {
-      x: `+=${aspectRatioToWidth(railImages[0].aspectRatio) + gapWidth}`,
+    animatingRef.current = "forward";
+    let newArr = [...railImages];
+    const last = newArr.pop();
+    newArr.unshift(last);
+    console.log("fwd: ", newArr);
+    setRailImages(newArr);
+  }
+
+  useEffect(() => {
+    if (animatingRef.current === "forward") {
+      const distance = aspectRatioToWidth(railImages[0].aspectRatio) + gapWidth;
+
+      gsap
+        .timeline()
+        .set("#work-explore-rail-container", {
+          x: `-=${distance}`,
+        })
+        .to("#work-explore-rail-container", {
+          x: `+=${distance}`,
+          duration: duration,
+          ease: ease,
+          onComplete: () => (animatingRef.current = false),
+        });
+    }
+  }, [railImages]);
+
+  function handleBack() {
+    if (animatingRef.current) return;
+    animatingRef.current = "back";
+    const distance =
+      aspectRatioToWidth(railImages[railImages.length - 1].aspectRatio) +
+      gapWidth;
+
+    gsap.timeline().to("#work-explore-rail-container", {
+      x: `-=${distance}`,
       duration: duration,
-      ease: "none",
+      ease: ease,
       onComplete: () => {
-        animatingRef.current = false;
-        // const newArr = [...railImages];
-        // newArr.unshift(newArr.pop());
-        // // console.log(newArr);
-        // setRailImages(newArr);
+        let newArr = [...railImages];
+        const first = newArr.shift();
+        newArr.push(first);
+        console.log("back: ", newArr);
+        setRailImages(newArr);
       },
     });
   }
 
   useEffect(() => {
-    console.log("updated rail images");
-    console.log(railImages);
+    if (animatingRef.current === "back") {
+      const distance = aspectRatioToWidth(railImages[0].aspectRatio) + gapWidth;
+
+      gsap.timeline().set("#work-explore-rail-container", {
+        x: `+=${distance}`,
+      });
+      animatingRef.current = false;
+    }
   }, [railImages]);
 
-  function handleBack() {
-    // if (animatingRef.current) return;
-    // animatingRef.current = true;
-    // gsap.to("#work-explore-rail-container", {
-    //   x: `-=${distance}`,
-    //   duration: duration,
-    //   ease: "none",
-    //   onComplete: () => {
-    //     gsap.set("#work-explore-rail-container", { x: - });
-    //     animatingRef.current = false;
-    //   },
-    // });
-  }
-
-  //   console.log(railImages[0].aspectRatio);
-  //first when user clicks left, we shift the entire container to the left
   return (
     <div
       ref={imageRail}
@@ -131,9 +127,9 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
         gridRow: "span 13",
       }}
     >
-      {/* <button onClick={handleBack} className="work-explore-button left">
+      <button onClick={handleBack} className="work-explore-button left">
         <span className="text-1">{`<-`}</span>
-      </button> */}
+      </button>
       <button onClick={handleForward} className="work-explore-button right">
         <span className="text-1">{`->`}</span>
       </button>
@@ -147,7 +143,6 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
           //   }
           style={{
             gap: gapWidth,
-            transform: `translateX(-${aspectRatioToWidth(railImages[0].aspectRatio) + gapWidth}px)`,
             //   transform: `translateX(-${aspectRatioToWidth(railImages[0].aspectRatio)}px)`,
             // Array.isArray(railImages) &&
             // aspectRatioToWidth(railImages[0].aspectRatio) + gapWidth,
