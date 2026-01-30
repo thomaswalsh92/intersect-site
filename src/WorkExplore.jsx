@@ -1,11 +1,17 @@
 //styling
 import "./scss/Home.scss";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 // import { ScrollSmoother } from "gsap/ScrollSmoother";
 import useWindowDimensions from "./utils/useWindowDimensions";
+import ImageRail from "./ImageRail";
 
 export default function WorkExplore({ active, currentProject, closeProject }) {
+  const imagePlaceholders = [
+    { aspectRatio: "9 / 16", color: "navy" },
+    { aspectRatio: "9 / 16", color: "purple" },
+    { aspectRatio: "16 / 9", color: "red" },
+  ];
   const overlayRef = useRef(null);
 
   useEffect(() => {
@@ -21,11 +27,7 @@ export default function WorkExplore({ active, currentProject, closeProject }) {
   const [heightUnit, setHeightUnit] = useState();
   const [railHeight, setRailHeight] = useState(null);
   const [rows, setRows] = useState(null);
-  const [imagePlaceholders, setImagePlaceholders] = useState([
-    { aspectRatio: "16 / 9", color: "red" },
-    { aspectRatio: "4 / 5", color: "green" },
-    { aspectRatio: "9 / 16", color: "blue" },
-  ]);
+  // const [imagePlaceholders, setImagePlaceholders] = useState();
   const workExploreGrid = useRef(null);
 
   useEffect(() => {
@@ -53,20 +55,6 @@ export default function WorkExplore({ active, currentProject, closeProject }) {
       );
     }
   }, [railHeight, workExploreGrid]);
-
-  function handleForward() {
-    setImagePlaceholders((prev) => {
-      if (prev.length === 0) return prev;
-      return [prev[prev.length - 1], ...prev.slice(0, prev.length - 1)];
-    });
-  }
-
-  function handleBack() {
-    setImagePlaceholders((prev) => {
-      if (prev.length === 0) return prev;
-      return [...prev.slice(1), prev[0]];
-    });
-  }
 
   if (!active) return null;
   return (
@@ -141,35 +129,13 @@ export default function WorkExplore({ active, currentProject, closeProject }) {
           }}
         ></div>
         {/* ROW 3 IMAGE RAIL */}
-
-        <div
-          id="work-explore-image-rail"
-          className="work-grid-block work-grid-end-block"
-          style={{
-            gridColumn: "span 38",
-            gridRow: "span 13",
-            gap: widthUnit * 2,
-          }}
-        >
-          <button onClick={handleBack} className="work-explore-button left">
-            <span className="text-1">{`<-`}</span>
-          </button>
-          <button onClick={handleForward} className="work-explore-button right">
-            <span className="text-1">{`->`}</span>
-          </button>
-          {imagePlaceholders.map(({ aspectRatio, color }) => {
-            return (
-              <div
-                className="work-explore-image-container"
-                style={{
-                  height: "100%",
-                  aspectRatio: aspectRatio,
-                  background: color,
-                }}
-              ></div>
-            );
-          })}
-        </div>
+        <ImageRail
+          active={active}
+          widthUnit={widthUnit}
+          imagePlaceholders={imagePlaceholders}
+          // handleForward={handleForward}
+          // handleBack={handleBack}
+        />
         {/* ROW 4 MARGIN */}
         <div
           className="work-grid-block work-grid-end-block"
