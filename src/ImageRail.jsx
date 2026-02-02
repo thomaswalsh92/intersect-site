@@ -44,14 +44,13 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   function getImagesWidthTotal(arr) {
     let imagesWidthTotal = 0;
 
-    arr.forEach((el, i) => {
+    arr.forEach((el) => {
       const thisWidth = aspectRatioToWidth(el.aspectRatio);
       el.width = thisWidth;
       imagesWidthTotal += thisWidth;
     });
 
-    imagesWidthTotal =
-      imagesWidthTotal + gapWidth * (imagePlaceholders.length - 1);
+    imagesWidthTotal = imagesWidthTotal + gapWidth * (arr.length - 1);
 
     return imagesWidthTotal;
   }
@@ -73,7 +72,7 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
 
     const wideEnoughArr = checkLengthAndDouble(imagePlaceholders);
     setRailImages(wideEnoughArr);
-    setBufferArrayOffset(Math.ceil(getImagesWidthTotal(imagePlaceholders)));
+    setBufferArrayOffset(getImagesWidthTotal(imagePlaceholders) + gapWidth);
   }, [active, imageRail, imagePlaceholders]);
 
   //"forward", "back" or false;
@@ -87,78 +86,48 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
 
   function handleForward() {
     if (animatingRef.current) return;
-    animatingRef.current = true;
+    animatingRef.current = "forward";
 
     const distance = railImages[railImages.length - 1].width + gapWidth;
 
     gsap.timeline().to("#work-explore-rail-container", {
       x: `+=${distance}px`,
       duration: calcConstantDuration(distance),
-      ease: "none", // important for constant speed
+      ease: ease,
       onComplete: () => {
         let newArr = [...railImages];
         const last = newArr.pop();
         newArr.unshift(last);
         setRailImages(newArr);
-        animatingRef.current = false;
+      },
+    });
+  }
+
+  function handleBack() {
+    if (animatingRef.current) return;
+    animatingRef.current = "back";
+    const distance = railImages[0].width + gapWidth;
+
+    gsap.timeline().to("#work-explore-rail-container", {
+      x: `-=${distance}px`,
+      duration: calcConstantDuration(distance),
+      ease: ease,
+      onComplete: () => {
+        let newArr = [...railImages];
+        const first = newArr.shift();
+        newArr.push(first);
+        setRailImages(newArr);
       },
     });
   }
 
   useGSAP(() => {
-    gsap.set("#work-explore-rail-container", { x: -bufferArrayOffset });
+    gsap.set("#work-explore-rail-container", {
+      x: -bufferArrayOffset,
+      onComplete: () => (animatingRef.current = false),
+    });
   }, [railImages]);
 
-  //   useEffect(() => {
-  //     if (animatingRef.current === "forward") {
-  //       const distance = aspectRatioToWidth(railImages[0].aspectRatio) + gapWidth;
-
-  //       gsap
-  //         .timeline()
-  //         .set("#work-explore-rail-container", {
-  //           x: `-=${distance}`,
-  //         })
-  //         .to("#work-explore-rail-container", {
-  //           x: `+=${distance}`,
-  //           duration: calcConstantDuration(distance),
-  //           ease: ease,
-  //           onComplete: () => (animatingRef.current = false),
-  //         });
-  //     }
-  //   }, [railImages]);
-
-  function handleBack() {
-    //     if (animatingRef.current) return;
-    //     animatingRef.current = "back";
-    //     const distance = aspectRatioToWidth(railImages[0].aspectRatio) + gapWidth;
-    //     gsap.timeline().to("#work-explore-rail-container", {
-    //       x: `-=${distance}`,
-    //       duration: calcConstantDuration(distance),
-    //       ease: ease,
-    //       onComplete: () => {
-    //         let newArr = [...railImages];
-    //         const first = newArr.shift();
-    //         newArr.push(first);
-    //         console.log("back: ", newArr);
-    //         setRailImages(newArr);
-    //       },
-    //     });
-  }
-
-  //   useEffect(() => {
-  //     if (animatingRef.current === "back") {
-  //       const distance =
-  //         aspectRatioToWidth(railImages[railImages.length - 1].aspectRatio) +
-  //         gapWidth;
-
-  //       gsap.timeline().set("#work-explore-rail-container", {
-  //         x: `+=${distance}`,
-  //       });
-  //       animatingRef.current = false;
-  //     }
-  //   }, [railImages]);
-
-  console.log(bufferArrayOffset, typeof bufferArrayOffset);
   return (
     <div
       ref={imageRail}
@@ -180,16 +149,9 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
         bufferArrayOffset && (
           <div
             id="work-explore-rail-container"
-            //   onClick={() =>
-            //     console.log(
-            //       ,
-            //     )
-            //   }
             style={{
               gap: gapWidth,
               transform: `translateX(-${bufferArrayOffset}px)`,
-              // Array.isArray(railImages) &&
-              // aspectRatioToWidth(railImages[0].aspectRatio) + gapWidth,
             }}
           >
             {Array.isArray(railImages) &&
