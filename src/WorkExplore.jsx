@@ -5,13 +5,19 @@ import { useEffect, useRef, useState } from "react";
 // import { ScrollSmoother } from "gsap/ScrollSmoother";
 import useWindowDimensions from "./utils/useWindowDimensions";
 import ImageRail from "./ImageRail";
+import rainydayNineSixteenNumberOne from "./assets/images/rainyday/rainyday-9-16-num1.jpg";
+import rainydayNineSixteenNumberTwo from "./assets/images/rainyday/rainyday-9-16-num2.jpg";
+import rainydayNineSixteenNumberThree from "./assets/images/rainyday/rainyday-9-16-num3.jpg";
+import rainydaySixteenNineNumberOne from "./assets/images/rainyday/rainyday-16-9-num1.jpg";
+import rainydaySixteenNineNumberTwo from "./assets/images/rainyday/rainyday-16-9-num2.jpg";
 
 export default function WorkExplore({ active, currentProject, closeProject }) {
   const imagePlaceholders = [
-    { aspectRatio: "16 / 9", color: "navy" },
-    { aspectRatio: "4 / 5", color: "purple" },
-    { aspectRatio: "9 / 16", color: "red" },
-    { aspectRatio: "1 / 1", color: "orange" },
+    { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne }, //: rainyday_16_9_num1 },
+    { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberTwo }, //: rainyday_9_16_num2 },
+    { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberThree }, //: rainyday_9_16_num3 },
+    { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberOne }, //: rainyday_9_16_num1 },
+    { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberTwo }, //: rainyday_16_9_num2 },
   ];
   const overlayRef = useRef(null);
 

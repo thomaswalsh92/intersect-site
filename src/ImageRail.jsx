@@ -46,19 +46,20 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
 
   const slideDuration = 0.18;
   const slideEase = "power4.inOut";
+  const buttonWidth = 64;
 
   useGSAP(() => {
     if (!buttonLeft.current || !buttonRight.current) return;
 
     slideLeftRef.current = gsap.to(buttonLeft.current, {
-      x: buttonLeft.current.offsetWidth,
+      x: buttonWidth,
       duration: slideDuration,
       ease: slideEase,
       paused: true,
     });
 
     slideRightRef.current = gsap.to(buttonRight.current, {
-      x: -buttonRight.current.offsetWidth,
+      x: -buttonWidth,
       duration: slideDuration,
       ease: slideEase,
       paused: true,
@@ -248,7 +249,8 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
         onClick={handleForward}
         className="work-explore-button left"
         style={{
-          left: buttonLeft.current && -buttonLeft.current.offsetWidth,
+          width: buttonWidth,
+          left: -buttonWidth,
         }}
       >
         <span className="text-1">{`<-`}</span>
@@ -258,7 +260,8 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
         onClick={handleBack}
         className="work-explore-button right"
         style={{
-          right: buttonRight.current && -buttonRight.current.offsetWidth,
+          width: buttonWidth,
+          right: -buttonWidth,
         }}
       >
         <span className="text-1">{`->`}</span>
@@ -275,16 +278,17 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
             }}
           >
             {Array.isArray(railImages) &&
-              railImages.map(({ aspectRatio, color }) => {
+              railImages.map(({ aspectRatio, img }) => {
                 return (
                   <div
                     className="work-explore-image-container"
                     style={{
                       height: "100%",
                       aspectRatio: aspectRatio,
-                      background: color,
                     }}
-                  ></div>
+                  >
+                    <img src={img} />
+                  </div>
                 );
               })}
           </div>
