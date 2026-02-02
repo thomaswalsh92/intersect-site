@@ -10,11 +10,111 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   const imageRail = useRef(null);
   const [railImages, setRailImages] = useState();
   const [bufferArrayOffset, setBufferArrayOffset] = useState();
+  const slideLeftRef = useRef(null);
+  const slideRightRef = useRef(null);
+  const leftActive = useRef(false);
+  const rightActive = useRef(false);
+  // const [showButtonRight, setShowButtonRight] = useState(false);
+  // const [showButtonLeft, setShowButtonLeft] = useState(false);
+  const buttonLeft = useRef(null);
+  const buttonRight = useRef(null);
 
+  // let leftActive = false;
+  // let rightActive = false;
+
+  const handleMouseMove = (e) => {
+    const x = e.clientX;
+    const width = window.innerWidth;
+
+    const isLeftSide = x < width * 0.33;
+    const isRightSide = x > width * 0.66;
+
+    // LEFT
+    if (isLeftSide && !leftActive.current) {
+      activateLeft();
+    } else if (!isLeftSide && leftActive.current) {
+      deactivateLeft();
+    }
+
+    // RIGHT
+    if (isRightSide && !rightActive.current) {
+      activateRight();
+    } else if (!isRightSide && rightActive.current) {
+      deactivateRight();
+    }
+  };
+
+  const slideDuration = 0.18;
+  const slideEase = "power4.inOut";
+
+  useGSAP(() => {
+    if (!buttonLeft.current || !buttonRight.current) return;
+
+    slideLeftRef.current = gsap.to(buttonLeft.current, {
+      x: buttonLeft.current.offsetWidth,
+      duration: slideDuration,
+      ease: slideEase,
+      paused: true,
+    });
+
+    slideRightRef.current = gsap.to(buttonRight.current, {
+      x: -buttonRight.current.offsetWidth,
+      duration: slideDuration,
+      ease: slideEase,
+      paused: true,
+    });
+  }, []);
+
+  let slideButtonLeft;
+  if (buttonLeft.current) {
+    slideButtonLeft = gsap.to(buttonLeft.current, {
+      x: buttonLeft.current.offsetWidth,
+      duration: slideDuration,
+      ease: slideEase,
+      paused: true,
+    });
+  }
+
+  let slideButtonRight;
+  if (buttonRight.current) {
+    slideButtonRight = gsap.to(buttonRight.current, {
+      x: -buttonRight.current.offsetWidth,
+      duration: slideDuration,
+      ease: slideEase,
+      paused: true,
+    });
+  }
+
+  function activateLeft() {
+    if (leftActive.current) return;
+    leftActive.current = true;
+    slideLeftRef.current.play();
+  }
+
+  function deactivateLeft() {
+    leftActive.current = false;
+    slideLeftRef.current.reverse();
+  }
+
+  function activateRight() {
+    if (rightActive.current) return;
+    rightActive.current = true;
+    slideRightRef.current.play();
+  }
+
+  function deactivateRight() {
+    rightActive.current = false;
+    slideRightRef.current.reverse();
+  }
+
+  // useGSAP(() => {
+  //   if (!buttonRight.current) return;
+  //   let isActive = false;
+  // }, [showButtonRight, buttonRight]);
   //! resize observer might be good here
   // const { width, height } = useWindowDimensions();
 
-  function aspectRatioToWidth(aspectRatio) {
+  function getAspectRatioFromWidth(aspectRatio) {
     function calculate(aspectWidth, aspectHeight) {
       if (aspectWidth === aspectHeight) {
         return imageRail.current.offsetHeight;
@@ -45,7 +145,7 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
     let imagesWidthTotal = 0;
 
     arr.forEach((el) => {
-      const thisWidth = aspectRatioToWidth(el.aspectRatio);
+      const thisWidth = getAspectRatioFromWidth(el.aspectRatio);
       el.width = thisWidth;
       imagesWidthTotal += thisWidth;
     });
@@ -78,7 +178,7 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   //"forward", "back" or false;
   const animatingRef = useRef(false);
   const ease = "none";
-  const pixelsPerSecond = 1900;
+  const pixelsPerSecond = 2300;
 
   function calcConstantDuration(width) {
     return width / pixelsPerSecond;
@@ -137,13 +237,33 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
         gridColumn: "span 38",
         gridRow: "span 13",
       }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => {
+        deactivateLeft();
+        deactivateRight();
+      }}
     >
-      <button onClick={handleBack} className="work-explore-button left">
+      <button
+        ref={buttonLeft}
+        onClick={handleForward}
+        className="work-explore-button left"
+        style={{
+          left: buttonLeft.current && -buttonLeft.current.offsetWidth,
+        }}
+      >
         <span className="text-1">{`<-`}</span>
       </button>
-      <button onClick={handleForward} className="work-explore-button right">
+      <button
+        ref={buttonRight}
+        onClick={handleBack}
+        className="work-explore-button right"
+        style={{
+          right: buttonRight.current && -buttonRight.current.offsetWidth,
+        }}
+      >
         <span className="text-1">{`->`}</span>
       </button>
+
       {Array.isArray(railImages) &&
         railImages.length > 0 &&
         bufferArrayOffset && (
