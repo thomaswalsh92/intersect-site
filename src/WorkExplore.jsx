@@ -83,7 +83,6 @@ export default function WorkExplore({
       aria-hidden={!active}
       className={active ? "active" : ""}
     >
-      {/* <div id="work-explore-fade-layer"></div> */}
       <div
         id="work-explore-grid"
         ref={workExploreGrid}
@@ -124,7 +123,15 @@ export default function WorkExplore({
             gridRow: "span 1",
           }}
         >
-          <p className="text-2">{currentProjectData.disciplines}</p>
+          <p className="text-2">
+            {currentProjectData.disciplines.map((el, i) => {
+              let string = el;
+              if (i < currentProjectData.disciplines.length - 1) {
+                string = string + " / ";
+              }
+              return string;
+            })}
+          </p>
         </div>
         <div
           className="work-grid-block work-explore-dark"

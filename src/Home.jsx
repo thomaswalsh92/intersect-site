@@ -71,7 +71,13 @@ function LoadingScreen() {
   );
 }
 
-export default function Home({ openProject, closeProject, currentProject }) {
+export default function Home({
+  appReady,
+  setAppReady,
+  currentProject,
+  openProject,
+  closeProject,
+}) {
   const { height, width } = useWindowDimensions();
   //*BG
 
@@ -115,8 +121,6 @@ export default function Home({ openProject, closeProject, currentProject }) {
   }
 
   const [teleWebGLReady, setTeleWebGLReady] = useState(false);
-
-  const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
     if (teleAssetsLoaded && teleWebGLReady) {
