@@ -10,8 +10,17 @@ import rainydayNineSixteenNumberTwo from "./assets/images/rainyday/rainyday-9-16
 import rainydayNineSixteenNumberThree from "./assets/images/rainyday/rainyday-9-16-num3.jpg";
 import rainydaySixteenNineNumberOne from "./assets/images/rainyday/rainyday-16-9-num1.jpg";
 import rainydaySixteenNineNumberTwo from "./assets/images/rainyday/rainyday-16-9-num2.jpg";
+import { projectDetails } from "./data/projectDetails";
 
-export default function WorkExplore({ active, currentProject, closeProject }) {
+export default function WorkExplore({
+  active,
+  currentProject,
+  closeProject,
+  projectDetails,
+}) {
+  const currentProjectData = projectDetails.find(
+    ({ slug }) => slug === currentProject,
+  );
   const imagePlaceholders = [
     { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne }, //: rainyday_16_9_num1 },
     { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberTwo }, //: rainyday_9_16_num2 },
@@ -93,7 +102,9 @@ export default function WorkExplore({ active, currentProject, closeProject }) {
             gridColumn: "span 5",
             gridRow: "span 1",
           }}
-        ></div>
+        >
+          <p className="text-1">{currentProjectData.project}</p>
+        </div>
         <div
           className="work-grid-block work-explore-dark"
           id="work-explore-client"
@@ -101,7 +112,9 @@ export default function WorkExplore({ active, currentProject, closeProject }) {
             gridColumn: "span 5",
             gridRow: "span 1",
           }}
-        ></div>
+        >
+          <p className="text-2">{currentProjectData.client}</p>
+        </div>
         <div
           className="work-grid-block work-explore-dark"
           id="work-explore-disciplines"
@@ -109,7 +122,9 @@ export default function WorkExplore({ active, currentProject, closeProject }) {
             gridColumn: "span 5",
             gridRow: "span 1",
           }}
-        ></div>
+        >
+          <p className="text-2">{currentProjectData.disciplines}</p>
+        </div>
         <div
           className="work-grid-block work-explore-dark"
           id="work-explore-published"
@@ -117,7 +132,9 @@ export default function WorkExplore({ active, currentProject, closeProject }) {
             gridColumn: "span 5",
             gridRow: "span 1",
           }}
-        ></div>
+        >
+          <p className="text-2">{currentProjectData.published}</p>
+        </div>
         <div
           className="work-grid-block work-grid-end-block"
           aria-hidden="true"
@@ -160,7 +177,10 @@ export default function WorkExplore({ active, currentProject, closeProject }) {
             gridColumn: "span 20",
             gridRow: "span 3",
           }}
-        ></div>
+        >
+          {/* Change eventually to a long description */}
+          <p className="text-2">{currentProjectData.longDescription}</p>
+        </div>
         <div
           className="work-grid-block work-grid-end-block"
           style={{

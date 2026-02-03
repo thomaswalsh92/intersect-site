@@ -594,11 +594,16 @@ html {
   position: fixed;
   inset: 0;
   z-index: 99;
-  background: $Black;
   overflow-y: hidden;
   pointer-events: none;
   margin-top: 48px;
   margin-bottom: 48px;
+  // background: linear-gradient(
+  //   to left,
+  //   rgba($Black, 1) 0%,
+  //   rgba($Black, 1) 5%,
+  //   rgba(red, 1) 100%
+  // );
 }
 
 #work-explore.active {
@@ -620,6 +625,18 @@ html {
 .work-explore-dark {
   background: $BlackProject;
   z-index: 20;
+  text-align: center;
+  padding: 12px;
+  p,
+  span {
+    color: $White;
+    font-size: 10px;
+  }
+}
+
+#work-explore-description {
+  text-align: center;
+  padding: 8px 80px 8px 80px;
 }
 
 #work-explore-image-rail {

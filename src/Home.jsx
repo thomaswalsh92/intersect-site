@@ -39,7 +39,7 @@ gsap.registerPlugin(
   ScrollSmoother,
   ScrollToPlugin,
   ScrambleTextPlugin,
-  SplitText
+  SplitText,
 );
 
 function LoadingScreen() {
@@ -54,7 +54,7 @@ function LoadingScreen() {
         duration: 2,
         ease: "power1.out",
         snap: { innerText: 1 },
-      }
+      },
     );
   });
 
@@ -89,7 +89,7 @@ export default function Home({ openProject, closeProject, currentProject }) {
   let footerHeight = 48;
   if (useBreakpoint("sm", "down")) footerHeight = 64;
   const smallScreenProjects = projectDetails.filter(
-    (proj) => proj.showSmallScreen
+    (proj) => proj.showSmallScreen,
   );
 
   const smallScreenProjectHeight =
@@ -227,7 +227,7 @@ export default function Home({ openProject, closeProject, currentProject }) {
         const text = landingTitleSplit._data.orig[0].html[i];
         const duration = getStaggeredDuration(
           Math.round((Math.random() * landingTitleSplit.chars.length) / 2),
-          0.2
+          0.2,
         );
         gsap.to(char, {
           duration: duration,
@@ -240,7 +240,7 @@ export default function Home({ openProject, closeProject, currentProject }) {
       });
 
       const landingCapabiltiesText = gsap.utils.toArray(
-        ".landing-capability-text"
+        ".landing-capability-text",
       );
 
       landingCapabiltiesText.forEach((el, i) => {
@@ -372,7 +372,7 @@ export default function Home({ openProject, closeProject, currentProject }) {
         },
       });
     },
-    { dependencies: [appReady, landingTitleScrollInner] }
+    { dependencies: [appReady, landingTitleScrollInner] },
   );
 
   //* GSAP smooth scroll init
@@ -389,7 +389,7 @@ export default function Home({ openProject, closeProject, currentProject }) {
         normalizeScroll: true,
       });
     },
-    { scope: wrapper, dependencies: [appReady] }
+    { scope: wrapper, dependencies: [appReady] },
   );
 
   const landingRef = useRef();

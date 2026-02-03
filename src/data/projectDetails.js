@@ -14,6 +14,8 @@ export const projectDetails = [
     published: 2025,
     shortDescription:
       "RAINYDAY Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    longDescription:
+      "RAINYDAY Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
     showSmallScreen: true,
     actions: [
       {
@@ -36,6 +38,8 @@ export const projectDetails = [
     published: 2025,
     shortDescription:
       "JOHN PEEL Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    longDescription:
+      "JOHN PEEL Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
     actions: undefined,
     coverImage: johnPeelCover,
     showSmallScreen: true,
@@ -55,6 +59,8 @@ export const projectDetails = [
     published: 2025,
     shortDescription:
       "CROP MAGAZINE Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    longDescription:
+      "CROP MAGAZINE Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
     actions: undefined,
     coverImage: cropCover,
     showSmallScreen: false,
@@ -74,6 +80,8 @@ export const projectDetails = [
     published: 2025,
     shortDescription:
       "DARSK Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    longDescription:
+      "DARSK Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
     actions: undefined,
     coverImage: darskCover,
     showSmallScreen: false,
@@ -93,6 +101,8 @@ export const projectDetails = [
     published: 2025,
     shortDescription:
       "SHIMMER Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    longDescription:
+      "SHIMMER Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
     actions: undefined,
     coverImage: shimmerCover,
     showSmallScreen: false,
@@ -112,6 +122,8 @@ export const projectDetails = [
     published: 2025,
     shortDescription:
       "SYNEIGHT Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    longDescription:
+      "SYNEIGHT Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
     actions: undefined,
     coverImage: synEightCover,
     showSmallScreen: true,

@@ -43,6 +43,7 @@ export default function App() {
         active={!!currentProject}
         currentProject={currentProject}
         closeProject={closeProject}
+        projectDetails={projectDetails}
       />
     </>
   );
