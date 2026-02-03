@@ -38,6 +38,27 @@ export default function WorkExplore({
     return () => window.removeEventListener("keydown", onKey);
   }, [active, closeProject]);
 
+  if (!active) return null;
+  return (
+    <div
+      id="work-explore"
+      ref={overlayRef}
+      tabIndex={-1}
+      role="dialog"
+      aria-modal="true"
+      aria-hidden={!active}
+      className={active ? "active" : ""}
+    >
+      <WorkExploreDesktop
+        active={active}
+        currentProjectData={currentProjectData}
+        imagePlaceholders={imagePlaceholders}
+      />
+    </div>
+  );
+}
+
+function WorkExploreDesktop({ active, currentProjectData, imagePlaceholders }) {
   const { width, height } = useWindowDimensions();
   const [widthUnit, setWidthUnit] = useState();
   const [heightUnit, setHeightUnit] = useState();
@@ -72,131 +93,122 @@ export default function WorkExplore({
     }
   }, [railHeight, workExploreGrid]);
 
-  if (!active) return null;
   return (
     <div
-      id="work-explore"
-      ref={overlayRef}
-      tabIndex={-1}
-      role="dialog"
-      aria-modal="true"
-      aria-hidden={!active}
-      className={active ? "active" : ""}
+      id="work-explore-grid"
+      ref={workExploreGrid}
+      style={{
+        height: "100%",
+        width: "100%",
+        display: "grid",
+        gridTemplateColumns: "repeat(38, 1fr)",
+        gridTemplateRows: rows !== null ? rows : "repeat(19, 1fr)",
+      }}
     >
+      {/* ROW 1 - METADATA*/}
       <div
-        id="work-explore-grid"
-        ref={workExploreGrid}
+        className="work-grid-block work-explore-dark"
+        id="work-explore-project"
         style={{
-          height: "100%",
-          width: "100%",
-          display: "grid",
-          gridTemplateColumns: "repeat(38, 1fr)",
-          gridTemplateRows: rows !== null ? rows : "repeat(19, 1fr)",
+          gridColumn: "span 5",
+          gridRow: "span 1",
         }}
       >
-        {/* ROW 1 - METADATA*/}
-        <div
-          className="work-grid-block work-explore-dark"
-          id="work-explore-project"
-          style={{
-            gridColumn: "span 5",
-            gridRow: "span 1",
-          }}
-        >
-          <p className="text-1">{currentProjectData.project}</p>
-        </div>
-        <div
-          className="work-grid-block work-explore-dark"
-          id="work-explore-client"
-          style={{
-            gridColumn: "span 5",
-            gridRow: "span 1",
-          }}
-        >
-          <p className="text-2">{currentProjectData.client}</p>
-        </div>
-        <div
-          className="work-grid-block work-explore-dark"
-          id="work-explore-disciplines"
-          style={{
-            gridColumn: "span 5",
-            gridRow: "span 1",
-          }}
-        >
-          <p className="text-2">
-            {currentProjectData.disciplines.map((el, i) => {
-              let string = el;
-              if (i < currentProjectData.disciplines.length - 1) {
-                string = string + " / ";
-              }
-              return string;
-            })}
-          </p>
-        </div>
-        <div
-          className="work-grid-block work-explore-dark"
-          id="work-explore-published"
-          style={{
-            gridColumn: "span 5",
-            gridRow: "span 1",
-          }}
-        >
-          <p className="text-2">{currentProjectData.published}</p>
-        </div>
-        <div
-          className="work-grid-block work-grid-end-block"
-          aria-hidden="true"
-          style={{
-            gridColumn: "span 18",
-            gridRow: "span 1",
-          }}
-        ></div>
-        {/* ROW 2 MARGIN */}
-        <div
-          className="work-grid-block work-grid-end-block"
-          aria-hidden="true"
-          style={{
-            gridColumn: "span 38",
-            gridRow: "span 1",
-          }}
-        ></div>
-        {/* ROW 3 IMAGE RAIL */}
-        <ImageRail
-          active={active}
-          widthUnit={widthUnit}
-          imagePlaceholders={imagePlaceholders}
-          // handleForward={handleForward}
-          // handleBack={handleBack}
-        />
-        {/* ROW 4 MARGIN */}
-        <div
-          className="work-grid-block work-grid-end-block"
-          aria-hidden="true"
-          style={{
-            gridColumn: "span 38",
-            gridRow: "span 1",
-          }}
-        ></div>
-        {/* ROW 5 DESCRIPTION */}
-        <div
-          id="work-explore-description"
-          className="work-grid-block work-explore-dark"
-          style={{
-            gridColumn: "span 20",
-            gridRow: "span 3",
-          }}
-        >
-          {/* Change eventually to a long description */}
-          <p className="text-2">{currentProjectData.longDescription}</p>
-        </div>
-        <div
-          className="work-grid-block work-grid-end-block"
-          style={{
-            gridColumn: "span 18",
-            gridRow: "span 3",
-          }}
-        ></div>
+        <p className="text-1">{currentProjectData.project}</p>
       </div>
+      <div
+        className="work-grid-block work-explore-dark"
+        id="work-explore-client"
+        style={{
+          gridColumn: "span 5",
+          gridRow: "span 1",
+        }}
+      >
+        <p className="text-2">{currentProjectData.client}</p>
+      </div>
+      <div
+        className="work-grid-block work-explore-dark"
+        id="work-explore-disciplines"
+        style={{
+          gridColumn: "span 5",
+          gridRow: "span 1",
+        }}
+      >
+        <p className="text-2">
+          {currentProjectData.disciplines.map((el, i) => {
+            let string = el;
+            if (i < currentProjectData.disciplines.length - 1) {
+              string = string + " / ";
+            }
+            return string;
+          })}
+        </p>
+      </div>
+      <div
+        className="work-grid-block work-explore-dark"
+        id="work-explore-published"
+        style={{
+          gridColumn: "span 5",
+          gridRow: "span 1",
+        }}
+      >
+        <p className="text-2">{currentProjectData.published}</p>
+      </div>
+      <div
+        className="work-grid-block work-grid-end-block"
+        aria-hidden="true"
+        style={{
+          gridColumn: "span 18",
+          gridRow: "span 1",
+        }}
+      ></div>
+      {/* ROW 2 MARGIN */}
+      <div
+        className="work-grid-block work-grid-end-block"
+        aria-hidden="true"
+        style={{
+          gridColumn: "span 38",
+          gridRow: "span 1",
+        }}
+      ></div>
+      {/* ROW 3 IMAGE RAIL */}
+      <ImageRail
+        active={active}
+        widthUnit={widthUnit}
+        imagePlaceholders={imagePlaceholders}
+        // handleForward={handleForward}
+        // handleBack={handleBack}
+      />
+      {/* ROW 4 MARGIN */}
+      <div
+        className="work-grid-block work-grid-end-block"
+        aria-hidden="true"
+        style={{
+          gridColumn: "span 38",
+          gridRow: "span 1",
+        }}
+      ></div>
+      {/* ROW 5 DESCRIPTION */}
+      <div
+        id="work-explore-description"
+        className="work-grid-block work-explore-dark"
+        style={{
+          gridColumn: "span 20",
+          gridRow: "span 3",
+        }}
+      >
+        {/* Change eventually to a long description */}
+        <p className="text-2">{currentProjectData.longDescription}</p>
+      </div>
+      <div
+        className="work-grid-block work-grid-end-block"
+        style={{
+          gridColumn: "span 18",
+          gridRow: "span 3",
+        }}
+      ></div>
     </div>
   );
 }
+
+function WorkExploreSmallScreen() {}
