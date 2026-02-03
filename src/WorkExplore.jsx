@@ -83,6 +83,7 @@ export default function WorkExplore({
       aria-hidden={!active}
       className={active ? "active" : ""}
     >
+      <div id="work-explore-fade-layer"></div>
       <div
         id="work-explore-grid"
         ref={workExploreGrid}
