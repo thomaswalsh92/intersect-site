@@ -744,6 +744,14 @@ html {
   opacity: 50%;
 }
 
+#work-explore-small-grid {
+  border-top: rgb(129, 129, 130, 0.5) 1px solid;
+  background: $Black;
+}
+
+.work-explore-wide-block {
+  width: 100%;
+}
 //*INFO
 #info {
   width: 100vw;

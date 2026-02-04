@@ -114,13 +114,15 @@ export default function Home({
     setTeleAssetsLoaded(true);
   }
 
-  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(false);
+  //! turn off screen test
+  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(true);
 
   function onTeleWebGLReady() {
     setTeleWebGLReady(true);
   }
 
-  const [teleWebGLReady, setTeleWebGLReady] = useState(false);
+  //! turn off screen test
+  const [teleWebGLReady, setTeleWebGLReady] = useState(true);
 
   useEffect(() => {
     if (teleAssetsLoaded && teleWebGLReady) {
@@ -593,7 +595,8 @@ export default function Home({
                     <p className="indent-1 landing-capability-text">{"}"}</p>
                   </div>
                 )}
-                {useBreakpoint("sm", "down") && (
+                //! turn off screen test
+                {/* {useBreakpoint("sm", "down") && (
                   <TeleCanvas
                     height={height}
                     width={width}
@@ -609,7 +612,7 @@ export default function Home({
                     //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
                     // }
                   />
-                )}
+                )} */}
                 {/* {useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"
@@ -657,7 +660,8 @@ export default function Home({
                 </div>
               </div>
               <div id="reel" ref={reelRef}>
-                {!useBreakpoint("sm", "down") && (
+                //! turn off screen test
+                {/* {!useBreakpoint("sm", "down") && (
                   <TeleCanvas
                     height={height}
                     width={width}
@@ -673,7 +677,7 @@ export default function Home({
                     //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
                     // }
                   />
-                )}
+                )} */}
                 {/* {!useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"
@@ -723,6 +727,7 @@ export default function Home({
                       smallScreenProjectHeight={smallScreenProjectHeight}
                       headerHeight={headerHeight}
                       smallScreenPinVal={smallScreenPinVal}
+                      openProject={openProject}
                       // smallScreenWorkHeight={smallScreenWorkHeight}
                     />
                   )}

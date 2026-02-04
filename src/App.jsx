@@ -62,9 +62,6 @@ export default function App() {
     }
   }, [currentProject]);
 
-  console.log("App ready: ", appReady);
-  console.log("Current Project: ", !!currentProject);
-
   return (
     <>
       <Home

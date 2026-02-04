@@ -14,6 +14,7 @@ export default function WorkGridSmallScreen({
   headerHeight,
   smallScreenProjectHeight,
   smallScreenPinVal,
+  openProject,
 }) {
   return (
     <div
@@ -31,6 +32,7 @@ export default function WorkGridSmallScreen({
             headerHeight={headerHeight}
             smallScreenProjectHeight={smallScreenProjectHeight}
             smallScreenPinVal={smallScreenPinVal}
+            openProject={openProject}
           />
         );
       })}
@@ -44,6 +46,7 @@ function WorkGridSmallScreenItem({
   headerHeight,
   smallScreenProjectHeight,
   smallScreenPinVal,
+  openProject,
 }) {
   const itemRef = useRef(null);
 
@@ -60,7 +63,7 @@ function WorkGridSmallScreenItem({
         },
       });
     },
-    { dependencies: [itemRef] }
+    { dependencies: [itemRef] },
   );
   return (
     <div
@@ -99,6 +102,7 @@ function WorkGridSmallScreenItem({
                 gridColumn: "span 1",
                 gridRow: "span 1",
               }}
+              onClick={() => openProject(proj.slug)}
             >
               <p
                 style={{
@@ -136,6 +140,7 @@ function WorkGridSmallScreenItem({
                 gridColumn: "span 2",
                 gridRow: "span 1",
               }}
+              onClick={() => openProject(proj.slug)}
             >
               <p
                 style={{
