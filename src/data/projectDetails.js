@@ -5,6 +5,7 @@ import rainydayCover from "../assets/images/work-rainyday-cover.jpg";
 import shimmerCover from "../assets/images/work-shimmer-cover.jpg";
 import synEightCover from "../assets/images/work-syneight-cover.jpg";
 
+//eventually TS will be useful here
 export const projectDetails = [
   {
     slug: "rainyday",
@@ -17,18 +18,14 @@ export const projectDetails = [
     longDescription:
       "RAINYDAY Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
     showSmallScreen: true,
-    actions: [
-      {
-        type: "live-site",
-        title: "LIVE SITE",
-        url: "https://www.rainydaystudio.co.uk/",
-      },
-      {
-        type: "explore",
-        title: "EXPLORE",
-      },
-    ],
+    explore: true,
+    liveSite: true,
+    liveSiteUrl: "https://www.rainydaystudio.co.uk/",
     coverImage: rainydayCover,
+    smallScreenImageLayout: [
+      { type: "wide", images: [0] },
+      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
+    ],
   },
   {
     slug: "john-peel",
@@ -40,15 +37,13 @@ export const projectDetails = [
       "JOHN PEEL Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
     longDescription:
       "JOHN PEEL Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
-    actions: undefined,
-    coverImage: johnPeelCover,
     showSmallScreen: true,
-    actions: [
-      {
-        type: "explore",
-        title: "EXPLORE",
-      },
-      undefined,
+    explore: true,
+    liveSite: false,
+    coverImage: johnPeelCover,
+    smallScreenImageLayout: [
+      { type: "wide", images: [0] },
+      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
     ],
   },
   {
@@ -61,15 +56,13 @@ export const projectDetails = [
       "CROP MAGAZINE Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
     longDescription:
       "CROP MAGAZINE Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
-    actions: undefined,
-    coverImage: cropCover,
     showSmallScreen: false,
-    actions: [
-      {
-        type: "explore",
-        title: "EXPLORE",
-      },
-      undefined,
+    explore: true,
+    liveSite: false,
+    coverImage: cropCover,
+    smallScreenImageLayout: [
+      { type: "wide", images: [0] },
+      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
     ],
   },
   {
@@ -83,14 +76,13 @@ export const projectDetails = [
     longDescription:
       "DARSK Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
     actions: undefined,
-    coverImage: darskCover,
     showSmallScreen: false,
-    actions: [
-      {
-        type: "explore",
-        title: "EXPLORE",
-      },
-      undefined,
+    explore: true,
+    liveSite: false,
+    coverImage: darskCover,
+    smallScreenImageLayout: [
+      { type: "wide", images: [0] },
+      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
     ],
   },
   {
@@ -103,15 +95,13 @@ export const projectDetails = [
       "SHIMMER Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
     longDescription:
       "SHIMMER Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
-    actions: undefined,
-    coverImage: shimmerCover,
     showSmallScreen: false,
-    actions: [
-      {
-        type: "explore",
-        title: "EXPLORE",
-      },
-      undefined,
+    explore: true,
+    liveSite: false,
+    coverImage: shimmerCover,
+    smallScreenImageLayout: [
+      { type: "wide", images: [0] },
+      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
     ],
   },
   {
@@ -124,15 +114,13 @@ export const projectDetails = [
       "SYNEIGHT Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
     longDescription:
       "SYNEIGHT Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
-    actions: undefined,
-    coverImage: synEightCover,
     showSmallScreen: true,
-    actions: [
-      {
-        type: "explore",
-        title: "EXPLORE",
-      },
-      undefined,
+    explore: true,
+    liveSite: false,
+    coverImage: synEightCover,
+    smallScreenImageLayout: [
+      { type: "wide", images: [0] },
+      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
     ],
   },
 ];

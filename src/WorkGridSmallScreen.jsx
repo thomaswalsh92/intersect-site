@@ -7,6 +7,9 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
+//app
+import WorkActions from "./WorkActions";
+
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
 export default function WorkGridSmallScreen({
@@ -92,78 +95,11 @@ function WorkGridSmallScreenItem({
       >
         <p className="text-1">{proj.project}</p>
       </div>
-      {proj.actions ? (
-        Array.isArray(proj.actions) ? (
-          <>
-            <div
-              className="work-grid-block work-grid-action-block"
-              id="work-grid-project-action-one"
-              style={{
-                gridColumn: "span 1",
-                gridRow: "span 1",
-              }}
-              onClick={() => openProject(proj.slug)}
-            >
-              <p
-                style={{
-                  color: proj.actions[0].type === "live-site" && "#e9ffa8",
-                }}
-                className="text-2"
-              >
-                {proj.actions[0] && `${proj.actions[0].title}→`}
-              </p>
-            </div>
-            <div
-              className="work-grid-block work-grid-action-block"
-              id="work-grid-project-action-two"
-              style={{
-                gridColumn: "span 1",
-                gridRow: "span 1",
-              }}
-            >
-              <p
-                style={{
-                  color: proj.actions[0].type === "live-site" && "#e9ffa8",
-                }}
-                className="text-2"
-              >
-                {proj.actions[1] && `${proj.actions[1].title}→`}
-              </p>
-            </div>
-          </>
-        ) : (
-          <>
-            <div
-              className="work-grid-block work-grid-action-block"
-              id="work-grid-project-action-one"
-              style={{
-                gridColumn: "span 2",
-                gridRow: "span 1",
-              }}
-              onClick={() => openProject(proj.slug)}
-            >
-              <p
-                style={{
-                  color: proj.actions[0].type === "live-site" && "#e9ffa8",
-                }}
-                className="text-2"
-              >
-                {`${proj.actions.title}→`}
-              </p>
-            </div>
-          </>
-        )
-      ) : (
-        <>
-          <div
-            className="work-grid-block"
-            style={{
-              gridColumn: "span 2",
-              gridRow: "span 1",
-            }}
-          ></div>
-        </>
-      )}
+      <WorkActions
+        selectedProject={proj}
+        openProject={openProject}
+        screenSize="small-screen"
+      />
       <div
         style={{ gridColumn: "span 2", gridRow: "span 1" }}
         className="work-grid-block work-grid-project-block"

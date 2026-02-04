@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { useBreakpoint } from "./utils/useBreakpoint";
+import WorkActions from "./WorkActions";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
@@ -85,13 +86,6 @@ export default function WorkGridDesktop({ projectDetails, openProject }) {
   const projectsSelectedColor = "#f4f4f3";
   const projectsExtraDarkColor = "#1d1e1e";
   // const bgColor = "#2f3031";
-
-  function handleActionClick(actionNum) {
-    // const selectedProject = projectDetails[selected];
-    // if (selectedProject.actions[actionNum].type === "explore") {
-    //   navigate(selectedProject.slug);
-    // }
-  }
 
   return (
     <div
@@ -346,88 +340,11 @@ export default function WorkGridDesktop({ projectDetails, openProject }) {
       >
         <p className="text-2">{projectDetails[selected].shortDescription}</p>
       </div>
-      {projectDetails[selected].actions ? (
-        Array.isArray(projectDetails[selected].actions) ? (
-          <>
-            <div
-              className="work-grid-block work-grid-action-block"
-              id="work-grid-project-action-one"
-              style={{
-                gridColumn: "span 2",
-                gridRow: "span 1",
-              }}
-              onClick={() => openProject(projectDetails[selected].slug)}
-            >
-              <p
-                style={{
-                  color:
-                    projectDetails[selected].actions[0].type === "live-site" &&
-                    "#e9ffa8",
-                }}
-                className="text-2"
-              >
-                {projectDetails[selected].actions[0] &&
-                  `${projectDetails[selected].actions[0].title}→`}
-              </p>
-            </div>
-            <div
-              className="work-grid-block work-grid-action-block"
-              id="work-grid-project-action-two"
-              style={{
-                gridColumn: "span 2",
-                gridRow: "span 1",
-              }}
-              onClick={() => openProject(projectDetails[selected])}
-            >
-              <p
-                style={{
-                  color:
-                    projectDetails[selected].actions[1] &&
-                    projectDetails[selected].actions[1].type === "live-site" &&
-                    "#e9ffa8",
-                }}
-                className="text-2"
-              >
-                {projectDetails[selected].actions[1] &&
-                  `${projectDetails[selected].actions[1].title}→`}
-              </p>
-            </div>
-          </>
-        ) : (
-          <>
-            <div
-              className="work-grid-block work-grid-action-block"
-              id="work-grid-project-action-one"
-              style={{
-                gridColumn: "span 4",
-                gridRow: "span 1",
-              }}
-              onClick={() => openProject(projectDetails[selected].slug)}
-            >
-              <p
-                style={{
-                  color:
-                    projectDetails[selected].actions[0].type === "live-site" &&
-                    "#e9ffa8",
-                }}
-                className="text-2"
-              >
-                {`${projectDetails[selected].actions.title}→`}
-              </p>
-            </div>
-          </>
-        )
-      ) : (
-        <>
-          <div
-            className="work-grid-block"
-            style={{
-              gridColumn: "span 4",
-              gridRow: "span 1",
-            }}
-          ></div>
-        </>
-      )}
+      <WorkActions
+        selectedProject={projectDetails[selected]}
+        openProject={openProject}
+        screenSize="desktop"
+      />
       <div
         className="work-grid-block"
         style={{

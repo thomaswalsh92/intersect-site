@@ -1,7 +1,11 @@
 //react
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
-export default function WorkExploreSmallScreen({ active }) {
+export default function WorkExploreSmallScreen({
+  active,
+  currentProjectData,
+  imagePlaceholders,
+}) {
   const workExploreGrid = useRef(null);
   const [widthUnit, setWidthUnit] = useState(() =>
     typeof window !== "undefined" ? window.innerWidth / 19 : 0,
@@ -12,7 +16,6 @@ export default function WorkExploreSmallScreen({ active }) {
     setWidthUnit(window.innerWidth / 19);
   }, [active]);
 
-  console.log(widthUnit);
   return (
     <div
       id="work-explore-small-grid"
@@ -21,7 +24,10 @@ export default function WorkExploreSmallScreen({ active }) {
         width: "100%",
       }}
     >
-      <WorkExploreDetailsBlock widthUnit={widthUnit} />
+      <WorkExploreDetailsBlock
+        widthUnit={widthUnit}
+        currentProjectData={currentProjectData}
+      />
       <WorkExploreSpacerBlock widthUnit={widthUnit} />
       <WorkExploreWideBlock />
       <WorkExploreSpacerBlock widthUnit={widthUnit} />
@@ -30,7 +36,7 @@ export default function WorkExploreSmallScreen({ active }) {
   );
 }
 
-function WorkExploreDetailsBlock({ widthUnit }) {
+function WorkExploreDetailsBlock({ widthUnit, currentProjectData }) {
   return (
     <div
       style={{
@@ -52,13 +58,19 @@ function WorkExploreDetailsBlock({ widthUnit }) {
           gridColumn: "span 4",
         }}
         className="work-grid-block work-explore-dark"
-      ></div>
+        id="work-explore-project"
+      >
+        <p className="text-1">{currentProjectData.project}</p>
+      </div>
       <div
         style={{
           gridColumn: "span 4",
         }}
         className="work-grid-block work-explore-dark"
-      ></div>
+        id="work-explore-client"
+      >
+        <p className="text-2">{currentProjectData.client}</p>
+      </div>
       <div
         style={{
           gridColumn: "span 1",
@@ -71,13 +83,27 @@ function WorkExploreDetailsBlock({ widthUnit }) {
           gridColumn: "span 4",
         }}
         className="work-grid-block work-explore-dark"
-      ></div>
+        id="work-explore-disciplines"
+      >
+        <p className="text-2">
+          {currentProjectData.disciplines.map((el, i) => {
+            let string = el;
+            if (i < currentProjectData.disciplines.length - 1) {
+              string = string + " / ";
+            }
+            return string;
+          })}
+        </p>
+      </div>
       <div
         style={{
           gridColumn: "span 4",
         }}
         className="work-grid-block work-explore-dark"
-      ></div>
+        id="work-explored-published"
+      >
+        <p className="text-2">{currentProjectData.published}</p>
+      </div>
       <div
         style={{
           gridColumn: "span 1",

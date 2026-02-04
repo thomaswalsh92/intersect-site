@@ -60,7 +60,13 @@ export default function WorkExplore({
           imagePlaceholders={imagePlaceholders}
         />
       )}
-      {!isDesktop && <WorkExploreSmallScreen active={active} />}
+      {!isDesktop && (
+        <WorkExploreSmallScreen
+          active={active}
+          currentProjectData={currentProjectData}
+          imagePlaceholders={imagePlaceholders}
+        />
+      )}
     </div>
   );
 }

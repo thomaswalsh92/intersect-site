@@ -1,0 +1,24 @@
+const objectSpec = {
+  slug: string,
+  project: string,
+  client: string,
+  disciplines: string[],
+  published: number,
+  shortDescription: string,
+  longDescription: string,
+  showSmallScreenHome: boolean, //will this project be visible in home screen on smaller screen layout
+  actions: 
+    {
+      type: "live-site" || "explore",
+      title: string,
+      url: string,
+    }[],
+  coverImage: image,
+  images: image[],
+  smallScreenImageLayout: 
+    {
+      type: "wide" || "double",
+      aspectRatio: undefined || string,
+      images: number[],
+    }[]
+};
