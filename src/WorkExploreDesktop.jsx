@@ -20,6 +20,7 @@ export default function WorkExploreDesktop({
   useLayoutEffect(() => {
     setWidth(window.innerWidth);
   }, []);
+
   useEffect(() => {
     function handleResize() {
       const width = window.innerWidth;

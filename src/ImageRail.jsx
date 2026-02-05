@@ -170,10 +170,16 @@ export default function ImageRail({
     let newDepth = depth + 1;
     return checkLengthAndDouble(newArr, newDepth);
   }
+  useLayoutEffect(() => {
+    if (!imageRail.current) return;
 
-  useEffect(() => {
-    console.log(width);
-    setRailHeight(imageRail.current.offsetHeight);
+    const ro = new ResizeObserver(([entry]) => {
+      setRailHeight(entry.contentRect.height);
+    });
+
+    ro.observe(imageRail.current);
+
+    return () => ro.disconnect();
   }, []);
 
   useEffect(() => {
