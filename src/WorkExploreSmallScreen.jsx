@@ -1,6 +1,9 @@
 //react
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
+import { useBreakpoint } from "./utils/useBreakpoint";
+import useWindowDimensions from "./utils/useWindowDimensions";
+
 export default function WorkExploreSmallScreen({
   active,
   currentProjectData,
@@ -10,6 +13,14 @@ export default function WorkExploreSmallScreen({
   const [widthUnit, setWidthUnit] = useState(() =>
     typeof window !== "undefined" ? window.innerWidth / 19 : 0,
   );
+  const [columns, setColumns] = useState();
+
+  const { width } = useWindowDimensions();
+  const isMedium = useBreakpoint("md", "up");
+  useLayoutEffect(() => {
+    if (isMedium) setColumns("repeat(19, 1fr)");
+    if (!isMedium) setColumns("repeat(16, 1fr");
+  }, [width]);
 
   useLayoutEffect(() => {
     if (!active) return;
@@ -27,32 +38,45 @@ export default function WorkExploreSmallScreen({
       <WorkExploreDetailsBlock
         widthUnit={widthUnit}
         currentProjectData={currentProjectData}
+        columns={columns}
+        isMedium={isMedium}
       />
-      <WorkExploreSpacerBlock widthUnit={widthUnit} />
-      <WorkExploreWideBlock />
-      <WorkExploreSpacerBlock widthUnit={widthUnit} />
-      <WorkExploreDoubleBlock aspectRatio={"9 / 16"} />
+      {isMedium && <WorkExploreSpacerBlock widthUnit={widthUnit} />}
+      <WorkExploreWideBlock columns={columns} isMedium={isMedium} />
+      {isMedium && <WorkExploreSpacerBlock widthUnit={widthUnit} />}
+      <WorkExploreDoubleBlock
+        aspectRatio={"9 / 16"}
+        columns={columns}
+        isMedium={isMedium}
+      />
     </div>
   );
 }
 
-function WorkExploreDetailsBlock({ widthUnit, currentProjectData }) {
+function WorkExploreDetailsBlock({
+  widthUnit,
+  currentProjectData,
+  columns,
+  isMedium,
+}) {
   return (
     <div
       style={{
-        height: widthUnit,
+        height: isMedium ? widthUnit : widthUnit * 2,
         display: "grid",
-        gridTemplateColumns: "repeat(19, 1fr)",
+        gridTemplateColumns: columns,
       }}
       className="work-explore-details-block"
     >
-      <div
-        style={{
-          gridColumn: "span 1",
-        }}
-        className="work-grid-block"
-        aria-hidden="true"
-      ></div>
+      {isMedium && (
+        <div
+          style={{
+            gridColumn: "span 1",
+          }}
+          className="work-grid-block"
+          aria-hidden="true"
+        ></div>
+      )}
       <div
         style={{
           gridColumn: "span 4",
@@ -71,13 +95,15 @@ function WorkExploreDetailsBlock({ widthUnit, currentProjectData }) {
       >
         <p className="text-2">{currentProjectData.client}</p>
       </div>
-      <div
-        style={{
-          gridColumn: "span 1",
-        }}
-        className="work-grid-block"
-        aria-hidden="true"
-      ></div>
+      {isMedium && (
+        <div
+          style={{
+            gridColumn: "span 1",
+          }}
+          className="work-grid-block"
+          aria-hidden="true"
+        ></div>
+      )}
       <div
         style={{
           gridColumn: "span 4",
@@ -99,74 +125,70 @@ function WorkExploreDetailsBlock({ widthUnit, currentProjectData }) {
         style={{
           gridColumn: "span 4",
         }}
-        className="work-grid-block work-explore-dark"
+        className={`work-grid-block work-explore-dark ${!isMedium && "work-grid-end-block"}`}
         id="work-explored-published"
       >
         <p className="text-2">{currentProjectData.published}</p>
       </div>
-      <div
-        style={{
-          gridColumn: "span 1",
-        }}
-        className="work-grid-block work-grid-end-block"
-        aria-hidden="true"
-      ></div>
+      {isMedium && (
+        <div
+          style={{
+            gridColumn: "span 1",
+          }}
+          className="work-grid-block work-grid-end-block"
+          aria-hidden="true"
+        ></div>
+      )}
     </div>
   );
 }
-function WorkExploreWideBlock() {
+function WorkExploreWideBlock({ columns, isMedium }) {
   return (
     <div
-      style={{ display: "grid", gridTemplateColumns: "repeat(19, 1fr)" }}
+      style={{ display: "grid", gridTemplateColumns: columns }}
       className="work-explore-wide-block"
     >
-      <div
-        style={{ height: "100%", gridColumn: "span 1" }}
-        className="work-grid-block"
-        aria-hidden="true"
-      ></div>
+      {isMedium && (
+        <div
+          style={{ height: "100%", gridColumn: "span 1" }}
+          className="work-grid-block"
+          aria-hidden="true"
+        ></div>
+      )}
       <div
         style={{
           aspectRatio: "16 / 9",
           gridColumn: "span 17",
         }}
-        className="work-grid-block work-explore-image-block"
+        className={`work-grid-block work-explore-image-block ${!isMedium && "work-grid-end-block"}`}
       ></div>
-      <div
-        style={{
-          height: "100%",
-          gridColumn: "span 1",
-        }}
-        className="work-grid-block work-grid-end-block"
-        aria-hidden="true"
-      ></div>
+      {isMedium && (
+        <div
+          style={{
+            height: "100%",
+            gridColumn: "span 1",
+          }}
+          className="work-grid-block work-grid-end-block"
+          aria-hidden="true"
+        ></div>
+      )}
     </div>
   );
 }
 
-function WorkExploreDoubleBlock({ aspectRatio }) {
+function WorkExploreDoubleBlock({ aspectRatio, isMedium, columns }) {
   return (
     <div
-      style={{ display: "grid", gridTemplateColumns: "repeat(19, 1fr)" }}
+      style={{ display: "grid", gridTemplateColumns: columns }}
       className="work-explore-double-block"
     >
-      <div
-        style={{ gridColumn: "span 1" }}
-        className="work-grid-block"
-        aria-hidden="true"
-      ></div>
-      <div
-        style={{
-          aspectRatio: aspectRatio,
-          gridColumn: "span 8",
-        }}
-        className="work-grid-block work-explore-image-block"
-      ></div>
-      <div
-        style={{ gridColumn: "span 1" }}
-        className="work-grid-block"
-        aria-hidden="true"
-      ></div>
+      {isMedium && (
+        <div
+          style={{ gridColumn: "span 1" }}
+          className="work-grid-block"
+          aria-hidden="true"
+        ></div>
+      )}
       <div
         style={{
           aspectRatio: aspectRatio,
@@ -174,13 +196,29 @@ function WorkExploreDoubleBlock({ aspectRatio }) {
         }}
         className="work-grid-block work-explore-image-block"
       ></div>
+      {isMedium && (
+        <div
+          style={{ gridColumn: "span 1" }}
+          className="work-grid-block"
+          aria-hidden="true"
+        ></div>
+      )}
       <div
         style={{
-          gridColumn: "span 1",
+          aspectRatio: aspectRatio,
+          gridColumn: "span 8",
         }}
-        className="work-grid-block work-grid-end-block"
-        aria-hidden="true"
+        className={`work-grid-block work-explore-image-block ${!isMedium && "work-grid-end-block"}`}
       ></div>
+      {isMedium && (
+        <div
+          style={{
+            gridColumn: "span 1",
+          }}
+          className="work-grid-block work-grid-end-block"
+          aria-hidden="true"
+        ></div>
+      )}
     </div>
   );
 }
