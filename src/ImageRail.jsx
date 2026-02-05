@@ -8,19 +8,15 @@ gsap.registerPlugin(gsap);
 export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   const gapWidth = widthUnit * 2;
   const imageRail = useRef(null);
+  const [railHeight, setRailHeight] = useState();
   const [railImages, setRailImages] = useState();
   const [bufferArrayOffset, setBufferArrayOffset] = useState();
   const slideLeftRef = useRef(null);
   const slideRightRef = useRef(null);
   const leftActive = useRef(false);
   const rightActive = useRef(false);
-  // const [showButtonRight, setShowButtonRight] = useState(false);
-  // const [showButtonLeft, setShowButtonLeft] = useState(false);
   const buttonLeft = useRef(null);
   const buttonRight = useRef(null);
-
-  // let leftActive = false;
-  // let rightActive = false;
 
   const handleMouseMove = (e) => {
     const x = e.clientX;
@@ -47,6 +43,8 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   const slideDuration = 0.18;
   const slideEase = "power4.inOut";
   const buttonWidth = 64;
+
+  const { width, height } = useWindowDimensions();
 
   useGSAP(() => {
     if (!buttonLeft.current || !buttonRight.current) return;
@@ -118,9 +116,9 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   function getAspectRatioFromWidth(aspectRatio) {
     function calculate(aspectWidth, aspectHeight) {
       if (aspectWidth === aspectHeight) {
-        return imageRail.current.offsetHeight;
+        return railHeight;
       }
-      const unitHeight = imageRail.current.offsetHeight / aspectHeight;
+      const unitHeight = railHeight / aspectHeight;
       return unitHeight * aspectWidth;
     }
     //! add supported aspect ratios here
@@ -168,15 +166,18 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
     return checkLengthAndDouble(newArr, newDepth);
   }
 
+  useLayoutEffect(() => {
+    setRailHeight(imageRail.current.offsetHeight);
+  }, [width]);
+
   useEffect(() => {
-    if (!active || !imageRail.current || !widthUnit) return;
+    if (!active || !widthUnit || !railHeight) return;
 
     const wideEnoughArr = checkLengthAndDouble(imagePlaceholders);
     setRailImages(wideEnoughArr);
-    setBufferArrayOffset(getImagesWidthTotal(imagePlaceholders) + gapWidth);
-  }, [active, imageRail, imagePlaceholders]);
+    setBufferArrayOffset(getImagesWidthTotal(imagePlaceholders) + gapWidth + 2);
+  }, [active, widthUnit, railHeight]);
 
-  //"forward", "back" or false;
   const animatingRef = useRef(false);
   const ease = "none";
   const pixelsPerSecond = 2300;
@@ -231,7 +232,6 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
 
   return (
     <div
-      ref={imageRail}
       id="work-explore-image-rail"
       className="work-grid-block work-grid-end-block"
       style={{
@@ -267,32 +267,29 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
         <span className="text-1">{`->`}</span>
       </button>
 
-      {Array.isArray(railImages) &&
-        railImages.length > 0 &&
-        bufferArrayOffset && (
-          <div
-            id="work-explore-rail-container"
-            style={{
-              gap: gapWidth,
-              transform: `translateX(-${bufferArrayOffset}px)`,
-            }}
-          >
-            {Array.isArray(railImages) &&
-              railImages.map(({ aspectRatio, img }) => {
-                return (
-                  <div
-                    className="work-explore-image-container"
-                    style={{
-                      height: "100%",
-                      aspectRatio: aspectRatio,
-                    }}
-                  >
-                    <img src={img} />
-                  </div>
-                );
-              })}
-          </div>
-        )}
+      <div
+        ref={imageRail}
+        id="work-explore-rail-container"
+        style={{
+          gap: gapWidth,
+          transform: `translateX(-${bufferArrayOffset}px)`,
+        }}
+      >
+        {Array.isArray(railImages) &&
+          railImages.map(({ aspectRatio, img }) => {
+            return (
+              <div
+                className="work-explore-image-container"
+                style={{
+                  height: "100%",
+                  aspectRatio: aspectRatio,
+                }}
+              >
+                <img src={img} />
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 }

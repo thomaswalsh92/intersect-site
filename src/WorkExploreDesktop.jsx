@@ -122,13 +122,15 @@ export default function WorkExploreDesktop({
         }}
       ></div>
       {/* ROW 3 IMAGE RAIL */}
-      <ImageRail
-        active={active}
-        widthUnit={widthUnit}
-        imagePlaceholders={imagePlaceholders}
-        // handleForward={handleForward}
-        // handleBack={handleBack}
-      />
+      {widthUnit && (
+        <ImageRail
+          active={active}
+          widthUnit={widthUnit}
+          imagePlaceholders={imagePlaceholders}
+          // handleForward={handleForward}
+          // handleBack={handleBack}
+        />
+      )}
       {/* ROW 4 MARGIN */}
       <div
         className="work-grid-block work-grid-end-block"
