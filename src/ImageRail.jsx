@@ -5,7 +5,12 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(gsap);
 
-export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
+export default function ImageRail({
+  active,
+  imagePlaceholders,
+  width,
+  widthUnit,
+}) {
   const gapWidth = widthUnit * 2;
   const imageRail = useRef(null);
   const [railHeight, setRailHeight] = useState();
@@ -44,7 +49,7 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   const slideEase = "power4.inOut";
   const buttonWidth = 64;
 
-  const { width, height } = useWindowDimensions();
+  // const { width, height } = useWindowDimensions();
 
   useGSAP(() => {
     if (!buttonLeft.current || !buttonRight.current) return;
@@ -166,9 +171,10 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
     return checkLengthAndDouble(newArr, newDepth);
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    console.log(width);
     setRailHeight(imageRail.current.offsetHeight);
-  }, [width]);
+  }, []);
 
   useEffect(() => {
     if (!active || !widthUnit || !railHeight) return;
@@ -276,9 +282,10 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
         }}
       >
         {Array.isArray(railImages) &&
-          railImages.map(({ aspectRatio, img }) => {
+          railImages.map(({ aspectRatio, img }, i) => {
             return (
               <div
+                key={i}
                 className="work-explore-image-container"
                 style={{
                   height: "100%",

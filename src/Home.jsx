@@ -587,9 +587,12 @@ export default function Home({
                       DESIGN & DEVELOPMENT
                     </p>
                     <p className="indent-1 landing-capability-text">{"{"}</p>
-                    {landingCapabilties.map((item) => {
+                    {landingCapabilties.map((item, i) => {
                       return (
-                        <p className="indent-2 landing-capability-text">{`<${item} />`}</p>
+                        <p
+                          key={item + "_" + i}
+                          className="indent-2 landing-capability-text"
+                        >{`<${item} />`}</p>
                       );
                     })}
                     <p className="indent-1 landing-capability-text">{"}"}</p>

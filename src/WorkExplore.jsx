@@ -21,7 +21,6 @@ export default function WorkExplore({
   projectDetails,
 }) {
   const isDesktop = useBreakpoint("lg", "up");
-  console.log(isDesktop);
   const currentProjectData = projectDetails.find(
     ({ slug }) => slug === currentProject,
   );

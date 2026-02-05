@@ -197,6 +197,7 @@ export default function WorkGridDesktop({ projectDetails, openProject }) {
         {projectDetails.map((proj, index) => {
           return (
             <div
+              key={proj.project + "_" + index}
               className="work-grid-project-row"
               style={{
                 gridColumn: "span 8",

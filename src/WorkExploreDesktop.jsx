@@ -1,5 +1,5 @@
 //react
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 //app
 import useWindowDimensions from "./utils/useWindowDimensions";
@@ -10,12 +10,30 @@ export default function WorkExploreDesktop({
   currentProjectData,
   imagePlaceholders,
 }) {
-  const { width, height } = useWindowDimensions();
+  const [width, setWidth] = useState();
   const [widthUnit, setWidthUnit] = useState();
   const [heightUnit, setHeightUnit] = useState();
   const [railHeight, setRailHeight] = useState(null);
   const [rows, setRows] = useState(null);
   const workExploreGrid = useRef(null);
+
+  useLayoutEffect(() => {
+    setWidth(window.innerWidth);
+  }, []);
+  useEffect(() => {
+    function handleResize() {
+      const width = window.innerWidth;
+      // const height = window.innerHeight;
+      setWidth(width);
+    }
+
+    handleResize(); // initial log
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (!workExploreGrid.current && !active) return;
@@ -31,7 +49,7 @@ export default function WorkExploreDesktop({
       const maxHeight = (maxWidth / 16) * 9;
       setRailHeight(maxHeight);
     }
-  }, [width, height, widthUnit, heightUnit]);
+  }, [width, widthUnit, heightUnit]);
 
   useEffect(() => {
     if (railHeight) {
@@ -125,6 +143,7 @@ export default function WorkExploreDesktop({
       {widthUnit && (
         <ImageRail
           active={active}
+          width={width}
           widthUnit={widthUnit}
           imagePlaceholders={imagePlaceholders}
           // handleForward={handleForward}
