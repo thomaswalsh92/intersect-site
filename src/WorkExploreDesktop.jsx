@@ -68,7 +68,6 @@ export default function WorkExploreDesktop({
       ref={workExploreGrid}
       style={{
         height: "100%",
-        width: "100%",
         display: "grid",
         gridTemplateColumns: "repeat(38, 1fr)",
         gridTemplateRows: rows !== null ? rows : "repeat(19, 1fr)",

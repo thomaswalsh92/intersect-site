@@ -49,6 +49,14 @@ export default function WorkExploreSmallScreen({
         columns={columns}
         isMedium={isMedium}
       />
+      <div
+        aria-hidden="true"
+        id="dynamic-spacer"
+        style={{
+          height: useBreakpoint("sm", "up") ? 96 : 112,
+          width: "100vw",
+        }}
+      ></div>
     </div>
   );
 }
@@ -232,6 +240,7 @@ function WorkExploreSpacerBlock({ widthUnit }) {
         gridTemplateColumns: "repeat(19, 1fr)",
       }}
       className="work-explore-spacer-block"
+      aria-hidden="true"
     >
       <div
         style={{

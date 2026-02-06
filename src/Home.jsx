@@ -470,12 +470,14 @@ export default function Home({
   const scroller = ScrollSmoother.get();
   useEffect(() => {
     if (currentProject) {
-      // scroller?.paused(true);
+      console.log("Run");
+      scroller?.paused(true);
+      document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
       // overlayRef.current?.focus();
     }
     if (!currentProject && appReady) {
-      // scroller?.paused(false);
+      scroller?.paused(false);
       document.documentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";
     }

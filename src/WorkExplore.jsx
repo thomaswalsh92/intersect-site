@@ -59,13 +59,15 @@ export default function WorkExplore({
           imagePlaceholders={imagePlaceholders}
         />
       )}
-      {!isDesktop && (
-        <WorkExploreSmallScreen
-          active={active}
-          currentProjectData={currentProjectData}
-          imagePlaceholders={imagePlaceholders}
-        />
-      )}
+      <div id="work-explore-scroll">
+        {!isDesktop && (
+          <WorkExploreSmallScreen
+            active={active}
+            currentProjectData={currentProjectData}
+            imagePlaceholders={imagePlaceholders}
+          />
+        )}
+      </div>
     </div>
   );
 }

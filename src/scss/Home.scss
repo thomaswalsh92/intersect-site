@@ -599,9 +599,8 @@ html {
 #work-explore {
   position: fixed;
   inset: 0;
-  z-index: 99;
-  overflow-y: hidden;
-  pointer-events: none;
+  z-index: 98;
+  will-change: transform;
   margin-top: 48px;
   margin-bottom: 48px;
   // background: linear-gradient(
@@ -613,19 +612,38 @@ html {
 }
 
 #work-explore.active {
+  // height: 100vh;
   pointer-events: auto;
-  overflow-y: hidden;
+
   scrollbar-width: none;
   -ms-overflow-style: none;
+  // height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 48px;
+  margin-bottom: 48px;
+  @include up($bp-lg) {
+    overflow-y: hidden;
+  }
 }
 
-#work-explore:-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+#work-explore-scroll {
+  height: 100vh; /* full viewport height */
+  overflow-y: auto; /* native scroll */
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  pointer-events: auto;
+  touch-action: auto;
+
+  background: rgba(0, 0, 0, 0.01); /* ensures hit-test */
 }
 
 #work-explore-grid {
   background: $Black;
   border-top: rgb(129, 129, 130, 0.5) 1px solid;
+  height: 100%;
+  width: 100%;
 }
 
 #work-explore-grid::before {
@@ -753,6 +771,8 @@ html {
 #work-explore-small-grid {
   border-top: rgb(129, 129, 130, 0.5) 1px solid;
   background: $Black;
+  min-height: 100vh;
+  // margin-bottom: 64px;
 }
 
 .work-explore-wide-block {
