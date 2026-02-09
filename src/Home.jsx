@@ -115,14 +115,14 @@ export default function Home({
   }
 
   //! turn off screen test
-  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(true);
+  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(false);
 
   function onTeleWebGLReady() {
     setTeleWebGLReady(true);
   }
 
   //! turn off screen test
-  const [teleWebGLReady, setTeleWebGLReady] = useState(true);
+  const [teleWebGLReady, setTeleWebGLReady] = useState(false);
 
   useEffect(() => {
     if (teleAssetsLoaded && teleWebGLReady) {
@@ -600,8 +600,7 @@ export default function Home({
                     <p className="indent-1 landing-capability-text">{"}"}</p>
                   </div>
                 )}
-                //! turn off screen test
-                {/* {useBreakpoint("sm", "down") && (
+                {useBreakpoint("sm", "down") && (
                   <TeleCanvas
                     height={height}
                     width={width}
@@ -617,7 +616,7 @@ export default function Home({
                     //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
                     // }
                   />
-                )} */}
+                )}
                 {/* {useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"
@@ -665,8 +664,7 @@ export default function Home({
                 </div>
               </div>
               <div id="reel" ref={reelRef}>
-                //! turn off screen test
-                {/* {!useBreakpoint("sm", "down") && (
+                {!useBreakpoint("sm", "down") && (
                   <TeleCanvas
                     height={height}
                     width={width}
@@ -682,7 +680,7 @@ export default function Home({
                     //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
                     // }
                   />
-                )} */}
+                )}
                 {/* {!useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"
