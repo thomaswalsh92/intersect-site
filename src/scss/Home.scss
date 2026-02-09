@@ -60,7 +60,7 @@ html {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  isolation: auto; // 👈 REQUIRED
+  isolation: auto;
   z-index: -5;
 }
 
@@ -603,6 +603,10 @@ html {
   will-change: transform;
   margin-top: 48px;
   margin-bottom: 48px;
+  overscroll-behavior: none;
+  touch-action: pan-y;
+  overflow-x: hidden; /* must be on the top-level overlay */
+  overscroll-behavior-x: none;
   // background: linear-gradient(
   //   to left,
   //   rgba($Black, 1) 0%,
@@ -628,12 +632,12 @@ html {
 }
 
 #work-explore-scroll {
-  height: 100vh; /* full viewport height */
-  overflow-y: auto; /* native scroll */
+  height: 100vh;
+  overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  pointer-events: auto;
+  // pointer-events: auto;
   touch-action: auto;
 
   background: rgba(0, 0, 0, 0.01); /* ensures hit-test */
@@ -682,6 +686,7 @@ html {
   position: relative;
   height: 100%;
   width: 100%;
+  touch-action: pan-y;
 }
 
 #work-explore-rail-container {
@@ -691,6 +696,7 @@ html {
   align-items: center;
   width: 100%;
   height: 100%;
+  touch-action: pan-y;
 }
 
 .work-explore-button {

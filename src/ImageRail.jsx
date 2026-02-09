@@ -1,16 +1,12 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import useWindowDimensions from "./utils/useWindowDimensions";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-
+import { Observer } from "gsap/all";
+import useHorizontalSwipe from "./utils/useHorizontalSwipe";
 gsap.registerPlugin(gsap);
+gsap.registerPlugin(Observer);
 
-export default function ImageRail({
-  active,
-  imagePlaceholders,
-  width,
-  widthUnit,
-}) {
+export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   const gapWidth = widthUnit * 2;
   const imageRail = useRef(null);
   const [railHeight, setRailHeight] = useState();
@@ -199,7 +195,6 @@ export default function ImageRail({
   }
 
   function handleForward() {
-    if (animatingRef.current) return;
     animatingRef.current = "forward";
 
     const distance = railImages[railImages.length - 1].width + gapWidth;
@@ -218,7 +213,6 @@ export default function ImageRail({
   }
 
   function handleBack() {
-    if (animatingRef.current) return;
     animatingRef.current = "back";
     const distance = railImages[0].width + gapWidth;
 
@@ -235,12 +229,42 @@ export default function ImageRail({
     });
   }
 
+  const swipingRef = useRef(false);
+
+  function handleBackSwipe(delta) {
+    if (swipingRef.current) return;
+    swipingRef.current = "back";
+    console.log("back swipe", delta);
+  }
+
+  function handleForwardSwipe(delta) {
+    if (swipingRef.current) return;
+    swipingRef.current = "forward";
+    console.log("forward swipe", delta);
+  }
+
   useGSAP(() => {
     gsap.set("#work-explore-rail-container", {
       x: -bufferArrayOffset,
       onComplete: () => (animatingRef.current = false),
     });
   }, [railImages]);
+
+  useHorizontalSwipe(active, handleForwardSwipe, handleBackSwipe, 400);
+
+  useEffect(() => {
+    if (!active) return;
+
+    const lockHorizontal = (e) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener("wheel", lockHorizontal, { passive: false });
+
+    return () => window.removeEventListener("wheel", lockHorizontal);
+  }, [active]);
 
   return (
     <div
