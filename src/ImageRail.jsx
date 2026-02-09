@@ -229,19 +229,27 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
     });
   }
 
-  const swipingRef = useRef(false);
+  // const swipingRef = useRef(false);
 
-  function handleBackSwipe(delta) {
-    if (swipingRef.current) return;
-    swipingRef.current = "back";
-    console.log("back swipe", delta);
-  }
+  // function handleBackSwipe(delta) {
+  //   if (swipingRef.current) return;
+  //   swipingRef.current = true;
+  //   setTimeout(() => {
+  //     swipingRef.current = false;
+  //     console.log("reset");
+  //   }, 5000);
+  //   console.log("back swipe", delta);
+  // }
 
-  function handleForwardSwipe(delta) {
-    if (swipingRef.current) return;
-    swipingRef.current = "forward";
-    console.log("forward swipe", delta);
-  }
+  // function handleForwardSwipe(delta) {
+  //   if (swipingRef.current) return;
+  //   swipingRef.current = true;
+  //   setTimeout(() => {
+  //     swipingRef.current = false;
+  //     console.log("reset");
+  //   }, 5000);
+  //   console.log("forward swipe", delta);
+  // }
 
   useGSAP(() => {
     gsap.set("#work-explore-rail-container", {
@@ -250,7 +258,7 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
     });
   }, [railImages]);
 
-  useHorizontalSwipe(active, handleForwardSwipe, handleBackSwipe, 400);
+  useHorizontalSwipe(active, handleForward, handleBack, 500);
 
   useEffect(() => {
     if (!active) return;

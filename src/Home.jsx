@@ -470,13 +470,14 @@ export default function Home({
   const scroller = ScrollSmoother.get();
   useEffect(() => {
     if (currentProject) {
-      console.log("Run");
+      console.log("in useEffect current project is: ", currentProject);
       scroller?.paused(true);
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
       // overlayRef.current?.focus();
     }
     if (!currentProject && appReady) {
+      console.log("in useEffect current project is: ", currentProject);
       scroller?.paused(false);
       document.documentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";

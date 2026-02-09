@@ -16,6 +16,11 @@ export default function useHorizontalSwipe(
 ) {
   const lastTrigger = useRef(0);
 
+  let lastDelta = 0;
+
+  function isMomentum(delta) {
+    return Math.abs(delta) < Math.abs(lastDelta) * 0.85;
+  }
   useEffect(() => {
     if (!active) return;
 
@@ -31,6 +36,10 @@ export default function useHorizontalSwipe(
 
       // horizontal swipe intent only
       if (Math.abs(deltaX) < Math.abs(deltaY)) return;
+      if (Math.abs(deltaX) < 10) return;
+
+      if (isMomentum(deltaX)) return;
+      lastDelta = deltaX;
 
       if (deltaX > 0) {
         onRight(deltaX);
