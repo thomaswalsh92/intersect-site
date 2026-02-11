@@ -635,23 +635,8 @@ export default function Home({
                 {/* </div>
                 )} */}
                 <div id="landing-flavour">
-                  <p className="text-2">
-                    <span className="text-1 landing-flavour-text">
-                      INTERSECT
-                    </span>{" "}
-                    <span className="text-2 landing-flavour-text">
-                      (verb): the integration technology, art, design, life.
-                    </span>
-                  </p>
-                  <p className="text-2" style={{ marginTop: 8 }}>
-                    {" "}
-                    <span className="text-2 landing-flavour-text">
-                      In pursuit of
-                    </span>{" "}
-                    <span className="text-1 landing-flavour-text">DREAMS</span>{" "}
-                    <span className="text-2 landing-flavour-text">
-                      through digital means.
-                    </span>
+                  <p className="text-1 landing-flavour-text">
+                    Cohesive digital identity for culture-led brands.
                   </p>
                 </div>
                 <div
@@ -743,13 +728,11 @@ export default function Home({
                   <div id="info-text-container">
                     <div id="info-text">
                       <p className="text-2 info-heading">
-                        WE ARE <span className="text-1">INTERSECT</span>
+                        THIS IS <span className="text-1">INTERSECT</span>
                       </p>
                       <p className="text-3 info-text" style={{ marginTop: 8 }}>
-                        A design studio focusing on the delivery of ideas across
-                        digital mediums, pushing creative boundaries and
-                        exploration of the fertile space between creativity and
-                        technology.
+                        A design studio building cohesive digital identity
+                        across web, motion and 3D for culture-led brands.
                       </p>
                       <p
                         className="text-1 info-heading"

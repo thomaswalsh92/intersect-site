@@ -74,7 +74,7 @@ html {
   align-items: flex-start;
 
   svg {
-    opacity: 60%;
+    opacity: 75%;
     width: 30vw;
     // z-index: 1000;
     overflow-y: hidden;
@@ -318,20 +318,21 @@ html {
 #landing-flavour {
   position: absolute;
   color: $White;
-  top: 70vh;
-  left: 65vw;
-  padding-top: 16px;
-  padding-left: 16px;
-  width: 20vw;
+  top: 65vh;
+  left: 50vw;
+  // padding-top: 16px;
+  // padding-left: 16px;
+  width: 40vw;
+  // mix-blend-mode: difference;
   p {
-    font-size: 0.8vw;
+    font-size: 1.6vw;
     color: #ffffff;
     mix-blend-mode: difference;
   }
 
   @include down($bp-xl) {
     p {
-      font-size: 1.2vw;
+      font-size: 1.1vw;
     }
   }
 
