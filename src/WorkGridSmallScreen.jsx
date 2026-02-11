@@ -24,7 +24,6 @@ export default function WorkGridSmallScreen({
       id="work-grid"
       style={{
         width: "100%",
-        borderTop: "none",
       }}
     >
       {projectDetails.map((proj, index) => {

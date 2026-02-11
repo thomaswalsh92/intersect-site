@@ -499,6 +499,7 @@ html {
 
 #work-grid {
   border-top: rgb(129, 129, 130, 0.5) 1px solid;
+  // border-bottom: red 8px solid;
 }
 
 .work-grid-block {
@@ -862,7 +863,7 @@ html {
 
   @include down($bp-sm) {
     margin-top: 0;
-    padding: 15vh 5vh 0 5vh;
+    padding: 7vh 5vh 0 5vh;
     position: relative;
   }
 }

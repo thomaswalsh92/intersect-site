@@ -361,38 +361,38 @@ export default function TeleCanvas({
         {/* <CanvasVisibilityController /> */}
         <WebGLWarmup />
         <SoftShadows frames={1} size={25} samples={64} focus={0.5} />
-        {/* <Environment
+        <Environment
           preset="studio"
           //env intensity controlled in tele.jsx
           environmentIntensity={0}
           resolution={256}
           blur={1}
-        > */}
-        <Lightformer
-          form="ring"
-          intensity={2}
-          // rotation-x={Math.PI / 2}
-          position={[0, 0, 3]}
-          scale={[4, 4, 1]}
-          target={[0, 0, 0]}
-        />
-        <Lightformer
-          form="rect"
-          intensity={1}
-          // rotation-x={Math.PI / 2}
-          position={[0, 2, 0]}
-          scale={[1, 1, 1]}
-          target={[0, 0, 0]}
-        />
-        <Lightformer
-          form="rect"
-          intensity={1}
-          // rotation-x={Math.PI / 2}
-          position={[2, 25, 0]}
-          scale={[10, 10, 1]}
-          target={[0, 0, 0]}
-        />
-        {/* </Environment> */}
+        >
+          <Lightformer
+            form="ring"
+            intensity={2}
+            // rotation-x={Math.PI / 2}
+            position={[0, 0, 3]}
+            scale={[4, 4, 1]}
+            target={[0, 0, 0]}
+          />
+          <Lightformer
+            form="rect"
+            intensity={1}
+            // rotation-x={Math.PI / 2}
+            position={[0, 2, 0]}
+            scale={[1, 1, 1]}
+            target={[0, 0, 0]}
+          />
+          <Lightformer
+            form="rect"
+            intensity={1}
+            // rotation-x={Math.PI / 2}
+            position={[2, 25, 0]}
+            scale={[10, 10, 1]}
+            target={[0, 0, 0]}
+          />
+        </Environment>
         <Tele onAssetsLoaded={onAssetsLoaded} rotationFixed={rotationFixed} />
         {/* </Stage> */}
         <directionalLight
