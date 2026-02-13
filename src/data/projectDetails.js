@@ -1,9 +1,29 @@
+//images
+import rainydayCover from "../assets/images/work-rainyday-cover.jpg";
+import johnPeelCover from "../assets/images/work-john-peel-cover.jpg";
 import cropCover from "../assets/images/work-crop-cover.jpg";
 import darskCover from "../assets/images/work-darsk-cover.jpg";
-import johnPeelCover from "../assets/images/work-john-peel-cover.jpg";
-import rainydayCover from "../assets/images/work-rainyday-cover.jpg";
 import shimmerCover from "../assets/images/work-shimmer-cover.jpg";
 import synEightCover from "../assets/images/work-syneight-cover.jpg";
+
+//rainydayImages
+import rainydayNineSixteenNumberOne from "../assets/images/rainyday/rainyday-9-16-num1.jpg";
+import rainydayNineSixteenNumberTwo from "../assets/images/rainyday/rainyday-9-16-num2.jpg";
+import rainydayNineSixteenNumberThree from "../assets/images/rainyday/rainyday-9-16-num3.jpg";
+import rainydaySixteenNineNumberOne from "../assets/images/rainyday/rainyday-16-9-num1.jpg";
+import rainydaySixteenNineNumberTwo from "../assets/images/rainyday/rainyday-16-9-num2.jpg";
+
+//johnPeelImages
+import johnPeelSixteenNineOne from "../assets/images/john-peel/john-peel-16-9-num1.jpg";
+import johnPeelFourFiveOne from "../assets/images/john-peel/john-peel-4-5-num1.jpg";
+import johnPeelFourFiveTwo from "../assets/images/john-peel/john-peel-4-5-num2.jpg";
+
+//syneight
+import synEightNineSixteenOne from "../assets/images/syneight/syneight-9-16-num1.jpg";
+import synEightNineSixteenTwo from "../assets/images/syneight/syneight-9-16-num2.jpg";
+import synEightNineSixteenThree from "../assets/images/syneight/syneight-9-16-num3.jpg";
+import synEightNineSixteenFour from "../assets/images/syneight/syneight-9-16-num4.jpg";
+import synEightNineSixteenFive from "../assets/images/syneight/syneight-9-16-num5.jpg";
 
 //eventually TS will be useful here
 export const projectDetails = [
@@ -22,6 +42,13 @@ export const projectDetails = [
     liveSite: true,
     liveSiteUrl: "https://www.rainydaystudio.co.uk/",
     coverImage: rainydayCover,
+    images: [
+      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
+      { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberTwo },
+      { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberThree },
+      { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberOne },
+      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberTwo },
+    ],
     smallScreenImageLayout: [
       { type: "wide", images: [0] },
       { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
@@ -41,9 +68,15 @@ export const projectDetails = [
     explore: true,
     liveSite: false,
     coverImage: johnPeelCover,
+    images: [
+      { aspectRatio: "4 / 5", img: johnPeelCover },
+      { aspectRatio: "16 / 9", img: johnPeelSixteenNineOne },
+      { aspectRatio: "4 / 5", img: johnPeelFourFiveOne },
+      { aspectRatio: "4 / 5", img: johnPeelFourFiveTwo },
+    ],
     smallScreenImageLayout: [
-      { type: "wide", images: [0] },
-      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
+      { type: "wide", images: [1] },
+      { type: "double", aspectRatio: "4 / 5", images: [0, 2] },
     ],
   },
   {
@@ -118,6 +151,13 @@ export const projectDetails = [
     explore: true,
     liveSite: false,
     coverImage: synEightCover,
+    images: [
+      { aspectRatio: "9 / 16", img: synEightNineSixteenOne },
+      { aspectRatio: "9 / 16", img: synEightNineSixteenTwo },
+      { aspectRatio: "9 / 16", img: synEightNineSixteenThree },
+      { aspectRatio: "9 / 16", img: synEightNineSixteenFour },
+      { aspectRatio: "9 / 16", img: synEightNineSixteenFive },
+    ],
     smallScreenImageLayout: [
       { type: "wide", images: [0] },
       { type: "double", aspectRatio: "9 / 16", images: [1, 2] },

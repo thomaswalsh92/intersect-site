@@ -635,7 +635,7 @@ export default function Home({
                 {/* </div>
                 )} */}
                 <div id="landing-flavour">
-                  <p className="text-1 landing-flavour-text">
+                  <p className="text-3 landing-flavour-text">
                     Cohesive digital identity for culture-led brands.
                   </p>
                 </div>
