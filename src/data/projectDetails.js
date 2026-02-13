@@ -93,6 +93,11 @@ export const projectDetails = [
     explore: true,
     liveSite: false,
     coverImage: cropCover,
+    //! TEST PLACEHOLDER
+    images: [
+      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
+      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
+    ],
     smallScreenImageLayout: [
       { type: "wide", images: [0] },
       { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
@@ -113,6 +118,11 @@ export const projectDetails = [
     explore: true,
     liveSite: false,
     coverImage: darskCover,
+    //! TEST PLACEHOLDER
+    images: [
+      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
+      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
+    ],
     smallScreenImageLayout: [
       { type: "wide", images: [0] },
       { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
@@ -132,6 +142,11 @@ export const projectDetails = [
     explore: true,
     liveSite: false,
     coverImage: shimmerCover,
+    //! TEST PLACEHOLDER
+    images: [
+      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
+      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
+    ],
     smallScreenImageLayout: [
       { type: "wide", images: [0] },
       { type: "double", aspectRatio: "9 / 16", images: [1, 2] },

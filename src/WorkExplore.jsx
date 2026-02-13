@@ -28,16 +28,18 @@ export default function WorkExplore({
   const currentProjectData = projectDetails.find(
     ({ slug }) => slug === currentProject,
   );
-  const imagePlaceholders = [
-    { aspectRatio: "16 / 9", img: johnPeelSixteenNineOne },
-    { aspectRatio: "4 / 5", img: johnPeelFourFiveOne },
-    { aspectRatio: "4 / 5", img: johnPeelFourFiveTwo },
-    // { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
-    // { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberTwo },
-    // { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberThree },
-    // { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberOne },
-    // { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberTwo },
-  ];
+
+  console.log(currentProjectData);
+  // const imagePlaceholders = [
+  //   { aspectRatio: "16 / 9", img: johnPeelSixteenNineOne },
+  //   { aspectRatio: "4 / 5", img: johnPeelFourFiveOne },
+  //   { aspectRatio: "4 / 5", img: johnPeelFourFiveTwo },
+  //   // { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
+  //   // { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberTwo },
+  //   // { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberThree },
+  //   // { aspectRatio: "9 / 16", img: rainydayNineSixteenNumberOne },
+  //   // { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberTwo },
+  // ];
   const overlayRef = useRef(null);
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export default function WorkExplore({
         <WorkExploreDesktop
           active={active}
           currentProjectData={currentProjectData}
-          imagePlaceholders={imagePlaceholders}
+          images={currentProjectData.images}
         />
       )}
       <div id="work-explore-scroll">
@@ -71,7 +73,7 @@ export default function WorkExplore({
           <WorkExploreSmallScreen
             active={active}
             currentProjectData={currentProjectData}
-            imagePlaceholders={imagePlaceholders}
+            images={currentProjectData.images}
           />
         )}
       </div>

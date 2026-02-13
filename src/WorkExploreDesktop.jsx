@@ -8,7 +8,7 @@ import ImageRail from "./ImageRail";
 export default function WorkExploreDesktop({
   active,
   currentProjectData,
-  imagePlaceholders,
+  images,
 }) {
   const [width, setWidth] = useState();
   const [widthUnit, setWidthUnit] = useState();
@@ -145,7 +145,7 @@ export default function WorkExploreDesktop({
           active={active}
           width={width}
           widthUnit={widthUnit}
-          imagePlaceholders={imagePlaceholders}
+          images={images}
           // handleForward={handleForward}
           // handleBack={handleBack}
         />

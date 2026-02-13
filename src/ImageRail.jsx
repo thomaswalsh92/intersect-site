@@ -6,7 +6,7 @@ import useHorizontalSwipe from "./utils/useHorizontalSwipe";
 gsap.registerPlugin(gsap);
 gsap.registerPlugin(Observer);
 
-export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
+export default function ImageRail({ active, images, widthUnit }) {
   const gapWidth = widthUnit * 2;
   const imageRail = useRef(null);
   const [railHeight, setRailHeight] = useState();
@@ -157,7 +157,7 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
 
   function checkLengthAndDouble(arr, depth = 0) {
     const totalWidth = getImagesWidthTotal(arr);
-    const extraLoopBuffer = getImagesWidthTotal(imagePlaceholders);
+    const extraLoopBuffer = getImagesWidthTotal(images);
     if (totalWidth > window.innerWidth + extraLoopBuffer && depth >= 1) {
       return arr;
     }
@@ -181,9 +181,9 @@ export default function ImageRail({ active, imagePlaceholders, widthUnit }) {
   useEffect(() => {
     if (!active || !widthUnit || !railHeight) return;
 
-    const wideEnoughArr = checkLengthAndDouble(imagePlaceholders);
+    const wideEnoughArr = checkLengthAndDouble(images);
     setRailImages(wideEnoughArr);
-    setBufferArrayOffset(getImagesWidthTotal(imagePlaceholders) + gapWidth + 2);
+    setBufferArrayOffset(getImagesWidthTotal(images) + gapWidth + 2);
   }, [active, widthUnit, railHeight]);
 
   const animatingRef = useRef(false);
