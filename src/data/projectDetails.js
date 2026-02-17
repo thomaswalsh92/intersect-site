@@ -22,6 +22,11 @@ import johnPeelFourFiveTwo from "../assets/images/john-peel/john-peel-4-5-num2.j
 import darskNineSixteenOne from "../assets/images/darsk/darsk-9-16-num1.jpg";
 import darskSixteenNineOne from "../assets/images/darsk/darsk-16-9-num1.jpg";
 
+//shimmer
+import shimmerSixteenNineOne from "../assets/images/shimmer/shimmer-16-9-num1.jpg";
+import shimmerSixteenNineTwo from "../assets/images/shimmer/shimmer-16-9-num2.jpg";
+import shimmerFourFiveOne from "../assets/images/shimmer/shimmer-4-5-num1.jpg";
+
 //syneight
 import synEightNineSixteenOne from "../assets/images/syneight/syneight-9-16-num1.jpg";
 import synEightNineSixteenTwo from "../assets/images/syneight/syneight-9-16-num2.jpg";
@@ -82,30 +87,30 @@ export const projectDetails = [
       { type: "double", aspectRatio: "4 / 5", images: [0, 2] },
     ],
   },
-  {
-    slug: "crop-radio",
-    project: "CROP MAGAZINE LAUNCH",
-    client: "CROP RADIO",
-    disciplines: ["MOTION DESIGN"],
-    published: 2025,
-    shortDescription:
-      "CROP MAGAZINE Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-    longDescription:
-      "CROP MAGAZINE Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
-    showSmallScreen: false,
-    explore: true,
-    liveSite: false,
-    coverImage: cropCover,
-    //! TEST PLACEHOLDER
-    images: [
-      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
-      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
-    ],
-    smallScreenImageLayout: [
-      { type: "wide", images: [0] },
-      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
-    ],
-  },
+  // {
+  //   slug: "crop-radio",
+  //   project: "CROP MAGAZINE LAUNCH",
+  //   client: "CROP RADIO",
+  //   disciplines: ["MOTION DESIGN"],
+  //   published: 2025,
+  //   shortDescription:
+  //     "CROP MAGAZINE Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  //   longDescription:
+  //     "CROP MAGAZINE Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
+  //   showSmallScreen: false,
+  //   explore: true,
+  //   liveSite: false,
+  //   coverImage: cropCover,
+  //   //! TEST PLACEHOLDER
+  //   images: [
+  //     { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
+  //     { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
+  //   ],
+  //   smallScreenImageLayout: [
+  //     { type: "wide", images: [0] },
+  //     { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
+  //   ],
+  // },
   {
     slug: "darsk",
     project: "DARSK VISUAL IDENTITY",
@@ -121,7 +126,6 @@ export const projectDetails = [
     explore: true,
     liveSite: false,
     coverImage: darskCover,
-    //! TEST PLACEHOLDER
     images: [
       // { aspectRatio: "4 / 5", img: darskCover },
       { aspectRatio: "9 / 16", img: darskNineSixteenOne },
@@ -134,7 +138,7 @@ export const projectDetails = [
   },
   {
     slug: "shimmer",
-    project: "SHIMMER VISUAL INDENTITY",
+    project: "SHIMMER VISUAL IDENTITY",
     client: "SHIMMER",
     disciplines: ["GRAPHIC DESIGN", "MOTION DESIGN"],
     published: 2025,
@@ -146,10 +150,10 @@ export const projectDetails = [
     explore: true,
     liveSite: false,
     coverImage: shimmerCover,
-    //! TEST PLACEHOLDER
     images: [
-      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
-      { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberOne },
+      { aspectRatio: "16 / 9", img: shimmerSixteenNineOne },
+      { aspectRatio: "4 / 5", img: shimmerFourFiveOne },
+      { aspectRatio: "16 / 9", img: shimmerSixteenNineTwo },
     ],
     smallScreenImageLayout: [
       { type: "wide", images: [0] },

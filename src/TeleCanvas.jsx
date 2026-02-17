@@ -153,7 +153,7 @@ export default function TeleCanvas({
       pos2: {
         target: "info",
         //* workaround for scroll pin travel
-        targetOffset: 2400,
+        targetOffset: 600,
         width: "50vw",
         height: "100%",
         styleOverride: { marginLeft: "50vw" },

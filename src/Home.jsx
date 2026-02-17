@@ -154,7 +154,7 @@ export default function Home({
   //   reelPin: 1200,
 
   // }
-  let pinSectionVal = "+=1200";
+  let pinSectionVal = "+=300";
 
   useGSAP(
     () => {
@@ -200,7 +200,7 @@ export default function Home({
           scrollTrigger: {
             trigger: "#work",
             start: "top top",
-            end: "+=2400",
+            end: "+=600",
             scrub: true,
             pin: true,
           },

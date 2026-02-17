@@ -195,6 +195,7 @@ export default function ImageRail({ active, images, widthUnit }) {
   }
 
   function handleForward() {
+    if (animatingRef.current) return;
     animatingRef.current = "forward";
 
     const distance = railImages[railImages.length - 1].width + gapWidth;
@@ -208,11 +209,13 @@ export default function ImageRail({ active, images, widthUnit }) {
         const last = newArr.pop();
         newArr.unshift(last);
         setRailImages(newArr);
+        animatingRef.current = false;
       },
     });
   }
 
   function handleBack() {
+    if (animatingRef.current) return;
     animatingRef.current = "back";
     const distance = railImages[0].width + gapWidth;
 
@@ -225,6 +228,7 @@ export default function ImageRail({ active, images, widthUnit }) {
         const first = newArr.shift();
         newArr.push(first);
         setRailImages(newArr);
+        animatingRef.current = false;
       },
     });
   }

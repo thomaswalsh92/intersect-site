@@ -12,12 +12,6 @@ import WorkActions from "./WorkActions";
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
 export default function WorkGridDesktop({ projectDetails, openProject }) {
-  //! STUBBED DATA to be removed
-  // supports 2 length array of actions e.g. live site and explore e.g.
-  // actions: [{type: string, title: string, url: string}, {type: string, title: string, url: string}]
-
-  //types: "live-site", "explore"
-
   //* refactor opp -> change to useReducer
   const [width, setWidth] = useState();
   const [height, setHeight] = useState();
@@ -283,7 +277,9 @@ export default function WorkGridDesktop({ projectDetails, openProject }) {
         style={{
           gridColumn: "span 8",
           gridRow: "span 1",
+          cursor: "pointer",
         }}
+        onClick={() => openProject(projectDetails[selected].slug)}
       >
         <img src={projectDetails[selected].coverImage} />
       </div>
