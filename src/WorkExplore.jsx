@@ -28,8 +28,6 @@ export default function WorkExplore({
   const currentProjectData = projectDetails.find(
     ({ slug }) => slug === currentProject,
   );
-
-  console.log(currentProjectData);
   // const imagePlaceholders = [
   //   { aspectRatio: "16 / 9", img: johnPeelSixteenNineOne },
   //   { aspectRatio: "4 / 5", img: johnPeelFourFiveOne },

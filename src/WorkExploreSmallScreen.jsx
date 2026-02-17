@@ -26,7 +26,6 @@ export default function WorkExploreSmallScreen({
     if (!active) return;
     setWidthUnit(window.innerWidth / 19);
   }, [active]);
-
   return (
     <div
       id="work-explore-small-grid"
@@ -41,14 +40,28 @@ export default function WorkExploreSmallScreen({
         columns={columns}
         isMedium={isMedium}
       />
-      {isMedium && <WorkExploreSpacerBlock widthUnit={widthUnit} />}
-      <WorkExploreWideBlock columns={columns} isMedium={isMedium} />
-      {isMedium && <WorkExploreSpacerBlock widthUnit={widthUnit} />}
-      <WorkExploreDoubleBlock
-        aspectRatio={"9 / 16"}
-        columns={columns}
-        isMedium={isMedium}
-      />
+      {currentProjectData.smallScreenImageLayout.map((row) => {
+        return (
+          <>
+            {isMedium && <WorkExploreSpacerBlock widthUnit={widthUnit} />}
+            {row.type === "wide" && (
+              <WorkExploreWideBlock
+                images={row.images}
+                columns={columns}
+                isMedium={isMedium}
+              />
+            )}
+            {row.type === "double" && (
+              <WorkExploreDoubleBlock
+                images={row.images}
+                aspectRatio={row.aspectRatio}
+                columns={columns}
+                isMedium={isMedium}
+              />
+            )}
+          </>
+        );
+      })}
       <div
         aria-hidden="true"
         id="dynamic-spacer"
@@ -150,7 +163,9 @@ function WorkExploreDetailsBlock({
     </div>
   );
 }
-function WorkExploreWideBlock({ columns, isMedium }) {
+
+//single 16 x 9 image block
+function WorkExploreWideBlock({ images, columns, isMedium }) {
   return (
     <div
       style={{ display: "grid", gridTemplateColumns: columns }}
@@ -169,7 +184,9 @@ function WorkExploreWideBlock({ columns, isMedium }) {
           gridColumn: "span 17",
         }}
         className={`work-grid-block work-explore-image-block ${!isMedium && "work-grid-end-block"}`}
-      ></div>
+      >
+        <img src={images[0]} />
+      </div>
       {isMedium && (
         <div
           style={{
@@ -184,7 +201,8 @@ function WorkExploreWideBlock({ columns, isMedium }) {
   );
 }
 
-function WorkExploreDoubleBlock({ aspectRatio, isMedium, columns }) {
+//double image block with variable aspect ratio
+function WorkExploreDoubleBlock({ images, aspectRatio, isMedium, columns }) {
   return (
     <div
       style={{ display: "grid", gridTemplateColumns: columns }}
@@ -203,7 +221,9 @@ function WorkExploreDoubleBlock({ aspectRatio, isMedium, columns }) {
           gridColumn: "span 8",
         }}
         className="work-grid-block work-explore-image-block"
-      ></div>
+      >
+        <img src={images[0]}></img>
+      </div>
       {isMedium && (
         <div
           style={{ gridColumn: "span 1" }}
@@ -217,7 +237,9 @@ function WorkExploreDoubleBlock({ aspectRatio, isMedium, columns }) {
           gridColumn: "span 8",
         }}
         className={`work-grid-block work-explore-image-block ${!isMedium && "work-grid-end-block"}`}
-      ></div>
+      >
+        <img src={images[1]}></img>
+      </div>
       {isMedium && (
         <div
           style={{

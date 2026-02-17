@@ -59,8 +59,13 @@ export const projectDetails = [
       { aspectRatio: "16 / 9", img: rainydaySixteenNineNumberTwo },
     ],
     smallScreenImageLayout: [
-      { type: "wide", images: [0] },
-      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
+      { type: "wide", images: [rainydaySixteenNineNumberOne] },
+      {
+        type: "double",
+        aspectRatio: "9 / 16",
+        images: [rainydayNineSixteenNumberTwo, rainydayNineSixteenNumberThree],
+      },
+      { type: "wide", images: [rainydaySixteenNineNumberTwo] },
     ],
   },
   {
@@ -83,8 +88,12 @@ export const projectDetails = [
       { aspectRatio: "16 / 9", img: johnPeelSixteenNineOne },
     ],
     smallScreenImageLayout: [
-      { type: "wide", images: [1] },
-      { type: "double", aspectRatio: "4 / 5", images: [0, 2] },
+      {
+        type: "double",
+        aspectRatio: "4 / 5",
+        images: [johnPeelFourFiveOne, johnPeelFourFiveTwo],
+      },
+      { type: "wide", images: [johnPeelSixteenNineOne] },
     ],
   },
   // {
@@ -131,10 +140,10 @@ export const projectDetails = [
       { aspectRatio: "9 / 16", img: darskNineSixteenOne },
       { aspectRatio: "16 / 9", img: darskSixteenNineOne },
     ],
-    smallScreenImageLayout: [
-      { type: "wide", images: [0] },
-      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
-    ],
+    // smallScreenImageLayout: [
+    //   { type: "wide", images: [0] },
+    //   { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
+    // ],
   },
   {
     slug: "shimmer",
@@ -146,7 +155,7 @@ export const projectDetails = [
       "SHIMMER Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
     longDescription:
       "SHIMMER Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
-    showSmallScreen: false,
+    showSmallScreen: true,
     explore: true,
     liveSite: false,
     coverImage: shimmerCover,
@@ -156,8 +165,13 @@ export const projectDetails = [
       { aspectRatio: "16 / 9", img: shimmerSixteenNineTwo },
     ],
     smallScreenImageLayout: [
-      { type: "wide", images: [0] },
-      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
+      { type: "wide", images: [shimmerSixteenNineOne] },
+      {
+        type: "double",
+        aspectRatio: "4 / 5",
+        images: [shimmerFourFiveOne, shimmerCover],
+      },
+      { type: "wide", images: [shimmerSixteenNineTwo] },
     ],
   },
   {
@@ -170,7 +184,7 @@ export const projectDetails = [
       "SYNEIGHT Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
     longDescription:
       "SYNEIGHT Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
-    showSmallScreen: true,
+    showSmallScreen: false,
     explore: true,
     liveSite: false,
     coverImage: synEightCover,
@@ -181,9 +195,9 @@ export const projectDetails = [
       { aspectRatio: "9 / 16", img: synEightNineSixteenFour },
       { aspectRatio: "9 / 16", img: synEightNineSixteenFive },
     ],
-    smallScreenImageLayout: [
-      { type: "wide", images: [0] },
-      { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
-    ],
+    // smallScreenImageLayout: [
+    //   { type: "wide", images: [0] },
+    //   { type: "double", aspectRatio: "9 / 16", images: [1, 2] },
+    // ],
   },
 ];

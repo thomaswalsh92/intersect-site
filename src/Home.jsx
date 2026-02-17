@@ -636,7 +636,8 @@ export default function Home({
                 )} */}
                 <div id="landing-flavour">
                   <p className="text-3 landing-flavour-text">
-                    Cohesive digital identity for culture-led brands.
+                    A multidisciplinary studio where culture, design and
+                    technology converge.
                   </p>
                 </div>
                 <div
@@ -731,8 +732,10 @@ export default function Home({
                         THIS IS <span className="text-1">INTERSECT</span>
                       </p>
                       <p className="text-3 info-text" style={{ marginTop: 8 }}>
-                        A design studio building cohesive digital identity
-                        across web, motion and 3D for culture-led brands.
+                        We partner with artists, brands and organisations
+                        shaping culture - not following it. Across graphics,
+                        web, motion and 3D, we build digital worlds that express
+                        a singular voice across multiple mediums
                       </p>
                       <p
                         className="text-1 info-heading"

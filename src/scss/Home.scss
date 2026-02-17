@@ -318,21 +318,20 @@ html {
 #landing-flavour {
   position: absolute;
   color: $White;
-  top: 65vh;
-  left: 50vw;
-  // padding-top: 16px;
-  // padding-left: 16px;
-  width: 40vw;
-  // mix-blend-mode: difference;
+  top: 70vh;
+  left: 65vw;
+  padding-top: 16px;
+  padding-left: 16px;
+  width: 20vw;
   p {
-    font-size: 1.6vw;
+    font-size: 1vw;
     color: #ffffff;
     mix-blend-mode: difference;
   }
 
   @include down($bp-xl) {
     p {
-      font-size: 1.1vw;
+      font-size: 1.2vw;
     }
   }
 
