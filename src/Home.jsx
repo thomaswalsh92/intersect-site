@@ -22,7 +22,7 @@ import {
   IntersectLogoCenter,
   IntersectLogoRight,
 } from "./IntersectLogo";
-import loadingGIF from "./assets/images/loading.gif";
+// import loadingGIF from "./assets/images/loading.gif";
 import useWindowDimensions from "./utils/useWindowDimensions";
 // import TeleCanvas from "./TeleCanvas";
 import WorkGridDesktop from "./WorkGridDesktop";
@@ -487,7 +487,7 @@ export default function Home({
   return (
     <>
       {/* <LoadingScreen /> */}
-      {!appReady && <LoadingScreen />}
+      {/* {!appReady && <LoadingScreen />} */}
       <div id="navbar">
         <p
           id="navbar-title"
