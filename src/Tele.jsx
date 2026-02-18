@@ -22,11 +22,11 @@ export function Tele({ onAssetsLoaded, rotationFixed }) {
   useEffect(() => {
     onAssetsLoaded();
   }, []);
-  const { scene, nodes } = useGLTF("/models/tele.glb");
+  const { scene, nodes } = useGLTF("/models/tele-compressed.glb");
   // //access panel tex
   // const videoTexture = useVideoTexture("/textures/intersect-tv-video-test.mp4");
   const glitchVideoTexture = useVideoTexture(
-    "/textures/intersect-logo-glitch-1x1.mp4"
+    "/textures/intersect-logo-glitch-1x1.mp4",
   );
   const textures = useTexture({
     // access panel
@@ -127,14 +127,14 @@ export function Tele({ onAssetsLoaded, rotationFixed }) {
         ref.current.rotation.y,
         targetY,
         6,
-        delta
+        delta,
       );
 
       ref.current.rotation.x = THREE.MathUtils.damp(
         ref.current.rotation.x,
         targetX,
         6,
-        delta
+        delta,
       );
     }
 
