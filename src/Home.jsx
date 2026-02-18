@@ -60,7 +60,11 @@ function LoadingScreen() {
 
   return (
     <div id="loading-screen">
-      {/* <img src={loadingGIF} alt="Loading..." /> */}
+      <div id="loading-animation">
+        <IntersectLogoLeft loading />
+        <IntersectLogoCenter loading />
+        <IntersectLogoRight loading />
+      </div>
       <p className="text-1">
         LOADING
         <span className="text-1" id="loading-underscore-blink">

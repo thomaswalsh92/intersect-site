@@ -193,6 +193,46 @@ html {
   }
 }
 
+#loading-animation {
+  display: flex;
+  justify-content: center;
+  svg {
+    width: 3vw;
+  }
+
+  #intersect-logo-left {
+    animation: slowUpQuickDown 2s ease-in-out infinite;
+  }
+
+  #intersect-logo-center {
+    animation: slowUpQuickDown 2s ease-in-out 0.2s infinite;
+  }
+
+  #intersect-logo-right {
+    animation: slowUpQuickDown 2s ease-in-out 0.4s infinite;
+  }
+}
+
+@keyframes slowUpQuickDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+    animation-timing-function: ease-out;
+  }
+  60% {
+    transform: translateY(-15px);
+    animation-timing-function: linear;
+  }
+  70% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 @keyframes blink {
   0% {
     opacity: 1;
