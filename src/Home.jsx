@@ -24,7 +24,7 @@ import {
 } from "./IntersectLogo";
 import loadingGIF from "./assets/images/loading.gif";
 import useWindowDimensions from "./utils/useWindowDimensions";
-import TeleCanvas from "./TeleCanvas";
+// import TeleCanvas from "./TeleCanvas";
 import WorkGridDesktop from "./WorkGridDesktop";
 import WorkGridSmallScreen from "./WorkGridSmallScreen";
 import { useBreakpoint } from "./utils/useBreakpoint";
@@ -115,14 +115,14 @@ export default function Home({
   }
 
   //! turn off screen test
-  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(false);
+  const [teleAssetsLoaded, setTeleAssetsLoaded] = useState(true);
 
   function onTeleWebGLReady() {
     setTeleWebGLReady(true);
   }
 
   //! turn off screen test
-  const [teleWebGLReady, setTeleWebGLReady] = useState(false);
+  const [teleWebGLReady, setTeleWebGLReady] = useState(true);
 
   useEffect(() => {
     if (teleAssetsLoaded && teleWebGLReady) {
@@ -601,7 +601,7 @@ export default function Home({
                     <p className="indent-1 landing-capability-text">{"}"}</p>
                   </div>
                 )}
-                {useBreakpoint("sm", "down") && (
+                {/* {useBreakpoint("sm", "down") && (
                   <TeleCanvas
                     height={height}
                     width={width}
@@ -617,7 +617,7 @@ export default function Home({
                     //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
                     // }
                   />
-                )}
+                )} */}
                 {/* {useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"
@@ -651,7 +651,7 @@ export default function Home({
                 </div>
               </div>
               <div id="reel" ref={reelRef}>
-                {!useBreakpoint("sm", "down") && (
+                {/* {!useBreakpoint("sm", "down") && (
                   <TeleCanvas
                     height={height}
                     width={width}
@@ -667,7 +667,7 @@ export default function Home({
                     //   teleContext === "reel" ? [0, 0, 28] : [0, 0, 100]
                     // }
                   />
-                )}
+                )} */}
                 {/* {!useBreakpoint("sm", "down") && (
                   <div
                     id="tele-container"
