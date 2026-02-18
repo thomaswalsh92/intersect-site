@@ -62,6 +62,7 @@ export default function WorkExploreSmallScreen({
           </>
         );
       })}
+      {isMedium && <WorkExploreSpacerBlock widthUnit={widthUnit} />}
       <div
         aria-hidden="true"
         id="dynamic-spacer"

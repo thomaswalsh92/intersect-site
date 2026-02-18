@@ -43,9 +43,9 @@ export const projectDetails = [
     disciplines: ["WEB DESIGN", "WEB DEVELOPMENT"],
     published: 2025,
     shortDescription:
-      "RAINYDAY Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      "Bespoke website for photography and videography studio Rainyday Studio.",
     longDescription:
-      "RAINYDAY Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
+      "Bespoke website for photography and videography Rainyday Studio, built to showcase high quality video and photography work.",
     showSmallScreen: true,
     explore: true,
     liveSite: true,
@@ -75,9 +75,9 @@ export const projectDetails = [
     disciplines: ["GRAPHIC DESIGN"],
     published: 2025,
     shortDescription:
-      "JOHN PEEL Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      "Print design for the auction of John Peel's record collection.",
     longDescription:
-      "JOHN PEEL Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
+      "Booklet cover and inner designs for the auction of the late, highly-influential BBC Radio DJ John Peel's record collection. ",
     showSmallScreen: true,
     explore: true,
     liveSite: false,
@@ -126,10 +126,9 @@ export const projectDetails = [
     client: "DARSK",
     disciplines: ["GRAPHIC DESIGN", "MOTION DESIGN"],
     published: 2025,
-    shortDescription:
-      "DARSK Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    shortDescription: "Visual identity for electronic artist Darsk.",
     longDescription:
-      "DARSK Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
+      "Visual identity for electronic artist Darsk, look and concept development, branding, album artwork and motion for Spotify canvas.",
     actions: undefined,
     showSmallScreen: false,
     explore: true,
@@ -152,9 +151,9 @@ export const projectDetails = [
     disciplines: ["GRAPHIC DESIGN", "MOTION DESIGN"],
     published: 2025,
     shortDescription:
-      "SHIMMER Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      "Visual identity and promotional assets for music and audio visual event series.",
     longDescription:
-      "SHIMMER Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
+      "Visual identity for Shimmer, concept development, branding, posters, promotional assets, motion, video editing and social media management.",
     showSmallScreen: true,
     explore: true,
     liveSite: false,
@@ -180,10 +179,9 @@ export const projectDetails = [
     client: "INTERSECT",
     disciplines: ["3D DESIGN", "MOTION DESIGN"],
     published: 2025,
-    shortDescription:
-      "SYNEIGHT Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    shortDescription: "3D Product Video for SynEight",
     longDescription:
-      "SYNEIGHT Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel ante diam. Duis rhoncus sapien enim, sagittis ornare dolor mattis sed. Sed id faucibus enim. Aenean porta sagittis nisl eu egestas. Ut felis dolor, ultricies in tristique vitae, venenatis et nisi. Etiam porta consectetur justo quis ornare. Nullam rutrum vulputate.",
+      "End to end production of a 3D product video for SynEight. Visual product design, storyboarding, 3D modelling, rendering, editing and motion graphics. ",
     showSmallScreen: false,
     explore: true,
     liveSite: false,
