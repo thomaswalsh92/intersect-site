@@ -28,64 +28,64 @@ export function Tele({ onAssetsLoaded, rotationFixed }) {
   const glitchVideoTexture = useVideoTexture(
     "/textures/intersect-logo-glitch-1x1.mp4",
   );
-  // const textures = useTexture({
-  //   // access rte
-  //   accessPanelDiffuse: "/textures/access-panel_Bake1_PBR_Diffuse.webp",
-  //   accessPanelNormal: "/textures/access-panel_Bake1_PBR_Normal.webp",
-  //   accessPanelRoughness: "/textures/access-panel_Bake1_PBR_Roughness.webp",
+  const textures = useTexture({
+    // // access rte
+    // accessPanelDiffuse: "/textures/access-panel_Bake1_PBR_Diffuse.webp",
+    // accessPanelNormal: "/textures/access-panel_Bake1_PBR_Normal.webp",
+    // accessPanelRoughness: "/textures/access-panel_Bake1_PBR_Roughness.webp",
 
-  //   // aerial
-  //   aerialDiffuse: "/textures/aerial_Bake1_PBR_Diffuse.webp",
-  //   aerialNormal: "/textures/aerial_Bake1_PBR_Normal.webp",
-  //   aerialRoughness: "/textures/aerial_Bake1_PBR_Roughness.webp",
+    // // aerial
+    // aerialDiffuse: "/textures/aerial_Bake1_PBR_Diffuse.webp",
+    // aerialNormal: "/textures/aerial_Bake1_PBR_Normal.webp",
+    // aerialRoughness: "/textures/aerial_Bake1_PBR_Roughness.webp",
 
-  //   // aerial holder
-  //   aerialHolderDiffuse: "/textures/aerial-holder_Bake1_PBR_Diffuse.webp",
-  //   aerialHolderNormal: "/textures/aerial-holder_Bake1_PBR_Normal.webp",
-  //   aerialHolderRoughness: "/textures/aerial-holder_Bake1_PBR_Roughness.webp",
+    // // aerial holder
+    // aerialHolderDiffuse: "/textures/aerial-holder_Bake1_PBR_Diffuse.webp",
+    // aerialHolderNormal: "/textures/aerial-holder_Bake1_PBR_Normal.webp",
+    // aerialHolderRoughness: "/textures/aerial-holder_Bake1_PBR_Roughness.webp",
 
-  //   // body
-  //   bodyDiffuse: "/textures/body_Bake1_PBR_Diffuse.webp",
-  //   bodyNormal: "/textures/body_Bake1_PBR_Normal.webp",
-  //   bodyRoughness: "/textures/body_Bake1_PBR_Roughness.webp",
+    // body
+    // bodyDiffuse: "/textures/body_Bake1_PBR_Diffuse.webp",
+    bodyNormal: "/textures/body_Bake1_PBR_Normal.webp",
+    bodyRoughness: "/textures/body_Bake1_PBR_Roughness.webp",
 
-  //   // button bottom
-  //   buttonBottomDiffuse: "/textures/button-bottom_Bake1_PBR_Diffuse.webp",
-  //   buttonBottomNormal: "/textures/button-bottom_Bake1_PBR_Normal.webp",
-  //   buttonBottomRoughness: "/textures/button-bottom_Bake1_PBR_Roughness.webp",
+    // // button bottom
+    // buttonBottomDiffuse: "/textures/button-bottom_Bake1_PBR_Diffuse.webp",
+    // buttonBottomNormal: "/textures/button-bottom_Bake1_PBR_Normal.webp",
+    // buttonBottomRoughness: "/textures/button-bottom_Bake1_PBR_Roughness.webp",
 
-  //   // button top
-  //   buttonTopDiffuse: "/textures/button-top_Bake1_PBR_Diffuse.webp",
-  //   buttonTopNormal: "/textures/button-top_Bake1_PBR_Normal.webp",
-  //   buttonTopRoughness: "/textures/button-top_Bake1_PBR_Roughness.webp",
+    // // button top
+    // buttonTopDiffuse: "/textures/button-top_Bake1_PBR_Diffuse.webp",
+    // buttonTopNormal: "/textures/button-top_Bake1_PBR_Normal.webp",
+    // buttonTopRoughness: "/textures/button-top_Bake1_PBR_Roughness.webp",
 
-  //   // buttons channel
-  //   buttonsChannelDiffuse: "/textures/buttons-channel_Bake1_PBR_Diffuse.webp",
-  //   buttonsChannelNormal: "/textures/buttons-channel_Bake1_PBR_Normal.webp",
-  //   buttonsChannelRoughness:
-  //     "/textures/buttons-channel_Bake1_PBR_Roughness.webp",
+    // // buttons channel
+    // buttonsChannelDiffuse: "/textures/buttons-channel_Bake1_PBR_Diffuse.webp",
+    // buttonsChannelNormal: "/textures/buttons-channel_Bake1_PBR_Normal.webp",
+    // buttonsChannelRoughness:
+    //   "/textures/buttons-channel_Bake1_PBR_Roughness.webp",
 
-  //   // dial guard
-  //   dialGuardDiffuse: "/textures/dial-guard_Bake1_PBR_Diffuse.webp",
-  //   dialGuardNormal: "/textures/dial-guard_Bake1_PBR_Normal.webp",
-  //   dialGuardRoughness: "/textures/dial-guard_Bake1_PBR_Roughness.webp",
+    // // dial guard
+    // dialGuardDiffuse: "/textures/dial-guard_Bake1_PBR_Diffuse.webp",
+    // dialGuardNormal: "/textures/dial-guard_Bake1_PBR_Normal.webp",
+    // dialGuardRoughness: "/textures/dial-guard_Bake1_PBR_Roughness.webp",
 
-  //   // dial washers
-  //   dialWashersDiffuse: "/textures/dial-washers_Bake1_PBR_Diffuse.webp",
-  //   dialWashersNormal: "/textures/dial-washers_Bake1_PBR_Normal.webp",
-  //   dialWashersRoughness: "/textures/dial-washers_Bake1_PBR_Roughness.webp",
+    // // dial washers
+    // dialWashersDiffuse: "/textures/dial-washers_Bake1_PBR_Diffuse.webp",
+    // dialWashersNormal: "/textures/dial-washers_Bake1_PBR_Normal.webp",
+    // dialWashersRoughness: "/textures/dial-washers_Bake1_PBR_Roughness.webp",
 
-  //   // dials
-  //   dialsDiffuse: "/textures/dials_Bake1_PBR_Diffuse.webp",
-  //   dialsNormal: "/textures/dials_Bake1_PBR_Normal.webp",
-  //   dialsRoughness: "/textures/dials_Bake1_PBR_Roughness.webp",
-  // });
+    // // dials
+    // dialsDiffuse: "/textures/dials_Bake1_PBR_Diffuse.webp",
+    // dialsNormal: "/textures/dials_Bake1_PBR_Normal.webp",
+    // dialsRoughness: "/textures/dials_Bake1_PBR_Roughness.webp",
+  });
 
   // textures.bodyDiffuse.flipY = false;
   // bodyDiffuse.needsUpdate = true;
-  // textures.bodyNormal.flipY = false;
+  textures.bodyNormal.flipY = false;
   // bodyNormal.needsUpdate = true;
-  // textures.bodyRoughness.flipY = false;
+  textures.bodyRoughness.flipY = false;
   // bodyRoughness.needsUpdate = true;
   // aerialHolderDiffuse.flipY = false;
   // aerialHolderDiffuse.needsUpdate = true;
@@ -172,6 +172,7 @@ export function Tele({ onAssetsLoaded, rotationFixed }) {
           // material={nodes["dial-washers_Baked"].material}
         >
           <meshStandardMaterial
+            color={"#b0b0b0"}
             // map={textures.dialWashersDiffuse}
             // normalMap={textures.dialWashersNormal}
             // roughnessMap={textures.dialWashersRoughness}
@@ -185,8 +186,8 @@ export function Tele({ onAssetsLoaded, rotationFixed }) {
         >
           <meshStandardMaterial
             color={"#D3D3D2"}
-            // normalMap={textures.bodyNormal}
-            // roughnessMap={textures.bodyRoughness}
+            normalMap={textures.bodyNormal}
+            roughnessMap={textures.bodyRoughness}
             roughness={0.8}
             envMapIntensity={envMapIntensity}
           />
@@ -280,6 +281,7 @@ export function Tele({ onAssetsLoaded, rotationFixed }) {
           material={nodes["button-bottom_Baked"].material}
         >
           <meshStandardMaterial
+            color={"#363636"}
             // map={textures.buttonBottomDiffuse}
             // normalMap={textures.buttonBottomNormal}
             // roughnessMap={textures.buttonBottomRoughness}
@@ -293,6 +295,7 @@ export function Tele({ onAssetsLoaded, rotationFixed }) {
           // material={nodes["button-top_Baked"].material}
         >
           <meshStandardMaterial
+            color={"#ff6f16"}
             // map={textures.buttonTopDiffuse}
             // normalMap={textures.buttonTopNormal}
             // roughnessMap={textures.buttonTopRoughness}
@@ -306,6 +309,7 @@ export function Tele({ onAssetsLoaded, rotationFixed }) {
           // material={nodes["buttons-channel_Baked"].material}
         >
           <meshStandardMaterial
+            color={"#222222"}
             // map={textures.buttonsChannelDiffuse}
             // normalMap={textures.buttonsChannelNormal}
             // roughnessMap={textures.buttonsChannelRoughness}
@@ -318,6 +322,7 @@ export function Tele({ onAssetsLoaded, rotationFixed }) {
           // material={nodes["dial-guard_Baked"].material}
         >
           <meshStandardMaterial
+            color={"#222222"}
             // map={textures.dialGuardDiffuse}
             // normalMap={textures.dialGuardNormal}
             // roughnessMap={textures.dialGuardRoughness}
@@ -330,13 +335,14 @@ export function Tele({ onAssetsLoaded, rotationFixed }) {
           material={nodes.dials_Baked.material}
         >
           <meshStandardMaterial
+            color={"#222222"}
             // map={textures.dialsDiffuse}
             // normalMap={textures.dialsNormal}
             // roughnessMap={textures.dialsRoughness}
             envMapIntensity={envMapIntensity}
           />
         </mesh>
-        <mesh
+        {/* <mesh
           castShadow
           receiveShadow
           geometry={nodes["aerial-holder_Baked"].geometry}
@@ -350,7 +356,7 @@ export function Tele({ onAssetsLoaded, rotationFixed }) {
             // roughnessMap={textures.aerialHolderRoughness}
             envMapIntensity={envMapIntensity}
           />
-        </mesh>
+        </mesh> */}
       </group>
     </>
   );
