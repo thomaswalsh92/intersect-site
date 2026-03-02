@@ -158,7 +158,7 @@ export default function Home({
   //   reelPin: 1200,
 
   // }
-  let pinSectionVal = "+=300";
+  let pinSectionVal = "+=900";
 
   useGSAP(
     () => {
