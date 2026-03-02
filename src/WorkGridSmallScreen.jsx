@@ -52,21 +52,21 @@ function WorkGridSmallScreenItem({
 }) {
   const itemRef = useRef(null);
 
-  useGSAP(
-    () => {
-      gsap.from(itemRef.current, {
-        scrollTrigger: {
-          trigger: itemRef.current,
-          start: `top top+=${headerHeight}`,
-          end: `"+=${smallScreenPinVal}`,
-          scrub: true,
-          pin: true,
-          pinSpacing: true,
-        },
-      });
-    },
-    { dependencies: [itemRef] },
-  );
+  // useGSAP(
+  //   () => {
+  //     gsap.from(itemRef.current, {
+  //       scrollTrigger: {
+  //         trigger: itemRef.current,
+  //         start: `top top+=${headerHeight}`,
+  //         end: `"+=${smallScreenPinVal}`,
+  //         scrub: true,
+  //         pin: true,
+  //         pinSpacing: true,
+  //       },
+  //     });
+  //   },
+  //   { dependencies: [itemRef] },
+  // );
   return (
     <div
       ref={itemRef}

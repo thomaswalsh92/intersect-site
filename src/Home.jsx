@@ -739,7 +739,7 @@ export default function Home({
                         We partner with artists, brands and organisations
                         shaping culture - not following it. Across graphics,
                         web, motion and 3D, we build digital worlds that express
-                        a singular voice across multiple mediums
+                        a singular voice across multiple mediums.
                       </p>
                       <p
                         className="text-1 info-heading"
