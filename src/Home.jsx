@@ -107,11 +107,8 @@ export default function Home({
 
   const smallScreenPinVal = 400;
 
-  //horrible
   const smallScreenWorkHeight =
-    (smallScreenProjectHeight + smallScreenPinVal) *
-      smallScreenProjects.length +
-    headerHeight * smallScreenProjects.length;
+    smallScreenProjectHeight * smallScreenProjects.length;
 
   //*LOADING
   function onTeleAssetsLoaded() {
