@@ -3,16 +3,22 @@ export default function WorkActions({
   openProject,
   screenSize,
 }) {
+  const hasLiveSite = selectedProject.liveSite;
+  const exploreSpan = hasLiveSite
+    ? screenSize === "desktop"
+      ? "span 2"
+      : "span 1"
+    : screenSize === "desktop"
+      ? "span 4"
+      : "span 2";
+
   return (
     <>
       {selectedProject.explore ? (
         <div
           className="work-grid-block work-grid-action-block"
           id="work-grid-action-explore"
-          style={{
-            gridColumn: screenSize === "desktop" ? "span 2" : "span 1",
-            gridRow: "span 1",
-          }}
+          style={{ gridColumn: exploreSpan, gridRow: "span 1" }}
           onClick={() => openProject(selectedProject.slug)}
         >
           <p className="text-2">{"EXPLORE->"}</p>
@@ -20,14 +26,10 @@ export default function WorkActions({
       ) : (
         <div
           className="work-grid-block"
-          id="work-grid-action-explore"
-          style={{
-            gridColumn: screenSize === "desktop" ? "span 2" : "span 1",
-            gridRow: "span 1",
-          }}
+          style={{ gridColumn: exploreSpan, gridRow: "span 1" }}
         ></div>
       )}
-      {selectedProject.liveSite ? (
+      {hasLiveSite && (
         <div
           className="work-grid-block work-grid-action-block"
           id="work-grid-action-live-site"
@@ -40,15 +42,6 @@ export default function WorkActions({
             <p className="text-2">{"LIVE SITE->"}</p>
           </a>
         </div>
-      ) : (
-        <div
-          className="work-grid-block"
-          id="work-grid-action-explore"
-          style={{
-            gridColumn: screenSize === "desktop" ? "span 2" : "span 1",
-            gridRow: "span 1",
-          }}
-        ></div>
       )}
     </>
   );

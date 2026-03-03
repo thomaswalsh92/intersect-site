@@ -74,7 +74,7 @@ function WorkGridSmallScreenItem({
         height: smallScreenProjectHeight,
         width: "100%",
         display: "grid",
-        gridTemplateRows: "64vh 1fr 1fr 1fr",
+        gridTemplateRows: "75vh 1fr 1fr",
         gridTemplateColumns: "1fr 1fr 1fr 1fr",
       }}
     >
@@ -107,26 +107,11 @@ function WorkGridSmallScreenItem({
         <p className="text-2">{proj.client}</p>
       </div>
       <div
-        style={{ gridColumn: "span 2", gridRow: "span 2" }}
-        className="work-grid-block work-grid-project-block"
-        // id="work-grid-title"
-      >
-        <p className="text-1">{proj.shortDescription}</p>
-      </div>
-      <div
         style={{ gridColumn: "span 2", gridRow: "span 1" }}
         className="work-grid-block work-grid-project-block"
         // id="work-grid-title"
       >
-        <p className="text-1">
-          {proj.disciplines.map((el, i) => {
-            let string = el;
-            if (i < proj.disciplines.length - 1) {
-              string = string + " / ";
-            }
-            return string;
-          })}
-        </p>
+        <p className="text-1">{proj.shortDescription}</p>
       </div>
     </div>
   );

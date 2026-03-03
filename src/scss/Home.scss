@@ -504,6 +504,7 @@ html {
   height: 100vh;
   width: 100%;
   padding: 48px 0 48px 0;
+  position: relative;
   @include down($bp-lg) {
     padding: 0;
   }
@@ -539,7 +540,11 @@ html {
 
 #work-grid {
   border-top: rgb(129, 129, 130, 0.5) 1px solid;
-  // border-bottom: red 8px solid;
+  @include down($bp-lg) {
+    position: relative;
+    z-index: 1;
+    border-bottom: rgba(129, 129, 130, 0.5) 1px solid;
+  }
 }
 
 .work-grid-block {
