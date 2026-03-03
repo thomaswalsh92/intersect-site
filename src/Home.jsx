@@ -524,17 +524,29 @@ export default function Home({
       <div id="footer">
         <div id="footer-bg"></div>
         <div id="footer-contact">
-          <a id="footer-contact-link" className="text-2 footer-link">
+          <a
+            id="footer-contact-link"
+            className="text-2 footer-link"
+            href="mailto:tom@intersect-studio.co.uk"
+          >
             {"CONTACT->"}
           </a>
-          <a id="footer-instagram-link" className="text-2 footer-link">
+          <a
+            id="footer-instagram-link"
+            className="text-2 footer-link"
+            href="https://www.instagram.com/intersect__studio/"
+          >
             {"INSTAGRAM->"}
           </a>
         </div>
         <div id="footer-credits">
           <p id="footer-credits-credit" className="text-2">
             DESIGNED & DEVELOPED BY{" "}
-            <span id="footer-credits-credit-intersect" className="text-1">
+            <span
+              id="footer-credits-credit-intersect"
+              className="text-1"
+              href="mailto:tom@intersect-studio.co.uk"
+            >
               INTERSECT
             </span>
           </p>
@@ -754,7 +766,7 @@ export default function Home({
                       </div>
                     </div>
                     <a
-                      href="mailto:test@test.com"
+                      href="mailto:tom@intersect-studio.co.uk"
                       style={{ textDecoration: "none" }}
                     >
                       <p id="info-contact" style={{ marginTop: 32 }}>
