@@ -9,8 +9,11 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
 //app
 import WorkActions from "./WorkActions";
+import { useBreakpoint } from "./utils/useBreakpoint";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
+
+const XS_ITEM_HEIGHT_VH = 12;
 
 export default function WorkGridSmallScreen({
   projectDetails,
@@ -29,6 +32,7 @@ export default function WorkGridSmallScreen({
       {projectDetails.map((proj, index) => {
         return (
           <WorkGridSmallScreenItem
+            key={proj.slug}
             proj={proj}
             index={index}
             headerHeight={headerHeight}
@@ -51,22 +55,35 @@ function WorkGridSmallScreenItem({
   openProject,
 }) {
   const itemRef = useRef(null);
+  const isXS = useBreakpoint("sm", "down");
 
-  // useGSAP(
-  //   () => {
-  //     gsap.from(itemRef.current, {
-  //       scrollTrigger: {
-  //         trigger: itemRef.current,
-  //         start: `top top+=${headerHeight}`,
-  //         end: `"+=${smallScreenPinVal}`,
-  //         scrub: true,
-  //         pin: true,
-  //         pinSpacing: true,
-  //       },
-  //     });
-  //   },
-  //   { dependencies: [itemRef] },
-  // );
+  // if (isXS) {
+  //   return (
+  //     <div
+  //       ref={itemRef}
+  //       style={{
+  //         height: `${XS_ITEM_HEIGHT_VH}vh`,
+  //         width: "100%",
+  //         display: "grid",
+  //         gridTemplateRows: "1fr",
+  //         gridTemplateColumns: "1fr 1fr 1fr 1fr",
+  //       }}
+  //     >
+  //       <div
+  //         style={{ gridColumn: "span 2", gridRow: "span 1" }}
+  //         className="work-grid-block work-grid-project-block"
+  //       >
+  //         <p className="text-1">{proj.project}</p>
+  //       </div>
+  //       <WorkActions
+  //         selectedProject={proj}
+  //         openProject={openProject}
+  //         screenSize="small-screen"
+  //       />
+  //     </div>
+  //   );
+  // }
+
   return (
     <div
       ref={itemRef}
@@ -74,7 +91,7 @@ function WorkGridSmallScreenItem({
         height: smallScreenProjectHeight,
         width: "100%",
         display: "grid",
-        gridTemplateRows: "75vh 1fr 1fr",
+        gridTemplateRows: isXS ? "75vh 1fr" : "75vh 1fr 1fr",
         gridTemplateColumns: "1fr 1fr 1fr 1fr",
       }}
     >
@@ -99,20 +116,23 @@ function WorkGridSmallScreenItem({
         openProject={openProject}
         screenSize="small-screen"
       />
-      <div
-        style={{ gridColumn: "span 2", gridRow: "span 1" }}
-        className="work-grid-block work-grid-project-block"
-        // id="work-grid-title"
-      >
-        <p className="text-2">{proj.client}</p>
-      </div>
-      <div
-        style={{ gridColumn: "span 2", gridRow: "span 1" }}
-        className="work-grid-block work-grid-project-block"
-        // id="work-grid-title"
-      >
-        <p className="text-1">{proj.shortDescription}</p>
-      </div>
+      {!isXS && (
+        <>
+          <div
+            style={{ gridColumn: "span 2", gridRow: "span 1" }}
+            className="work-grid-block work-grid-project-block"
+            // id="work-grid-title"
+          >
+            <p className="text-2">{proj.client}</p>
+          </div>
+          <div
+            style={{ gridColumn: "span 2", gridRow: "span 1" }}
+            className="work-grid-block work-grid-project-block"
+          >
+            <p className="text-1">{proj.shortDescription}</p>
+          </div>
+        </>
+      )}
     </div>
   );
 }
